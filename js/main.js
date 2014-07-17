@@ -244,7 +244,7 @@ $(document).ready(function() {
 		*/
 
 		setTimeout(function() { // Affichage du titre 'Score final'
-			$('aside#score p:first-child').animate({ opacity: 1 }).html('Score final :');
+			$('aside#score p:first-child').animate({ opacity: 1 }).html('Final Score :');
 		}, 2800);
 
 		setTimeout(function() { // Score animé
