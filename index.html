@@ -3,7 +3,9 @@
 
 <head>
 	<meta charset="utf-8" />
-	<title>Matrix - A little logic game</title>
+	<title>Matrix - A little logic game about boxes</title>
+	<meta name="description" content="The purpose of the game is to find the 3 right boxes randomly activated among the 9 boxes of the grid."/>
+	<link rel="icon" type="image/ico" href="favicon.ico"/>
 	<link rel="stylesheet" href="css/font-awesome.min.css" />
 	<link rel="stylesheet" href="css/app.css" />
 </head>
@@ -12,7 +14,10 @@
 
 	<section role="main">
 
-		<input class="button" id="show_rules" type="button" value="Show rules"/>
+		<button class="button" id="show_rules" type="button">
+			<span class="en-lang">Show rules</span>
+			<span class="fr-lang hide">Voir les règles</span>
+		</button>
 
 		<!-- TIMER -->
 
@@ -38,7 +43,18 @@
 
 			<div class="pane" id="best">
 
-					<span class="label">Best</span>
+					<span class="label">
+
+						<span class="new-best-word">
+							<span class="en-lang">New</span>
+							<span class="fr-lang hide">Nouv.</span>
+						</span>
+
+						<span class="en-lang">Best</span>
+						<span class="fr-lang hide">Record</span>
+
+					</span>
+
 					<span class="value">-</span>
 
 			</div>
@@ -50,20 +66,37 @@
 		<section id="state">
 
 			<div class="pane" id="rounds">
-				<span class="label">Rounds won</span>
+
+				<span class="label">
+					<span class="en-lang">Rounds won</span>
+					<span class="fr-lang hide">Tours</span>
+				</span>
+
 				<span class="value">0</span>
+
 			</div>
 
 			<div class="pane" id="attempts">
-				<span class="label">Attempts</span>
+
+				<span class="label">
+					<span class="en-lang">Attempts</span>
+					<span class="fr-lang hide">Essais</span>
+				</span>
+
 				<span class="value">0</span>
+
 			</div>
 
 			<div class="pane" id="rights">
-				<span class="label">Right digits</span>
-				<span class="value">
-					<span class="case-thumb null"></span>
+
+				<span class="label">
+					<span class="en-lang">Right boxes</span>
+					<span class="fr-lang hide">Cases bonnes</span>
 				</span>
+				<span class="value">
+					<span class="box-thumb null"></span>
+				</span>
+
 			</div>
 
 		</section>
@@ -72,17 +105,35 @@
 
 		<section id="grid">
 
-			<div><span>7</span></div>
-			<div><span>8</span></div>
-			<div><span>9</span></div>
+			<div class="box">
+				<div class="box-content"><div><span>7</span></div></div>
+			</div>
+			<div class="box">
+				<div class="box-content"><div><span>8</span></div></div>
+			</div>
+			<div class="box">
+				<div class="box-content"><div><span>9</span></div></div>
+			</div>
 
-			<div><span>4</span></div>
-			<div><span>5</span></div>
-			<div><span>6</span></div>
+			<div class="box">
+				<div class="box-content"><div><span>4</span></div></div>
+			</div>
+			<div class="box">
+				<div class="box-content"><div><span>5</span></div></div>
+			</div>
+			<div class="box">
+				<div class="box-content"><div><span>6</span></div></div>
+			</div>
 
-			<div><span>1</span></div>
-			<div><span>2</span></div>
-			<div><span>3</span></div>
+			<div class="box">
+				<div class="box-content"><div><span>1</span></div></div>
+			</div>
+			<div class="box">
+				<div class="box-content"><div><span>2</span></div></div>
+			</div>
+			<div class="box">
+				<div class="box-content"><div><span>3</span></div></div>
+			</div>
 
 		</section>
 
@@ -94,29 +145,64 @@
 
 		<div id="rules-wrapper">
 
-			<div>
+			<div class="en-lang">
+
+				<p class="language">
+					English / <a href="" class="fr-lang-switch">Français</a>
+				</p>
 
 				<h2>How to play</h2>
-				<p>The purpose of each round of the game is to <b>reveal the 3 digits</b> randomly activated among the 9 digits of the grid.</p>
-				<p>You can selected 3 different digits per attempt. The number of right digits found among the 3 digits you selected is displayed at the end of each attempt (*), <b>but you will not know</b> which of the 3 digits selected are right and which ones are wrong.</p>
-				<p>Once the 3 right digits revealed, 3 new digits are randomly activated and a new round begins. You can make as many attempts as you want per round, and as many rounds as you can within the time limit.</p>
-				<p>You can select digits by touching/clicking on the cases or by <b>using the digits from 1 to 9 on your numpad</b>. Run a new game by selecting a first digit.</p>
+				<p>The purpose of the game is to <b>find the 3 right boxes</b> randomly activated among the 9 boxes of the grid.</p>
+				<p>You have to select 3 different boxes per attempt. The number of right boxes found among the 3 boxes you selected is displayed at the end of each attempt (*), <b>but you will not know</b> which of the 3 boxes selected are right and which ones are wrong.</p>
+				<p>Once the 3 right boxes are found, 3 new boxes are randomly activated and a new round begins. You can make as many attempts as you want per round in order to find the 3 right boxes, and as many rounds as you can within the time limit.</p>
+				<p>Select a new box directly via the screen, or <b>use the keys from 1 to 9 on your numpad</b>. Run a new game by selecting a first box, or by pressing <b>Enter</b> or <b>Space</b>. Press <b>Escape</b> to reload the game.</p>
 
 				<h2>How to earn points</h2>
-				<p>You can increase your score after each round you win. The number of points earned is determined by <b>the time you spent</b> and by <b>the number of attempts you make</b> to complete the round.</p>
-				<p><b>But be careful:</b> you lose points each time you select 3 digits that you already selected earlier in the round, and by spending too much time between each attempt.</p>
+				<p>You can increase your score after each round you win. The number of points earned is determined by <b>the time you spent</b> to complete the round and by <b>the number of attempts you make</b>.</p>
+				<p><b>But be careful:</b> you lose points each time you select the 3 same boxes several times on the same round, and by spending too much time between each attempt.</p>
 
-				<h2>How can I report a bug</h2>
-				<p>You can report bugs directly on the <a href="https://github.com/maciozik/matrix/issues" target="_blank">GitHub repository</a> of the game.</p>
+				<h2>How can I report a bug?</h2>
+				<p>You can report a bug directly on the <a href="https://github.com/maciozik/matrix/issues" target="_blank">GitHub repository</a> of the game.</p>
 
 				<br><hr><br>
 
-				<p>(*) Number of rights digits:<br><br>
-					<span class="case-thumb hide"></span><span class="case-thumb hide"></span><span class="case-thumb null"></span>&nbsp;&nbsp;&nbsp;&nbsp; 0 right digit<br>
-					<span class="case-thumb hide"></span><span class="case-thumb hide"></span><span class="case-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 1 right digit<br>
-					<span class="case-thumb hide"></span><span class="case-thumb"></span><span class="case-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 2 right digits<br>
-					<span class="case-thumb"></span><span class="case-thumb"></span><span class="case-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 3 right digits<br>
+				<p class="tip">(*) Number of right boxes among the ones selected:<br><br>
+					<span class="box-thumb invisible"></span><span class="box-thumb invisible"></span><span class="box-thumb null"></span>&nbsp;&nbsp;&nbsp;&nbsp; 0 right box<br>
+					<span class="box-thumb invisible"></span><span class="box-thumb invisible"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 1 right box<br>
+					<span class="box-thumb invisible"></span><span class="box-thumb"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 2 right boxes<br>
+					<span class="box-thumb"></span><span class="box-thumb"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 3 right boxes<br>
 				</p>
+
+			</div>
+
+			<div class="fr-lang hide">
+
+				<p class="language">
+					<a href="" class="en-lang-switch">English</a> / Français
+				</p>
+
+				<h2>Comment jouer ?</h2>
+				<p>Le but du jeu est de <b>retrouver les 3 bonnes cases</b> activées aléatoirement parmi les 9 cases de la grille.</p>
+				<p>Vous devez sélectionner 3 cases différentes par essai. Le nombre de bonnes cases découvertes parmi les 3 cases sélectionnées est affiché à la fin de chaque essai (*), <b>mais rien ne vous indiquera</b> lesquelles des 3 cases sélectionnées sont bonnes et lesquelles ne le sont pas.</p>
+				<p>Une fois les 3 bonnes cases découvertes, 3 nouvelles cases sont activées aléatoirement et un nouveau tour commence. Vous pouvez faire autant d'essais que vous le souhaitez à chaque tour afin de trouver les 3 bonnes cases, ainsi qu'autant de tours que vous le pouvez dans la limite du temps imparti.</p>
+				<p>Sélectionnez une nouvelle case directement depuis l'écran, ou <b>utilisez les touches de 1 à 9 de votre clavier numérique</b>. Lancez une nouvelle partie en sélectionnant une première case, ou en appuyant sur <b>Entrer</b> ou <b>Espace</b>. Appuyez sur <b>Échap.</b> pour recharger le jeu.</p>
+
+				<h2>Comment gagner des points ?</h2>
+				<p>You pouvez faire augmenter votre score après chaque tour remporté. Le nombre de points gagnés est déterminé par <b>le temps que vous avez mis</b> pour remporter le tour, ainsi que par <b>le nombre d'essais effectués</b>.</p>
+				<p><b>Mais attention :</b> vous perdez des points à chaque fois que vous sélectionnez les 3 mêmes cases à plusieurs reprises dans le même tour, ainsi qu'en attendant trop longtemps entre chaque essai.</p>
+
+				<h2>Comment signaler un bug ?</h2>
+				<p>Vous pouvez signaler un bug directement sur le <a href="https://github.com/maciozik/matrix/issues" target="_blank">dépôt GitHub</a> du jeu.</p>
+
+				<br><hr><br>
+
+				<p class="tip">(*) Nombre de cases bonnes parmi celles sélectionnées :<br><br>
+					<span class="box-thumb invisible"></span><span class="box-thumb invisible"></span><span class="box-thumb null"></span>&nbsp;&nbsp;&nbsp;&nbsp; 0 case bonne<br>
+					<span class="box-thumb invisible"></span><span class="box-thumb invisible"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 1 case bonne<br>
+					<span class="box-thumb invisible"></span><span class="box-thumb"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 2 cases bonnes<br>
+					<span class="box-thumb"></span><span class="box-thumb"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 3 cases bonnes<br>
+				</p>
+
 			</div>
 
 		</div>

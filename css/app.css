@@ -20,7 +20,7 @@ html, body {
 	z-index: 100;
 }
 
-input#show_rules {
+button#show_rules {
 	display: block;
 	position: absolute;
 	top: 25px;
@@ -87,6 +87,24 @@ input#show_rules {
 	margin-top: 60px;
 }
 
+#player #best .label > .new-best-word {
+	display: none;
+}
+
+#player #best.new-best .label {
+	color: white;
+	background-color: #eb1;
+	letter-spacing: .5px;
+}
+
+#player #best.new-best .value {
+	color: #eb1;
+}
+
+#player #best.new-best .label > .new-best-word {
+	display: inline-block;
+}
+
 #state {
 
 	display: -webkit-box;
@@ -107,8 +125,8 @@ input#show_rules {
 }
 
 #state > div {
-	margin: 5px;
-	width: 120px;
+	margin: 2px;
+	width: 125px;
 	text-align: center;
 }
 
@@ -137,65 +155,39 @@ input#show_rules {
 	border-radius: 5px;
 }
 
-#grid div {
-
-	display: -webkit-box;
-	display: -ms-flexbox;
-	display: flex;
-
-	-webkit-box-pack: center;
-	-ms-flex-pack: center;
-	justify-content: center;
-
-	-webkit-box-orient: vertical;
-	-webkit-box-direction: normal;
-	-ms-flex-direction: column;
-	flex-direction: column;
-
-	position: relative;
+#grid .box {
 	float: left;
 	width: 31.33%;
 	margin: 1%;
 	color: #9f958f;
 	background-color: #e8dfda;
-	border-radius: 5px;
-	text-align: center;
 	cursor: pointer;
 }
 
-#grid div:after {
-	content: "";
-	display: block;
-	padding-bottom: 100%;
+#grid .box:not(.active):hover {
+	opacity: .9;
 }
 
-#grid div:not(.active):hover {
-	opacity: .8;
-}
-
-#grid div.active {
+#grid .box.active {
 	background-color: #f5f5f5;
 }
 
-#grid div.right {
+#grid .box.right {
 	color: #e8dfda;
 	background-color: #60d595;
 }
 
-#grid div.not-found {
+#grid .box.not-found {
 	color: #e8dfda;
 	background-color: #d56075;
 }
 
-#grid div.rotate {
+#grid .box.rotate {
 	transform: rotateY(360deg);
 	transition: transform 500ms;
 }
 
-#grid div span {
-	display: block;
-	position: absolute;
-	width: 100%;
+#grid .box .box-content {
 	font-size: 40px;
 }
 
@@ -222,7 +214,7 @@ input#show_rules {
 #rules .close {
 	position: absolute;
 	top: 20px;
-	right: 20px;
+	right: 30px;
 	color: #9f958f;
 	font-size: 30px;
 	cursor: pointer;
@@ -245,7 +237,6 @@ input#show_rules {
 }
 
 #rules #rules-wrapper div {
-	position: relative;
 	padding: 10px 50px;
 	width: 100%;
 	max-width: 1000px;
@@ -256,7 +247,7 @@ input#show_rules {
 	margin-top: 50px;
 	margin-bottom: 30px;
 	color: #cfc2b8;
-	font-size: inherit;
+	font-size: inherit !important;
 	text-align: center;
 	text-transform: uppercase;
 	letter-spacing: 1px;
@@ -268,6 +259,21 @@ input#show_rules {
 	text-align: left;
 	line-height: 22px;
 	letter-spacing: .4px;
+}
+
+#rules #rules-wrapper .language {
+	position: absolute;
+	top: -10px;
+	left: 20px;
+	padding: 10px;
+	color: #cfc2b8;
+	font-size: 14px;
+	text-align: center;
+	z-index: 20000;
+}
+
+#rules #rules-wrapper p.tip {
+	line-height: 20px !important;
 }
 
 #overlay {
@@ -284,7 +290,7 @@ input#show_rules {
 
 #overlay.show {
 	top: 0;
-	opacity: .85;
+	opacity: .9;
 	transition: top 500ms;
 }
 
@@ -321,7 +327,7 @@ hr {
 
 .pane > span {
 	display: block;
-	padding: 5px;
+	padding: 5px 0;
 	border-radius: 3px;
 }
 
@@ -336,6 +342,38 @@ hr {
 .pane > span.value {
 	color: #cfc2b8;
 	font-size: 30px;
+}
+
+.box {
+	position: relative;
+	border-radius: 5px;
+
+}
+
+.box:before {
+	content: "";
+	display: block;
+	padding-bottom: 100%;
+}
+
+.box .box-content {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+
+.box .box-content div {
+	display: table;
+	width: 100%;
+	height: 100%;
+}
+
+.box .box-content div span {
+	display: table-cell;
+	vertical-align: middle;
+	text-align: center;
 }
 
 .button {
@@ -361,7 +399,7 @@ hr {
 	background-color: #fafafa;
 }
 
-.case-thumb {
+.box-thumb {
 	display: inline-block;
 	float: left;
 	position: relative;
@@ -374,14 +412,18 @@ hr {
 	text-align: center;
 }
 
-.case-thumb.null {
+.box-thumb.null {
 	background-color: transparent;
 	border: 2px solid #cfc2b8;
 }
 
-.case-thumb.hide {
+.invisible {
 	visibility: hidden;
 	opacity: 0;
+}
+
+.hide {
+	display: none;
 }
 
 /* - - - - - - - */
@@ -390,7 +432,7 @@ hr {
 
 @media screen and (max-width: 1024px) {
 
-	input#show_rules {
+	button#show_rules {
 		top: 13px;
 		left: 10px;
 	}
@@ -413,7 +455,7 @@ hr {
 	#player > div {
 		margin-bottom: 5px !important;
 		display: block;
-		min-width: 120px;
+		min-width: 125px;
 		letter-spacing: 0;
 	}
 
@@ -421,7 +463,7 @@ hr {
 
 @media screen and (max-width: 720px) {
 
-	input#show_rules {
+	button#show_rules {
 		position: relative;
 		top: 0;
 		left: 0;
@@ -457,7 +499,7 @@ hr {
 
 	#player > div {
 		width: 50%;
-		max-width: 180px;
+		max-width: 187.5px;
 	}
 
 	#state {
@@ -472,6 +514,46 @@ hr {
 	#grid {
 		left: 15%;
 		width: 70%;
+	}
+
+	#rules #rules-wrapper p {
+		text-align: justify;
+	}
+
+	#rules #rules-wrapper .language {
+		position: relative;
+		top: 0;
+		left: 0;
+		margin: 0 30px;
+		margin-bottom: -10px;
+		padding: 10px 0;
+	}
+
+}
+
+@media screen and (max-width: 480px) {
+
+	#rules .close {
+		position: absolute;
+		top: 10px;
+		left: 10px;
+		right: auto;
+		font-size: 20px;
+	}
+
+	#rules #rules-wrapper div {
+		font-size: 12px !important;
+	}
+
+	#rules #rules-wrapper h2 {
+		margin-top: 35px;
+		margin-bottom: 20px;
+	}
+
+	#rules #rules-wrapper p {
+		margin: 15px 0;
+		line-height: 16px;
+		letter-spacing: .2px;
 	}
 
 }
@@ -489,6 +571,11 @@ hr {
 
 	#grid div span {
 		font-size: 22px;
+	}
+
+	#rules #rules-wrapper div {
+		padding-left: 40px;
+		padding-right: 40px;
 	}
 
 }
