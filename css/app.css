@@ -43,9 +43,8 @@ button#show_rules {
 	right: 25px;
 }
 
-#player > div {
+#player > .pane {
 	position: relative;
-	margin: 0 !important;
 	min-width: 140px;
 	text-align: center;
 	letter-spacing: .5px;
@@ -105,6 +104,14 @@ button#show_rules {
 	display: inline-block;
 }
 
+#game {
+	position: absolute;
+	left: 27.5%;
+	width: 45%;
+	margin-top: 25px;
+	margin-left: -6.75%;
+}
+
 #state {
 
 	display: -webkit-box;
@@ -118,19 +125,23 @@ button#show_rules {
 	-ms-flex-wrap: wrap;
 	flex-wrap: wrap;
 
-	position: relative;
-	margin-top: 15px;
-	margin-bottom: 25px;
+	position: absolute;
+	top: 0;
+	right: 73%;
+	margin-top: -5px;
+	width: 27%;
+	max-width: 140px;
 	text-align: center;
 }
 
-#state > div {
-	margin: 2px;
-	width: 125px;
+#state > .pane {
+	display: block !important;
+	width: 100%;
+	min-width: 125px;
 	text-align: center;
 }
 
-#state > div .value {
+#state > #rights .value {
 
 	display: -webkit-box;
 	display: -ms-flexbox;
@@ -140,16 +151,14 @@ button#show_rules {
 	-ms-flex-pack: center;
 	justify-content: center;
 
-}
-
-#state > #rights .value {
 	margin-top: 10px;
 }
 
 #grid {
 	position: absolute;
-	left: 35%;
-	width: 30%;
+	top: 0;
+	right: 0;
+	width: 70%;
 	padding: .5%;
 	background-color: #cfc2b8;
 	border-radius: 5px;
@@ -159,7 +168,7 @@ button#show_rules {
 	float: left;
 	width: 31.33%;
 	margin: 1%;
-	color: #9f958f;
+	color: #9a8f8a;
 	background-color: #e8dfda;
 	cursor: pointer;
 }
@@ -199,6 +208,7 @@ button#show_rules {
 	min-width: 320px;
 	height: 100%;
 	text-align: center;
+	font-size: 16px;
 	opacity: 0;
 	overflow: hidden;
 	z-index: 10000;
@@ -215,7 +225,7 @@ button#show_rules {
 	position: absolute;
 	top: 20px;
 	right: 30px;
-	color: #9f958f;
+	color: #9a8f8a;
 	font-size: 30px;
 	cursor: pointer;
 	z-index: 20000;
@@ -255,7 +265,7 @@ button#show_rules {
 
 #rules #rules-wrapper p {
 	margin: 20px 0;
-	color: #9f958f;
+	color: #9a8f8a;
 	text-align: left;
 	line-height: 22px;
 	letter-spacing: .4px;
@@ -312,13 +322,11 @@ a, a:link, a:active, a:focus, a:visited {
 
 hr {
 	border-top: none;
-	border-bottom: 1px solid #9f958f;
+	border-bottom: 1px solid #9a8f8a;
 }
 
 .pane {
 	display: inline-block;
-	margin-top: 2px !important;
-	margin-bottom: 2px !important;
 	padding: 5px;
 	padding-bottom: 0;
 	border-radius: 3px;
@@ -327,16 +335,17 @@ hr {
 
 .pane > span {
 	display: block;
-	padding: 5px 0;
+	padding: 5px 2px;
 	border-radius: 3px;
 }
 
 .pane > span.label {
-	color: #9f958f;
+	color: #9a8f8a;
 	background-color: #cfc2b8;
 	font-size: 13px;
 	text-transform: uppercase;
 	letter-spacing: .2px;
+	white-space: nowrap;
 }
 
 .pane > span.value {
@@ -378,7 +387,7 @@ hr {
 
 .button {
 	padding: 15px 30px;
-	color: #9f958f;
+	color: #9a8f8a;
 	background-color: #f0f0f0;
 	border: none;
 	border-radius: 3px;
@@ -430,11 +439,12 @@ hr {
 /* MEDIA QUERIES */
 /* - - - - - - - */
 
-@media screen and (max-width: 1024px) {
+@media screen and (max-width: 1280px) {
 
-	button#show_rules {
-		top: 13px;
-		left: 10px;
+	#player > .pane {
+		margin-bottom: 5px !important;
+		display: block;
+		letter-spacing: 0;
 	}
 
 	#player #score .update {
@@ -442,35 +452,48 @@ hr {
 		letter-spacing: 0;
 	}
 
+	#game {
+		margin-top: 10px;
+		margin-left: 0;
+		left: 30%;
+		width: 40%;
+	}
+
+	#state {
+		position: relative;
+		right: auto !important;
+		margin-top: 10px;
+		margin-bottom: 15px;
+		width: 100%;
+		max-width: 100% !important;
+	}
+
+	#state > .pane {
+		margin: 2px;
+		width: auto;
+	}
+
 	#grid {
-		left: 25%;
-		width: 50%;
+		top: auto !important;
+		width: 100%;
 	}
 
-	#player {
-		top: 8px;
-		right: 5px;
-	}
-
-	#player > div {
-		margin-bottom: 5px !important;
-		display: block;
-		min-width: 125px;
-		letter-spacing: 0;
+	#rules #rules-wrapper .language {
+		position: relative;
+		top: 0;
+		left: 0;
+		margin: 0 30px;
+		margin-bottom: -10px;
+		padding: 10px 0;
 	}
 
 }
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 1080px) {
 
 	button#show_rules {
-		position: relative;
-		top: 0;
-		left: 0;
-		margin-top: 20px;
-		margin-left: 2.5%;
-		padding: 12px 20px;
-		width: 95%;
+		top: 13px;
+		left: 10px;
 	}
 
 	#timer {
@@ -493,45 +516,63 @@ hr {
 		position: relative;
 		top: 0;
 		right: 0;
-		margin-top: 10px;
+		margin-top: 15px;
 		text-align: center;
 	}
 
-	#player > div {
+	#player > .pane {
 		width: 50%;
 		max-width: 187.5px;
 	}
 
 	#state {
-		margin-top: 5px;
-		margin-bottom: 15px;
+		margin-top: 0;
 	}
 
-	#state > div {
+	#state > .pane {
 		margin: 0;
 	}
 
-	#grid {
-		left: 15%;
-		width: 70%;
+}
+
+@media screen and (max-width: 960px) {
+
+	#game {
+		left: 22.5%;
+		width: 55%;
+	}
+
+}
+
+@media screen and (max-width: 720px) {
+
+	button#show_rules {
+		position: relative;
+		top: 0;
+		left: 0;
+		margin-top: 20px;
+		margin-left: 2.5%;
+		padding: 12px 20px;
+		width: 95%;
+	}
+
+	#game {
+		left: 11%;
+		width: 78%;
 	}
 
 	#rules #rules-wrapper p {
 		text-align: justify;
 	}
 
-	#rules #rules-wrapper .language {
-		position: relative;
-		top: 0;
-		left: 0;
-		margin: 0 30px;
-		margin-bottom: -10px;
-		padding: 10px 0;
-	}
-
 }
 
 @media screen and (max-width: 480px) {
+
+	#game {
+		left: 5%;
+		width: 90%;
+	}
 
 	#rules .close {
 		position: absolute;
