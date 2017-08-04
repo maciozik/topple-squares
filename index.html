@@ -1,37 +1,58 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
 	<meta charset="utf-8" />
 	<title>Matrix - A little logic game about boxes</title>
 	<meta name="description" content="The purpose of the game is to find the 3 right boxes randomly activated among the 9 boxes of the grid."/>
-	<link rel="icon" type="image/ico" href="favicon.ico"/>
-	<link rel="stylesheet" href="css/font-awesome.min.css" />
-	<link rel="stylesheet" href="css/app.css" />
+	<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+	<link rel="stylesheet" href="css/vendor/font-awesome.min.css"/>
+	<link class="app-theme-default" rel="stylesheet" href="css/app-light.css"/>
+	<link class="app-theme" rel="stylesheet" href=""/>
 </head>
 
 <body>
 
 	<section role="main">
 
-		<button class="button" id="show_rules" type="button">
-			<span class="en-lang">Show rules</span>
-			<span class="fr-lang hide">Voir les règles</span>
-		</button>
+		<!-- HEADERS -->
 
-		<!-- TIMER -->
+		<header>
 
-		<section id="timer">
+			<button class="button" id="show_rules" type="button">
+				<span lang="en"><i class="fa fa-gamepad"></i>How to play</span>
+				<span lang="fr"><i class="fa fa-gamepad"></i>Comment jouer</span>
+			</button>
 
-			<span>90.00</span>
+			<button class="button disabled" id="scoreboard" type="button">
+				<span lang="en"><i class="fa fa-trophy"></i>Scoreboard</span>
+				<span lang="fr"><i class="fa fa-trophy"></i>Classement</span>
+			</button>
 
-		</section>
+			<button class="button link" data-href="https://github.com/maciozik/matrix" id="scoreboard" type="button">
+				<span lang="en"><i class="fa fa-code-fork"></i>GitHub Repo</span>
+				<span lang="fr"><i class="fa fa-code-fork"></i>Dépôt Github</span>
+			</button>
 
-		<!-- PLAYER -->
+		</header>
 
-		<section id="player">
+		<!-- STATE -->
 
-			<div class="pane" id="score">
+		<section id="state">
+
+			<!-- TIMER -->
+
+			<section id="timer">
+
+				<span>90.00</span>
+
+			</section>
+
+			<!-- PLAYER -->
+
+			<section id="player">
+
+				<div class="panel" id="score">
 
 					<span class="label">Score</span>
 					<span class="value">0</span>
@@ -39,25 +60,33 @@
 					<span class="update add"></span>
 					<span class="update sub"></span>
 
-			</div>
+				</div>
 
-			<div class="pane" id="best">
+				<div class="panel" id="best">
 
 					<span class="label">
 
 						<span class="new-best-word">
-							<span class="en-lang">New</span>
-							<span class="fr-lang hide">Nouv.</span>
+							<span lang="en">New</span>
+							<span lang="fr">Nouv.</span>
 						</span>
 
-						<span class="en-lang">Best</span>
-						<span class="fr-lang hide">Record</span>
+						<span lang="en">Best</span>
+						<span lang="fr">Record</span>
 
 					</span>
 
-					<span class="value">-</span>
+					<span class="value">&nbsp;</span>
 
-			</div>
+				<!--
+					<div class="box-thumb rank first">1</div>
+					<div class="box-thumb rank second">2</div>
+					<div class="box-thumb rank third">3</div>
+				 -->
+
+				</div>
+
+			</section>
 
 		</section>
 
@@ -65,37 +94,37 @@
 
 		<section id="game">
 
-			<!-- STATE -->
+			<!-- OUTPUTS -->
 
-			<section id="state">
+			<section id="outputs">
 
-				<div class="pane" id="rounds">
+				<div class="panel" id="rounds">
 
 					<span class="label">
-						<span class="en-lang">Rounds won</span>
-						<span class="fr-lang hide">Tours</span>
+						<span lang="en">Rounds won</span>
+						<span lang="fr">Tours</span>
 					</span>
 
 					<span class="value">0</span>
 
 				</div>
 
-				<div class="pane" id="attempts">
+				<div class="panel" id="attempts">
 
 					<span class="label">
-						<span class="en-lang">Attempts</span>
-						<span class="fr-lang hide">Essais</span>
+						<span lang="en">Attempts</span>
+						<span lang="fr">Essais</span>
 					</span>
 
 					<span class="value">0</span>
 
 				</div>
 
-				<div class="pane" id="rights">
+				<div class="panel" id="rights">
 
 					<span class="label">
-						<span class="en-lang">Right boxes</span>
-						<span class="fr-lang hide">Cases bonnes</span>
+						<span lang="en">Right boxes</span>
+						<span lang="fr">Cases bonnes</span>
 					</span>
 					<span class="value">
 						<span class="box-thumb null"></span>
@@ -145,17 +174,31 @@
 
 	</section>
 
+	<!-- RULES -->
+
 	<section id="rules">
 
 		<i class="fa fa-times close"></i>
 
 		<div id="rules-wrapper">
 
-			<div class="en-lang">
+			<!-- English -->
+			<div class="rules-text" lang="en">
 
-				<p class="language">
-					English / <a href="" class="fr-lang-switch">Français</a>
-				</p>
+				<div class="settings">
+
+					<button class="button language" type="button" data-lang-toggle="fr">
+						<i class="fa fa-globe"></i>
+						Language: <span class="value">English</span>
+					</button>
+
+					<button class="button theme" type="button" data-theme-toggle="dark">
+						<i class="fa fa-paint-brush"></i>
+						<span data-theme="light">Theme: <span class="value">Light</span></span>
+						<span data-theme="dark" class="hide">Theme: <span class="value">Dark</span></span>
+					</button>
+
+				</div>
 
 				<h2>How to play</h2>
 				<p>The purpose of the game is to <b>find the 3 right boxes</b> randomly activated among the 9 boxes of the grid.</p>
@@ -164,8 +207,8 @@
 				<p>Select a new box directly via the screen, or <b>use the keys from 1 to 9 on your numpad</b>. Run a new game by selecting a first box, or by pressing <b>Enter</b> or <b>Space</b>. Press <b>Escape</b> to reload the game.</p>
 
 				<h2>How to earn points</h2>
-				<p>You can increase your score after each round you win. The number of points earned is determined by <b>the time you spent</b> to complete the round and by <b>the number of attempts you make</b>.</p>
-				<p><b>But be careful:</b> you lose points each time you select the 3 same boxes several times on the same round, and by spending too much time between each attempt.</p>
+				<p>You can increase your score after each round you win. The number of points earned is determined by <b>the time you spent</b> to complete the round and by <b>the number of attempts you made</b>.</p>
+				<p><b>But be careful:</b> you lose points each time you select the 3 same boxes several times on the same round, or by spending too much time between each attempt.</p>
 
 				<h2>How can I report a bug?</h2>
 				<p>You can report a bug directly on the <a href="https://github.com/maciozik/matrix/issues" target="_blank">GitHub repository</a> of the game.</p>
@@ -181,11 +224,23 @@
 
 			</div>
 
-			<div class="fr-lang hide">
+			<!-- French -->
+			<div class="rules-text" lang="fr">
 
-				<p class="language">
-					<a href="" class="en-lang-switch">English</a> / Français
-				</p>
+				<div class="settings">
+
+					<button class="button language" type="button" data-lang-toggle="en">
+						<i class="fa fa-globe"></i>
+						Langue : <span class="value">Française</span>
+					</button>
+
+					<button class="button theme" type="button" data-theme-toggle="dark">
+						<i class="fa fa-paint-brush"></i>
+						<span data-theme="light">Thème : <span class="value">Clair</span></span>
+						<span data-theme="dark" class="hide">Thème : <span class="value">Sombre</span></span>
+					</button>
+
+				</div>
 
 				<h2>Comment jouer ?</h2>
 				<p>Le but du jeu est de <b>retrouver les 3 bonnes cases</b> activées aléatoirement parmi les 9 cases de la grille.</p>
@@ -215,13 +270,17 @@
 
 	</section>
 
-	<div id="overlay"></div>
-
 	<div id="progress-bar"></div>
 
-	<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-	<script type="text/javascript" src="js/vendor/jquery.hackTimer.min.js"></script>
-	<script src="js/app.js"></script>
+	<div id="overlay"></div>
+
+	<!-- build:js -->
+		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="js/vendor/jquery.hackTimer.min.js"></script>
+		<script src="js/app.js"></script>
+	<!-- endbuild -->
+
+	<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-103782844-2', 'auto');ga('send', 'pageview');</script>
 
 </body>
 

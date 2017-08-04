@@ -1,0 +1,102 @@
+/** VARIABLES **/
+
+@background: #151618;
+@main: #2c3038;
+@dark: #1c1f25;
+@light: #6c6f78;
+@white: #858585;
+@green: #206f48;
+@red: #683235;
+@gold: #886f2a;
+@silver: #828295;
+@bronze: #60483c;
+
+/** MIXINS **/
+
+.timerColors-840p() {
+	color: @light;
+	border-color: @light;
+}
+
+.newBestLabelAndRankColor() {
+	color: #bbb;
+}
+
+.rightsBlinkBrightness() {
+	filter: brightness(1.5);
+}
+
+.gridBorder() {
+	border-width: 0;
+}
+
+.boxesColorWhenRights() {
+	color: @main;
+}
+
+.rulesCloseColor() {
+	color: @light;
+}
+
+.rulesButtonsBgColors() {
+
+	color: @white !important;
+	background-color: @dark !important;
+
+	&:not(.disabled):hover {
+		background-color: #1f2228 !important;
+	}
+
+	&:not(.disabled)::active {
+		background-color: #22252a !important;
+	}
+
+}
+
+.rulesTitlesColor() {
+	color: @white;
+}
+
+.rulesParagraphsColor() {
+
+	color: @light;
+	filter: none;
+
+	a {
+		color: @light;
+	}
+
+}
+
+.rulesHrColor() {
+	border-bottom-color: @main;
+	opacity: 1;
+}
+
+.progressBarColors(){
+	background-color: rgba(0,0,0,.15);
+	border-top-color: @light;
+}
+
+.panelsValueColor() {
+	color: @main;
+}
+
+.buttonsBgColors() {
+
+	background-color: @light;
+
+	&:not(.disabled):hover {
+		background-color: #60626a;
+	}
+
+	&:not(.disabled):active {
+		background-color: #65686f;
+	}
+
+}
+
+.boxesThumbsBgColor() {
+	background-color: @main;
+	border-color: @main;
+}

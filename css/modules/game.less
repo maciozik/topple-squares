@@ -1,0 +1,218 @@
+/** APP **/
+
+#game {
+	position: absolute;
+	margin-top: 32px;
+	width: 100%;
+}
+
+#outputs {
+	display: flex;
+	flex-direction: column;
+	position: absolute;
+	top: 0;
+	right: 0;
+	margin-right: @body-max-width + 30px;
+	text-align: center;
+
+	& > .panel {
+		display: inline-block;
+		padding-bottom: 10px;
+		width: auto;
+		min-width: 135px;
+		text-align: center;
+	}
+
+	#rights {
+
+		@keyframes blink {
+
+			0% {
+				.rightsBlinkBrightness();
+			}
+
+			100% {
+				filter: brightness(1);
+			}
+
+		}
+
+		.value {
+			display: flex;
+			justify-content: center;
+			margin-top: 10px;
+		}
+
+		&.right {
+
+			.label {
+				color: white;
+				background-color: @green;
+			}
+
+			.value {
+				color: @green;
+
+				& > .box-thumb {
+					background-color: @green;
+					border: 2px solid @green;
+				}
+			}
+		}
+
+		&.blink {
+			animation: blink 200ms linear;
+		}
+	}
+}
+
+#grid {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	padding: .5%;
+	background-color: @main;
+	border-width: 2px;
+	border-style: solid;
+	.gridBorder();
+	border-radius: 5px;
+
+	&:not(.disabled) {
+
+		.box:not(.active):hover {
+			opacity: .9;
+		}
+	}
+
+	.box {
+		float: left;
+		width: 31%;
+		margin: 1.167%;
+		color: @dark;
+		background-color: @light;
+		cursor: pointer;
+
+		.box-content {
+			font-size: 2.8rem;
+			font-weight: 300;
+		}
+
+		&.active {
+			background-color: @white;
+		}
+
+		&.right {
+			.boxesColorWhenRights();
+			background-color: @green;
+		}
+
+		&.not-found {
+			color: @light;
+			background-color: @red;
+		}
+
+		&.rotate {
+			transform: rotateY(360deg);
+			transition: transform 500ms;
+		}
+
+		&.back {
+			color: @dark;
+			background-color: @dark;
+		}
+	}
+}
+
+/** MEDIA QUERIES **/
+
+.game-1080p() {
+
+	#game {
+		margin-top: 40px;
+	}
+
+	#outputs {
+		display: flex;
+		justify-content: space-between;
+		flex-direction: row;
+		position: relative;
+		margin-right: 0;
+		margin-bottom: 15px;
+		width: 100%;
+
+		& > .panel {
+			width: 31.5%;
+		}
+	}
+
+	#grid {
+		top: auto !important;
+		margin-top: -8px;
+	}
+
+}
+
+.game-840p() {
+
+	#game {
+		margin-top: 25px;
+	}
+
+}
+
+.game-720p() {
+
+	#outputs {
+		flex-wrap: wrap;
+
+		& > .panel {
+			min-width: 80px;
+		}
+	}
+
+}
+
+.game-480p() {
+
+	#outputs {
+		justify-content: center;
+
+		& > .panel {
+			width: 33.33%;
+
+			.label {
+				border-radius: 0;
+				letter-spacing: 0;
+			}
+
+			&:first-child .label {
+				border-radius: 3px 0 0 3px;
+			}
+
+			&:last-child .label {
+				border-radius: 0 3px 3px 0;
+			}
+		}
+	}
+
+	#grid {
+
+		.box {
+
+			.box-content {
+				font-size: 2.2rem;
+			}
+		}
+	}
+
+}
+
+.game-360p() {
+
+	#grid {
+		border: 0;
+		padding: 1.2%;
+	}
+
+}

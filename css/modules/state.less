@@ -1,0 +1,179 @@
+/** APP **/
+
+#state {
+	display: flex;
+	justify-content: space-between;
+	align-items: flex-start;
+	margin-top: 35px;
+	width: 100%;
+}
+
+#timer {
+	position: relative;
+	width: 31.5%;
+	color: @light;
+	background-color: @dark;
+	border-radius: 3px;
+	font-size: 3.2rem;
+	text-align: center;
+	letter-spacing: 2px;
+
+	& > span {
+		display: inline-block;
+		padding-top: 5px;
+		padding-bottom: 10px;
+		width: 100%;
+	}
+}
+
+#player {
+
+	& > .panel {
+		position: relative;
+		margin-left: 5px;
+		min-width: 135px;
+		text-align: center;
+		letter-spacing: .5px;
+	}
+
+	#score {
+
+		.update {
+			position: absolute;
+			top: 0;
+			left: 50%;
+			margin-left: 25px;
+			font-size: 0.9rem;
+			font-weight: 700;
+			letter-spacing: .2px;
+			opacity: 1;
+			visibility: hidden;
+
+			&.show {
+				opacity: 0;
+				visibility: visible;
+				transition: margin-top 400ms, opacity 150ms linear 250ms;
+			}
+
+			&.add {
+				margin-top: 25px;
+				color: @green;
+
+				&.show {
+					margin-top: 10px;
+				}
+			}
+
+			&.sub {
+				margin-top: 45px;
+				color: @red;
+
+				&.show {
+					margin-top: 60px;
+				}
+			}
+		}
+	}
+
+	#best {
+
+		.label {
+
+			& > .new-best-word {
+				display: none;
+			}
+		}
+
+		&.new-best {
+
+			.label {
+				.newBestLabelAndRankColor();
+				background-color: @gold;
+
+				& > .new-best-word {
+					display: inline-block;
+				}
+			}
+
+			.value {
+				color: @gold;
+			}
+		}
+
+		.rank {
+			position: absolute;
+			top: 0;
+			right: 0;
+			margin-top: -11px;
+			margin-right: -11px;
+			padding-top: 3px;
+			padding-right: 2.5px;
+			width: 22px;
+			height: 22px;
+			.newBestLabelAndRankColor();
+			border: none !important;
+			border-radius: 3px;
+			box-shadow: -1px 1px 2px rgba(0,0,0,.1);
+			font-size: 14px;
+			letter-spacing: -1px;
+
+			&.first {
+				background-color: @gold;
+			}
+
+			&.second {
+				background-color: @silver;
+			}
+
+			&.third {
+				background-color: @bronze;
+			}
+		}
+	}
+}
+
+/** MEDIA QUERIES **/
+
+.state-1080p() {
+
+	#timer {
+		font-size: 2.8rem;
+		letter-spacing: 0;
+	}
+
+}
+
+.state-840p() {
+
+	#state {
+		display: block;
+	}
+
+	#timer {
+		width: 100%;
+		background-color: transparent;
+		border-width: 2px;
+		border-style: solid;
+		.timerColors-840p();
+	}
+
+	#player {
+		display: flex;
+		justify-content: center;
+		margin-top: 40px;
+
+		& > .panel {
+			width: 100%;
+
+			&:first-child {
+				margin-left: 0;
+				margin-right: 10px;
+			}
+
+			&:last-child {
+				margin-left: 10px;
+			}
+		}
+	}
+
+}

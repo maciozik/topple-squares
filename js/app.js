@@ -8,6 +8,82 @@ $(document).ready(function(){
 	/**
 	 * @type {Object}
 	 */
+	var app = {
+
+		gridBoxes_AnimationTiming: (500 - 150),
+		btwEach_gridBoxes_animationDelay: 50,
+
+		/**
+		 * Change the language of the application.
+		 * @param {str} lang
+		 */
+		changeLanguage: function(lang) {
+
+			$('html').attr('lang', lang);
+
+		},
+
+		/**
+		 * Change the theme of the application.
+		 * @param {str} theme
+		 */
+		changeTheme: function(theme) {
+
+			// Change the value of the toggle
+			$('.settings', '#rules').find('.theme')
+				.attr('data-theme-toggle', ((theme == 'light') ? 'dark' : 'light'));
+
+			// Change the elements for the theme.
+			$('*', document).filter('[data-theme]').addClass('hide')
+			$('*', document).filter('[data-theme=' + theme + ']').removeClass('hide');
+
+			// Change the theme of the application.
+			$('link', 'head').filter('.app-theme').attr('href', 'css/app-' + theme + '.css');
+
+		},
+
+		/**
+		 * Run the animation of the grid.
+		 */
+		animateGrid: function() {
+
+			for(var i=1; i<=9; i++) {
+
+				setTimeout(function(i){
+
+					var $box = $('.box', '#grid')
+								.find('span:contains(' + i + ')')
+								.parents('.box');
+
+					$box.addClass('rotate');
+
+					setTimeout(function(){
+						$box.addClass('back')
+					}, 90);
+
+					setTimeout(function(){
+						$box.removeClass('active right not-found back')
+					}, 225);
+
+					if(i == 9) {
+
+						setTimeout(function(){
+							$('.box', '#grid').removeClass('rotate');
+						}, app.gridBoxes_AnimationTiming);
+
+					}
+
+				}, this.btwEach_gridBoxes_animationDelay * i, i);
+
+			}
+
+		}
+
+	};
+
+	/**
+	 * @type {Object}
+	 */
 	var timer = {
 
 		id: 0,
@@ -49,8 +125,6 @@ $(document).ready(function(){
 
 			clearInterval(this.id);
 
-			// ...
-
 		},
 
 		/**
@@ -72,7 +146,7 @@ $(document).ready(function(){
 				if(timer.lasted === timer.time)
 					clearInterval(timer.reset_interval_id);
 
-			}, (game.btwEach_gridBoxes_animationDelay * 9 + game.gridBoxes_AnimationTiming) * 1000 / timer.time);
+			}, (app.btwEach_gridBoxes_animationDelay * 9 + app.gridBoxes_AnimationTiming) * 1000 / timer.time);
 
 		},
 
@@ -110,6 +184,7 @@ $(document).ready(function(){
 				points-= ((attempts - 1) * 200);
 				points = Math.ceil(points);
 
+			// Set a minimum number of points if the player didn't earn many.
 			if(points < 1500)
 				points = 1500;
 
@@ -217,9 +292,6 @@ $(document).ready(function(){
 		isGameRunning: false,
 		isGameReady: true,
 
-		gridBoxes_AnimationTiming: 350,
-		btwEach_gridBoxes_animationDelay: 50,
-
 		/**
 		 * Start a new game.
 		 */
@@ -234,7 +306,7 @@ $(document).ready(function(){
 			this.rounds = 0;
 
 			// Get the 3 random boxes.
-			getRandomBoxes();
+			this.getRandomBoxes();
 
 			$('#best').removeClass('new-best');
 
@@ -273,6 +345,7 @@ $(document).ready(function(){
 			this.isGameRunning = false;
 			this.areInputsBlocked = true;
 
+			$('#grid').addClass('disabled');
 			$('.box', '#grid').removeClass('active');
 
 			// Clear the setInterval() which removes points if an attempt is too long.
@@ -296,17 +369,38 @@ $(document).ready(function(){
 			// Prepare the next game with the animation.
 			setTimeout(function(){
 
-				game.animateGrid();
+				app.animateGrid();
 				timer.reset();
 
 				setTimeout(function(){
 
+					$('#grid').removeClass('disabled');
+
 					game.isGameReady = true;
 					game.areInputsBlocked = false;
 
-				}, game.btwEach_gridBoxes_animationDelay * 9 + game.gridBoxes_AnimationTiming);
+				}, app.btwEach_gridBoxes_animationDelay * 9 + app.gridBoxes_AnimationTiming);
 
 			}, 3000);
+
+		},
+
+		/**
+		 * Get the 3 random boxes.
+		 */
+		getRandomBoxes: function() {
+
+			game.rightBoxes = [];
+
+			for(var i=0; i<3; i++) {
+
+				do {
+					var box = Math.floor(Math.random() * 9) + 1;
+				} while($.inArray(box, game.rightBoxes) !== -1);
+
+				game.rightBoxes.push(box);
+
+			}
 
 		},
 
@@ -404,9 +498,15 @@ $(document).ready(function(){
 
 			} else {
 
+				// Blink the panel of rights cases as tip during one round for new players
+				if(parseInt(localStorage.getItem('best-score'), 10) == 0 && game.rounds <= 1)
+					$('#rights', '#outputs').addClass('blink');
+
 				setTimeout(function(){
 
 					$('.box', '#grid').removeClass('active');
+					$('#rights', '#outputs').removeClass('blink');
+
 					game.areInputsBlocked = false;
 
 				}, 200);
@@ -430,7 +530,9 @@ $(document).ready(function(){
 				this.attempts = 0;
 				this.currentRound_attempts = [];
 
+				$('#grid').addClass('disabled');
 				$('.box', '#grid').filter('.active').addClass('right');
+				$('#rights', '#outputs').addClass('right');
 
 				// Prepare the next round with the animation.
 				setTimeout(function(){
@@ -438,19 +540,22 @@ $(document).ready(function(){
 					if(!game.isGameRunning)
 						return false;
 
-					game.animateGrid();
-					game.updateRights();
+					app.animateGrid();
 
 					// When the animation is over.
 					setTimeout(function(){
 
+						$('#grid').removeClass('disabled');
+						$('#rights', '#outputs').removeClass('right');
+
 						// Get the 3 random boxes.
-						getRandomBoxes();
+						game.getRandomBoxes();
 
 						game.areInputsBlocked = false;
 						game.currentRound_time = timer.lasted;
+						game.updateRights();
 
-					}, game.btwEach_gridBoxes_animationDelay * 9 + game.gridBoxes_AnimationTiming);
+					}, app.btwEach_gridBoxes_animationDelay * 9 + app.gridBoxes_AnimationTiming);
 
 				}, 500);
 
@@ -482,7 +587,7 @@ $(document).ready(function(){
 
 			}
 
-			$('#rights', '#state')
+			$('#rights', '#outputs')
 				.find('.value').html(rights_html);
 
 		},
@@ -492,7 +597,7 @@ $(document).ready(function(){
 		 */
 		updateAttempts: function() {
 
-			$('#attempts', '#state')
+			$('#attempts', '#outputs')
 				.find('.value').html(this.attempts);
 
 		},
@@ -502,63 +607,12 @@ $(document).ready(function(){
 		 */
 		updateRounds: function() {
 
-			$('#rounds', '#state')
+			$('#rounds', '#outputs')
 				.find('.value').html(this.rounds);
-
-		},
-
-		/**
-		 * Run the animation of the grid.
-		 */
-		animateGrid: function() {
-
-			for(let i=1; i<=9; i++) {
-
-				setTimeout(function(){
-
-					$('.box', '#grid')
-						.find('span:contains(' + i + ')')
-						.parents('.box').addClass('rotate').removeClass('active right not-found');
-
-						if(i === 9) {
-
-							setTimeout(function(){
-								$('.box', '#grid').removeClass('rotate');
-							}, game.gridBoxes_AnimationTiming);
-
-						}
-
-				}, this.btwEach_gridBoxes_animationDelay * i);
-
-			}
 
 		}
 
 	};
-
-
-	/* - - - - - - - - - */
-	/* F U N C T I O N S */
-	/* - - - - - - - - - */
-
-	/**
-	 * Get the 3 random boxes.
-	 */
-	var getRandomBoxes = function() {
-
-		game.rightBoxes = [];
-
-		for(let i=0; i<3; i++) {
-
-			do {
-				var box = Math.floor(Math.random() * 9) + 1;
-			} while($.inArray(box, game.rightBoxes) !== -1);
-
-			game.rightBoxes.push(box);
-
-		}
-
-	}
 
 
 	/* - - - - - - */
@@ -583,12 +637,16 @@ $(document).ready(function(){
 		if(!$('#rules').hasClass('show')) {
 
 			// Enter or space or numeric keys.
-			if(key.which == 13 || key.which == 32 || (key.which >= 97 && key.which <= 105))
+			if(key.which == 13 || key.which == 32 || (key.which >= 97 && key.which <= 105)) {
+
+				key.preventDefault();
 				game.start();
 
-			// Numeric keys.
-			if(key.which >= 97 && key.which <= 105)
-				game.keyPressed(key.which - 96);
+				// Only numeric keys.
+				if(key.which >= 97 && key.which <= 105)
+					game.keyPressed(key.which - 96);
+
+			}
 
 		}
 
@@ -606,34 +664,55 @@ $(document).ready(function(){
 	$('button').filter('#show_rules').on('click', function(){
 
 		$('#rules, #overlay').addClass('show');
-		$('html, body').css('overflow', 'hidden');
+		$('html').css('overflow', 'hidden');
 
 	});
 
 	// When the rules or the close button of the rules are pressed.
 	$('#rules, #rules .close').on('click', function(event){
 
-		// Do not close the rules if a link or the language section is pressed.
-		if(event.target.localName !== 'a' && event.target.className !== 'language') {
-
-			$('#rules, #overlay').removeClass('show');
-			$('html, body').css('overflow', 'auto');
-
-		}
+		$('#rules, #overlay').removeClass('show');
+		$('html').css('overflow', 'auto');
 
 	});
 
-	// When a language link is pressed.
-	$('.language', '#rules').find('a').on('click', function(event){
+	// When the settings section or a link on the rules is pressed.
+	$('.settings, a', '#rules').on('click', function(event){
+
+		// Stop the propagation to prevent the rules from closing.
+		event.stopPropagation();
+
+	});
+
+	// When the language button is pressed.
+	$('.settings', '#rules').find('.language').on('click', function(event){
 
 		event.preventDefault();
 
-		var lang = $(this).attr('class').replace('-switch', '');
-
+		var lang = $(this).attr('data-lang-toggle');
 		localStorage.setItem('lang', lang);
 
-		$('[class $= -lang').addClass('hide')
-		$('.' + lang, document).removeClass('hide');
+		app.changeLanguage(lang);
+
+	});
+
+	// When the theme button is pressed.
+	$('.settings', '#rules').find('.theme').on('click', function(event){
+
+		event.preventDefault();
+
+		var theme = $(this).attr('data-theme-toggle');
+		localStorage.setItem('theme', theme);
+
+		app.changeTheme(theme);
+
+	});
+
+	// When a button link is clicked.
+	$('button').filter('.link').on('click', function(){
+
+		var link = $(this).data('href');
+		window.open(link, '_blank');
 
 	});
 
@@ -650,8 +729,18 @@ $(document).ready(function(){
 
 		var lang = localStorage.getItem('lang');
 
-		$('[class $= -lang]').addClass('hide')
-		$('.' + lang, document).removeClass('hide');
+		if(lang != 'en')
+			app.changeLanguage(lang);
+
+	}
+
+	// Display the game with the theme selected by the player
+	if(localStorage.getItem('theme')) {
+
+		var theme = localStorage.getItem('theme');
+
+		if(theme != 'light')
+			app.changeTheme(theme);
 
 	}
 
