@@ -2,13 +2,27 @@
 <html lang="en">
 
 <head>
-	<meta charset="utf-8" />
+
+	<meta charset="utf-8">
 	<title>Matrix - A little logic game about boxes</title>
-	<meta name="description" content="The purpose of the game is to find the 3 right boxes randomly activated among the 9 boxes of the grid."/>
-	<link rel="icon" type="image/x-icon" href="favicon.ico"/>
-	<link rel="stylesheet" href="css/vendor/font-awesome.min.css"/>
-	<link class="app-theme-default" rel="stylesheet" href="css/app-light.css"/>
-	<link class="app-theme" rel="stylesheet" href=""/>
+	<meta name="description" content="The purpose of the game is to find the 3 right boxes randomly activated among the 9 boxes of the grid.">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
+	<link rel="manifest" href="/icons/manifest.json">
+	<link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#3a75aa">
+	<link rel="shortcut icon" href="/icons/favicon.ico">
+	<meta name="msapplication-TileColor" content="#3a75aa">
+	<meta name="msapplication-TileImage" content="/icons/mstile-144x144.png">
+	<meta name="msapplication-config" content="/icons/browserconfig.xml">
+	<meta name="theme-color" content="#ffffff">
+
+	<link rel="stylesheet" href="css/vendor/font-awesome.min.css" type="text/css">
+	<link class="app-theme-default" rel="stylesheet" href="css/app-light.css" type="text/css">
+	<link class="app-theme" rel="stylesheet" href="" type="text/css">
+
 </head>
 
 <body>
@@ -19,17 +33,18 @@
 
 		<header>
 
-			<button class="button" id="show_rules" type="button">
+			<button class="button" id="show-rules" type="button">
 				<span lang="en"><i class="fa fa-gamepad"></i>How to play</span>
 				<span lang="fr"><i class="fa fa-gamepad"></i>Comment jouer</span>
 			</button>
 
-			<button class="button disabled" id="scoreboard" type="button">
-				<span lang="en"><i class="fa fa-trophy"></i>Scoreboard</span>
+			<button class="button" id="show-leaderboard" type="button">
+				<!-- <div class="players-count"><span>0</span> players</div> -->
+				<span lang="en"><i class="fa fa-trophy"></i>Leaderboard</span>
 				<span lang="fr"><i class="fa fa-trophy"></i>Classement</span>
 			</button>
 
-			<button class="button link" data-href="https://github.com/maciozik/matrix" id="scoreboard" type="button">
+			<button class="button link" data-href="https://github.com/maciozik/matrix" id="github" type="button">
 				<span lang="en"><i class="fa fa-code-fork"></i>GitHub Repo</span>
 				<span lang="fr"><i class="fa fa-code-fork"></i>Dépôt Github</span>
 			</button>
@@ -78,11 +93,7 @@
 
 					<span class="value">&nbsp;</span>
 
-				<!--
-					<div class="box-thumb rank first">1</div>
-					<div class="box-thumb rank second">2</div>
-					<div class="box-thumb rank third">3</div>
-				 -->
+					<div class="rank hide"></div>
 
 				</div>
 
@@ -183,7 +194,7 @@
 		<div id="rules-wrapper">
 
 			<!-- English -->
-			<div class="rules-text" lang="en">
+			<div class="rules-content" lang="en">
 
 				<div class="settings">
 
@@ -211,7 +222,7 @@
 				<p><b>But be careful:</b> you lose points each time you select the 3 same boxes several times on the same round, or by spending too much time between each attempt.</p>
 
 				<h2>How can I report a bug?</h2>
-				<p>You can report a bug directly on the <a href="https://github.com/maciozik/matrix/issues" target="_blank">GitHub repository</a> of the game.</p>
+				<p>You can report a bug directly on the <a href="https://github.com/maciozik/matrix/issues" target="_blank" rel="noopener">GitHub repository</a> of the game.</p>
 
 				<br><hr><br>
 
@@ -225,7 +236,7 @@
 			</div>
 
 			<!-- French -->
-			<div class="rules-text" lang="fr">
+			<div class="rules-content" lang="fr">
 
 				<div class="settings">
 
@@ -249,11 +260,11 @@
 				<p>Sélectionnez une nouvelle case directement depuis l'écran, ou <b>utilisez les touches de 1 à 9 de votre clavier numérique</b>. Lancez une nouvelle partie en sélectionnant une première case, ou en appuyant sur <b>Entrer</b> ou <b>Espace</b>. Appuyez sur <b>Échap.</b> pour recharger le jeu.</p>
 
 				<h2>Comment gagner des points ?</h2>
-				<p>You pouvez faire augmenter votre score après chaque tour remporté. Le nombre de points gagnés est déterminé par <b>le temps que vous avez mis</b> pour remporter le tour, ainsi que par <b>le nombre d'essais effectués</b>.</p>
+				<p>You pouvez augmenter votre score après chaque tour remporté. Le nombre de points gagnés est déterminé par <b>le temps que vous avez mis</b> pour remporter le tour, ainsi que par <b>le nombre d'essais effectués</b>.</p>
 				<p><b>Mais attention :</b> vous perdez des points à chaque fois que vous sélectionnez les 3 mêmes cases à plusieurs reprises dans le même tour, ainsi qu'en attendant trop longtemps entre chaque essai.</p>
 
 				<h2>Comment signaler un bug ?</h2>
-				<p>Vous pouvez signaler un bug directement sur le <a href="https://github.com/maciozik/matrix/issues" target="_blank">dépôt GitHub</a> du jeu.</p>
+				<p>Vous pouvez signaler un bug directement sur le <a href="https://github.com/maciozik/matrix/issues" target="_blank" rel="noopener">dépôt GitHub</a> du jeu.</p>
 
 				<br><hr><br>
 
@@ -270,9 +281,99 @@
 
 	</section>
 
+	<section class="modal-box-wrapper" id="leaderboard">
+
+		<div class="modal-box loading">
+
+			<i class="fa fa-times close"></i>
+			<i class="fa fa-circle-o-notch fa-spin loader"></i>
+
+			<div class="leaderboard-content no-entries">
+				<span lang="en">There is nobody here for the moment...<br>Take this opportunity to be at the top of the leaderboard!</span>
+				<span lang="fr">Il n'y a encore personne ici...<br>Profitez-en pour prendre la première place du classement !</span>
+			</div>
+
+		</div>
+
+	</section>
+
+	<section class="modal-box-wrapper" id="username-modal-box">
+
+		<form class="modal-box">
+
+			<i class="fa fa-times close"></i>
+
+			<!-- English -->
+			<div lang="en">
+
+				<h3>Congrats !</h3>
+
+				<p>Your new best score is <b><span></span> points</b>.</p>
+				<p>You can save this score in the worldwide leaderboard by entering a username:</p>
+				<input class="username" type="text" placeholder="3 to 24 characters" maxlength="24">
+
+				<p class="alert error hide http-400">The request is invalid. Please try again.</p>
+				<p class="alert error hide http-403">The request can not be executed. Please try again.</p>
+				<p class="alert error hide http-409">This username already exists and the old record is higher (<span></span> points). Please choose a different username.</p>
+				<p class="alert error hide http-422">Username can only contain letters, numbers, hyphens and underscores, and must begin with a letter (between 3 and 24 characters).</p>
+				<p class="alert info hide already-exists">This username already exists. Are you sure you want to overwrite the old record (<span></span> points)?</p>
+				<p class="alert success hide">Your score has been saved!</p>
+
+				<div class="submit">
+					<input class="button validation" type="submit" value="Confirm">
+					<input class="button confirmation hide" type="submit" value="Yes, I am sure">
+				</div>
+
+			</div>
+
+			<!-- French -->
+			<div lang="fr">
+
+				<h3>Félicitation !</h3>
+
+				<p>Votre nouveau record est de <b><span></span> points</b>.</p>
+				<p>Pour enregistrer ce score dans le classement mondial, entrez un nom d'utilisateur :</p>
+				<input class="username" type="text" placeholder="3 à 24 caractères" maxlength="24" autofocus>
+
+				<p class="alert error hide http-400">La requête est erronée. Veuillez réessayer.</p>
+				<p class="alert error hide http-403">La requête ne peut pas être exécutée. Veuillez réessayer.</p>
+				<p class="alert error hide http-409">Ce nom d'utilisateur existe déjà et l'ancien record est plus élevé (<span></span> points). Veuillez en choisir un autre.</p>
+				<p class="alert error hide http-422">Le nom d'utilisateur ne peut contenir que des lettres, chiffres, tirets et underscores, et doit commencé par une lettre (entre 3 et 24 caractères).</p>
+				<p class="alert info hide already-exists">Ce nom d'utilisateur existe déjà. Êtes-vous sûr de vouloir remplacer l'ancien record (<span></span> points) ?</p>
+				<p class="alert success hide">Votre record a été sauvegardé !</p>
+
+				<p class="alert">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Libero assumenda obcaecati ut atque provident eligendi temporibus aperiam eveniet natus illo!</p>
+
+				<div class="submit">
+					<input class="button validation" type="submit" value="Valider">
+					<input class="button confirmation hide" type="submit" value="Oui, je suis sûr">
+				</div>
+
+			</div>
+
+		</form>
+
+	</section>
+
 	<div id="progress-bar"></div>
 
-	<div id="overlay"></div>
+	<div id="overlay" class="show">
+
+		<i class="fa fa-circle-o-notch fa-spin loader"></i>
+
+		<div class="hide">
+			<img src="img/pointer.png" alt="">
+			<span lang="en">OR</span>
+			<span lang="fr">OU</span>
+			<img src="img/numpad.png" alt="">
+		</div>
+
+		<div class="hide">
+			<button class="button" lang="en">I wanna play!</button>
+			<button class="button" lang="fr">Jouer !</button>
+		</div>
+
+	</div>
 
 	<!-- build:js -->
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
@@ -280,7 +381,7 @@
 		<script src="js/app.js"></script>
 	<!-- endbuild -->
 
-	<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-103782844-2', 'auto');ga('send', 'pageview');</script>
+	<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-103782844-3', 'auto');ga('send', 'pageview');</script>
 
 </body>
 

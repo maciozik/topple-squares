@@ -10,4 +10,4 @@ Once the 3 right boxes are found, 3 new boxes are randomly activated and a new r
 
 ## Where can I play?
 
-You can play at the game [on my Github Page](https://maciozik.github.io/matrix/) and try to get the best possible score. Have fun!
+You can play at the game [on my website](https://matrix.jonathan-macioszczyk.fr/) and try to get the best possible score. Have fun!

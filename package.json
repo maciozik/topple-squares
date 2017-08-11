@@ -1,6 +1,6 @@
 {
   "name": "matrix",
-  "version": "2.2.0",
+  "version": "2.3.0",
   "description": "A little logic game about boxes.",
   "main": "gulpfile.js",
   "scripts": {
@@ -16,6 +16,11 @@
     "url": "https://github.com/maciozik/matrix/issues"
   },
   "homepage": "https://github.com/maciozik/matrix#readme",
+  "browserslist": [
+    "last 3 versions",
+    "ie >= 8",
+    ">= 1%"
+  ],
   "dependencies": {},
   "devDependencies": {
     "gulp": "^3.9.1",

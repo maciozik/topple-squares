@@ -1,0 +1,131 @@
+/** APP **/
+
+#username-modal-box {
+
+	form.modal-box {
+		width: 550px;
+
+		h3 {
+			margin-top: 5px;
+			margin-bottom: 28px;
+			font-size: 1rem;
+		}
+
+		p {
+			margin-top: -5px !important;
+			font-size: .9rem;
+			line-height: 1.2rem;
+		}
+
+		.username {
+			display: block;
+			margin-top: 20px;
+			padding: 8px;
+			width: 100%;
+			color: #444;
+			background-color: transparent;
+			border: none;
+			border-bottom-width: 2px;
+			border-bottom-style: solid;
+			border-bottom-color: #777;
+			font-size: 1.1rem;
+			font-family: 'Roboto', sans-serif;
+			letter-spacing: .5px;
+			outline: none;
+
+			&::placeholder {
+				color: #afafaf;
+			}
+
+			&:focus {
+				border-bottom-color: @blue;
+			}
+
+			&.error {
+				border-bottom-color: #c55;
+			}
+		}
+
+		.alert {
+			margin-top: 20px !important;
+			font-size: .8rem;
+			line-height: 1rem;
+			letter-spacing: -.2px;
+
+			&.error {
+				color: #c55;
+			}
+
+			&.info {
+				color: @blue;
+			}
+
+			&.success {
+				color: #0a6;
+			}
+		}
+
+		.submit {
+			margin-top: 25px;
+			text-align: right;
+
+			input[type=submit] {
+				padding: 13px 30px 12px 30px;
+				color: white;
+				background-color: @blue;
+
+				&:not(.disabled):hover {
+					background-color: #4f8fff;
+				}
+
+				&:not(.disabled):active {
+					background-color: #59f;
+				}
+			}
+		}
+	}
+}
+
+/** MEDIA QUERIES **/
+
+.username-modal-box-720p() {
+
+	#username-modal-box {
+
+		form.modal-box {
+			width: 80%;
+		}
+	}
+}
+
+.username-modal-box-480p() {
+
+	#username-modal-box {
+
+		form.modal-box {
+			padding: 15px 20px;
+			width: 90%;
+			min-width: 324px;
+
+			h3 {
+				font-size: .9rem;
+			}
+
+			p {
+				font-size: .8rem;
+				line-height: 1rem;
+			}
+
+			.username {
+				margin-top: 15px;
+				padding: 5px;
+				font-size: 1rem;
+			}
+
+			.submit {
+				margin-top: 18px;
+			}
+		}
+	}
+
+}

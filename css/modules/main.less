@@ -18,18 +18,19 @@ html {
 	height: 100%;
 	background-color: @background;
 	font-size: @font-size;
+	font-weight: 400;
 
 	&:lang(en) {
 
 		*:lang(fr) {
-			display: none;
+			display: none !important;
 		}
 	}
 
 	&:lang(fr) {
 
 		*:lang(en) {
-			display: none;
+			display: none !important;
 		}
 	}
 }
@@ -56,6 +57,8 @@ body {
 @import 'state.less';
 @import 'game.less';
 @import 'rules.less';
+@import 'leaderboard.less';
+@import 'username-modal-box.less';
 @import 'elements.less';
 @import 'classes.less';
 
@@ -90,6 +93,11 @@ body {
 
 @media screen and (max-width: 840px) {
 
+	[role=main] {
+		width: 65%;
+	}
+
+	.header-840p();
 	.state-840p();
 	.game-840p();
 	.rules-840p();
@@ -102,8 +110,13 @@ body {
 		width: 80%;
 	}
 
+	.header-720p();
+	.state-720p();
 	.game-720p();
 	.rules-720p();
+	.leaderboard-720p();
+	.username-modal-box-720p();
+	.elements-720p();
 
 }
 
@@ -115,6 +128,8 @@ body {
 
 	.game-480p();
 	.rules-480p();
+	.leaderboard-480p();
+	.username-modal-box-480p();
 
 }
 

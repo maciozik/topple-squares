@@ -70,6 +70,7 @@
 	position: absolute;
 	top: 0;
 	left: 0;
+	margin-bottom: 20px;
 	width: 100%;
 	padding: .5%;
 	background-color: @main;
@@ -129,7 +130,7 @@
 .game-1080p() {
 
 	#game {
-		margin-top: 40px;
+		margin-top: 30px;
 	}
 
 	#outputs {
@@ -148,7 +149,7 @@
 
 	#grid {
 		top: auto !important;
-		margin-top: -8px;
+		margin-top: -10px;
 	}
 
 }
@@ -156,19 +157,26 @@
 .game-840p() {
 
 	#game {
-		margin-top: 25px;
+		margin-top: 15px;
 	}
 
 }
 
 .game-720p() {
 
+	#game {
+		margin-top: 8px;
+	}
+
 	#outputs {
-		flex-wrap: wrap;
 
 		& > .panel {
 			min-width: 80px;
 		}
+	}
+
+	#grid {
+		margin-top: -15px;
 	}
 
 }

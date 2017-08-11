@@ -1,12 +1,13 @@
 /** VARIABLES **/
 
 @background: #151618;
-@main: #2c3038;
-@dark: #1c1f25;
+@main: #2d313a;
+@dark: #1f2228;
 @light: #6c6f78;
-@white: #858585;
+@white: #a5a5a8;
 @green: #206f48;
 @red: #683235;
+@blue: #48f;
 @gold: #886f2a;
 @silver: #828295;
 @bronze: #60483c;
@@ -44,11 +45,11 @@
 	background-color: @dark !important;
 
 	&:not(.disabled):hover {
-		background-color: #1f2228 !important;
+		background-color: #22252c !important;
 	}
 
-	&:not(.disabled)::active {
-		background-color: #22252a !important;
+	&:not(.disabled):active {
+		background-color: #25282f !important;
 	}
 
 }
@@ -73,30 +74,52 @@
 	opacity: 1;
 }
 
+.leaderboardColorsAndRankColor() {
+
+	color: #85858a;
+	background-color: #1a1b1f;
+
+	.leaderboard-content .entry {
+
+		&.active {
+			color: @white;
+			background: rgba(0,0,0,.2) !important;
+			border-bottom-color: @white;
+		}
+
+		.rank-wrapper {
+			color: @main;
+			font-weight: 700;
+			filter: brightness(1.3);
+		}
+	}
+
+}
+
 .progressBarColors(){
 	background-color: rgba(0,0,0,.15);
 	border-top-color: @light;
 }
 
 .panelsValueColor() {
-	color: @main;
+	color: @light;
 }
 
 .buttonsBgColors() {
 
-	background-color: @light;
+	background-color: @white;
 
 	&:not(.disabled):hover {
-		background-color: #60626a;
+		background-color: #b2b2b5;
 	}
 
 	&:not(.disabled):active {
-		background-color: #65686f;
+		background-color: #bcbcbf;
 	}
 
 }
 
 .boxesThumbsBgColor() {
-	background-color: @main;
-	border-color: @main;
+	background-color: @light;
+	border-color: @light;
 }

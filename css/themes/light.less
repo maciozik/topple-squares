@@ -7,6 +7,7 @@
 @white: #f2f2f2;
 @green: #50c080;
 @red: #d5606a;
+@blue: #48f;
 @gold: #eb1;
 @silver: #bfbfd2;
 @bronze: #c89c6f;
@@ -47,7 +48,7 @@
 		background-color: #b5a8a2 !important;
 	}
 
-	&:not(.disabled)::active {
+	&:not(.disabled):active {
 		background-color: @main !important;
 	}
 
@@ -71,6 +72,28 @@
 .rulesHrColor() {
 	border-bottom-color: @dark;
 	opacity: .3;
+}
+
+.leaderboardColorsAndRankColor() {
+
+	color: @light;
+	background-color: #5c5555;
+
+	.leaderboard-content .entry {
+
+		&.active {
+			color: inherit;
+			background: rgba(0,0,0,.08) !important;
+			border-bottom-color: @light;
+		}
+
+		.rank-wrapper {
+			color: @dark;
+			font-weight: 300;
+			filter: brightness(1);
+		}
+	}
+
 }
 
 .progressBarColors(){

@@ -14,9 +14,49 @@ header {
 		padding-right: 10px !important;
 		width: 31.5%;
 
+		&#show-leaderboard {
+
+			.players-count {
+				position: absolute;
+				top: 0;
+				right: 0;
+				margin-top: -12px;
+				margin-right: -6px;
+				padding: 2px 5px;
+				color: @dark;
+				background-color: @white;
+				border-radius: 1px;
+				box-shadow: -1px 1px 1px rgba(0,0,0,.2);
+				font-size: .55rem;
+				letter-spacing: -.5px;
+
+				span {
+					font-size: .7rem;
+				}
+			}
+		}
+
 		a {
 			padding-left: 10px !important;
 			padding-right: 10px !important;
 		}
 	}
+}
+
+/** MEDIA QUERIES **/
+
+.header-840p() {
+
+	header {
+		margin-top: 25px;
+	}
+
+}
+
+.header-720p() {
+
+	header {
+		margin-top: 15px;
+	}
+
 }

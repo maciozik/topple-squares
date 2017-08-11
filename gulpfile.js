@@ -9,6 +9,7 @@ var $ = require('gulp-load-plugins')({
 // Paths
 
 var dist = 'dist';
+var vendor = 'vendor';
 
 var paths = {
 
@@ -19,18 +20,22 @@ var paths = {
 	},
 
 	css: {
-		min: 'app.min.css',
-		files: ['css/**/*.css'],
-		dest: dist + '/css'
+		files: ['css/*.css'],
+		vendor: ['css/' + vendor + '/*.css'],
+		dest: dist + '/css',
+		theme: {
+			light: 'css/app-light.css',
+			dark: 'css/app-dark.css'
+		}
 	},
 
 	js: {
+		files: ['js/jquery-*.js', 'js/**/*.js'],
 		min: 'app.min.js',
-		files: ['js/**/*.js'],
 		dest: dist + '/js'
 	},
 
-	html: ['index.html']
+	html: 'index.html'
 
 };
 
@@ -44,19 +49,29 @@ gulp.task('compile:less', function(){
 });
 
 gulp.task('prefix:css', ['compile:less'], function () {
-    return gulp.src(paths.css.files)
-        .pipe($.autoprefixer({
-            browsers: ['last 3 versions'],
-            cascade: false
-        }))
-        .pipe(gulp.dest(paths.less.dest));
+	return gulp.src(paths.css.files)
+		.pipe($.autoprefixer({
+			cascade: false
+		}))
+		.pipe(gulp.dest(paths.less.dest));
 });
 
-gulp.task('min:css', ['prefix:css'], function() {
-	return gulp.src(paths.css.files)
+gulp.task('min:css:dark', ['prefix:css'], function() {
+	return gulp.src(paths.css.theme.dark)
 		.pipe($.cleanCss({ compatibility: 'ie9' }))
-		.pipe($.rename(paths.css.min))
 		.pipe(gulp.dest(paths.css.dest));
+});
+
+gulp.task('min:css:light', ['min:css:dark'], function() {
+	return gulp.src(paths.css.theme.light)
+		.pipe($.cleanCss({ compatibility: 'ie9' }))
+		.pipe(gulp.dest(paths.css.dest));
+});
+
+gulp.task('build:css', ['min:css:light'], function() {
+	return gulp.src(paths.css.vendor)
+		.pipe($.cleanCss({ compatibility: 'ie9' }))
+		.pipe(gulp.dest(paths.css.dest + '/' + vendor));
 });
 
 /** JS Tasks **/
@@ -71,10 +86,9 @@ gulp.task('min:js', function(){
 
 /** HTML Tasks **/
 
-gulp.task('build:html', function() {
+gulp.task('replace:html', function() {
 	return gulp.src(paths.html)
 		.pipe($.htmlReplace({
-			css: 'css/' + paths.css.min,
 			js: 'js/' + paths.js.min
 		}))
 		.pipe(gulp.dest(dist));
@@ -89,8 +103,8 @@ gulp.task('watch', function(){
 
 /** Global Tasks **/
 
-gulp.task('deploy', ['min:css', 'min:js', 'build:html']);
-gulp.task('default', ['deploy']);
+gulp.task('build:app', ['build:css', 'min:js', 'replace:html']);
+gulp.task('default', ['build:app']);
 
 
 module.exports = gulp;

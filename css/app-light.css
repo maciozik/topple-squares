@@ -19,12 +19,13 @@ html {
   height: 100%;
   background-color: #f5ece8;
   font-size: 16px;
+  font-weight: 400;
 }
 html:lang(en) *:lang(fr) {
-  display: none;
+  display: none !important;
 }
 html:lang(fr) *:lang(en) {
-  display: none;
+  display: none !important;
 }
 body {
   position: relative;
@@ -61,10 +62,29 @@ header .button {
   padding-right: 10px !important;
   width: 31.5%;
 }
+header .button#show-leaderboard .players-count {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: -12px;
+  margin-right: -6px;
+  padding: 2px 5px;
+  color: #a89a95;
+  background-color: #f2f2f2;
+  border-radius: 1px;
+  -webkit-box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
+  box-shadow: -1px 1px 1px rgba(0, 0, 0, 0.2);
+  font-size: .55rem;
+  letter-spacing: -0.5px;
+}
+header .button#show-leaderboard .players-count span {
+  font-size: .7rem;
+}
 header .button a {
   padding-left: 10px !important;
   padding-right: 10px !important;
 }
+/** MEDIA QUERIES **/
 /** APP **/
 #state {
   display: -webkit-box;
@@ -153,26 +173,8 @@ header .button a {
   right: 0;
   margin-top: -11px;
   margin-right: -11px;
-  padding-top: 3px;
-  padding-right: 2.5px;
-  width: 22px;
-  height: 22px;
-  color: white;
-  border: none !important;
-  border-radius: 3px;
   -webkit-box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.1);
   box-shadow: -1px 1px 2px rgba(0, 0, 0, 0.1);
-  font-size: 14px;
-  letter-spacing: -1px;
-}
-#player #best .rank.first {
-  background-color: #eb1;
-}
-#player #best .rank.second {
-  background-color: #bfbfd2;
-}
-#player #best .rank.third {
-  background-color: #c89c6f;
 }
 /** MEDIA QUERIES **/
 /** APP **/
@@ -250,6 +252,7 @@ header .button a {
   position: absolute;
   top: 0;
   left: 0;
+  margin-bottom: 20px;
   width: 100%;
   padding: .5%;
   background-color: #c8b8b0;
@@ -362,10 +365,10 @@ header .button a {
 #rules #rules-wrapper .settings .button:not(.disabled):hover {
   background-color: #b5a8a2 !important;
 }
-#rules #rules-wrapper .settings .button:not(.disabled)::active {
+#rules #rules-wrapper .settings .button:not(.disabled):active {
   background-color: #c8b8b0 !important;
 }
-#rules #rules-wrapper .rules-text {
+#rules #rules-wrapper .rules-content {
   padding: 10px 130px;
   width: 100%;
   max-width: 1200px;
@@ -404,6 +407,205 @@ header .button a {
 }
 /** MEDIA QUERIES **/
 /** APP **/
+#leaderboard .modal-box {
+  padding: 0;
+  width: 650px;
+  height: 80%;
+  color: #e8ddd9;
+  background-color: #5c5555;
+}
+#leaderboard .modal-box .leaderboard-content .entry.active {
+  color: inherit;
+  background: rgba(0, 0, 0, 0.08) !important;
+  border-bottom-color: #e8ddd9;
+}
+#leaderboard .modal-box .leaderboard-content .entry .rank-wrapper {
+  color: #a89a95;
+  font-weight: 300;
+  -webkit-filter: brightness(1);
+  filter: brightness(1);
+}
+#leaderboard .modal-box .leaderboard-content {
+  position: relative;
+  margin-left: 35px;
+  padding: 25px 70px 25px 0;
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  font-size: .9rem;
+  overflow: auto !important;
+}
+#leaderboard .modal-box .leaderboard-content .entry {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: relative;
+  padding: 8px 20px 8px 0;
+  width: 100%;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: rgba(255, 255, 255, 0.05);
+}
+#leaderboard .modal-box .leaderboard-content .entry:first-child {
+  border-radius: 3px 3px 0 0;
+}
+#leaderboard .modal-box .leaderboard-content .entry:nth-of-type(even) {
+  background: rgba(255, 255, 255, 0.012);
+  background: -webkit-gradient(linear, left top, right top, from(transparent), color-stop(10%, rgba(255, 255, 255, 0.012)), color-stop(95%, rgba(255, 255, 255, 0.012)), to(transparent));
+  background: -o-linear-gradient(left, transparent 0%, rgba(255, 255, 255, 0.012) 10%, rgba(255, 255, 255, 0.012) 95%, transparent 100%);
+  background: linear-gradient(to right, transparent 0%, rgba(255, 255, 255, 0.012) 10%, rgba(255, 255, 255, 0.012) 95%, transparent 100%);
+}
+#leaderboard .modal-box .leaderboard-content .entry.active .rank-wrapper {
+  color: #e8ddd9;
+}
+#leaderboard .modal-box .leaderboard-content .entry.active .rank-wrapper .rank {
+  opacity: 1;
+}
+#leaderboard .modal-box .leaderboard-content .entry > div {
+  display: inline-block;
+  min-height: 2rem;
+  line-height: 2rem;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+}
+#leaderboard .modal-box .leaderboard-content .entry > div.rank-wrapper {
+  width: 12%;
+  text-align: center;
+  letter-spacing: -1px;
+}
+#leaderboard .modal-box .leaderboard-content .entry > div.rank-wrapper .rank {
+  margin-top: 4px;
+  padding-left: 2px !important;
+  -webkit-box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+  font-weight: 300 !important;
+  line-height: 1rem !important;
+  opacity: .6;
+}
+#leaderboard .modal-box .leaderboard-content .entry > div.username {
+  padding-left: 5px;
+  width: 68%;
+  text-align: left;
+}
+#leaderboard .modal-box .leaderboard-content .entry > div.score {
+  padding-top: .1rem;
+  padding-right: 2px;
+  width: 20%;
+  text-align: right;
+  line-height: .9rem;
+  letter-spacing: -0.2px;
+}
+#leaderboard .modal-box .leaderboard-content .entry > div.score span {
+  display: block;
+  font-size: .8rem;
+  text-align: right;
+  opacity: .5;
+}
+#leaderboard .modal-box .loader {
+  display: none;
+}
+#leaderboard .modal-box.loading {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+#leaderboard .modal-box.loading .leaderboard-content {
+  position: absolute;
+}
+#leaderboard .modal-box.loading .loader {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+/** MEDIA QUERIES **/
+/** APP **/
+#username-modal-box form.modal-box {
+  width: 550px;
+}
+#username-modal-box form.modal-box h3 {
+  margin-top: 5px;
+  margin-bottom: 28px;
+  font-size: 1rem;
+}
+#username-modal-box form.modal-box p {
+  margin-top: -5px !important;
+  font-size: .9rem;
+  line-height: 1.2rem;
+}
+#username-modal-box form.modal-box .username {
+  display: block;
+  margin-top: 20px;
+  padding: 8px;
+  width: 100%;
+  color: #444;
+  background-color: transparent;
+  border: none;
+  border-bottom-width: 2px;
+  border-bottom-style: solid;
+  border-bottom-color: #777;
+  font-size: 1.1rem;
+  font-family: 'Roboto', sans-serif;
+  letter-spacing: .5px;
+  outline: none;
+}
+#username-modal-box form.modal-box .username::-webkit-input-placeholder {
+  color: #afafaf;
+}
+#username-modal-box form.modal-box .username:-ms-input-placeholder {
+  color: #afafaf;
+}
+#username-modal-box form.modal-box .username::placeholder {
+  color: #afafaf;
+}
+#username-modal-box form.modal-box .username:focus {
+  border-bottom-color: #48f;
+}
+#username-modal-box form.modal-box .username.error {
+  border-bottom-color: #c55;
+}
+#username-modal-box form.modal-box .alert {
+  margin-top: 20px !important;
+  font-size: .8rem;
+  line-height: 1rem;
+  letter-spacing: -0.2px;
+}
+#username-modal-box form.modal-box .alert.error {
+  color: #c55;
+}
+#username-modal-box form.modal-box .alert.info {
+  color: #48f;
+}
+#username-modal-box form.modal-box .alert.success {
+  color: #0a6;
+}
+#username-modal-box form.modal-box .submit {
+  margin-top: 25px;
+  text-align: right;
+}
+#username-modal-box form.modal-box .submit input[type=submit] {
+  padding: 13px 30px 12px 30px;
+  color: white;
+  background-color: #48f;
+}
+#username-modal-box form.modal-box .submit input[type=submit]:not(.disabled):hover {
+  background-color: #4f8fff;
+}
+#username-modal-box form.modal-box .submit input[type=submit]:not(.disabled):active {
+  background-color: #59f;
+}
+/** MEDIA QUERIES **/
+/** APP **/
 #progress-bar {
   position: fixed;
   top: 0;
@@ -417,12 +619,26 @@ header .button a {
   z-index: 10;
 }
 #overlay {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
   position: fixed;
   top: -100%;
   left: 0;
   width: 100%;
   height: 100%;
   background-color: black;
+  text-align: center;
   opacity: 0;
   z-index: 1000;
   -webkit-transition: top 400ms ease 100ms, opacity 100ms linear 400ms;
@@ -432,9 +648,35 @@ header .button a {
 #overlay.show {
   top: 0;
   opacity: .9;
-  -webkit-transition: top 500ms;
-  -o-transition: top 500ms;
-  transition: top 500ms;
+  -webkit-transition: top 500ms, opacity 300ms;
+  -o-transition: top 500ms, opacity 300ms;
+  transition: top 500ms, opacity 300ms;
+}
+#overlay.lower-opacity.show {
+  opacity: .75;
+}
+#overlay > div {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  color: white !important;
+}
+#overlay > div img {
+  margin: 0 35px;
+}
+#overlay .button {
+  display: block;
+  margin-top: 50px;
+  padding-top: 15px;
+  padding-bottom: 14px;
+  color: #333;
+  background-color: white !important;
 }
 /** APP **/
 .panel {
@@ -486,6 +728,53 @@ header .button a {
   vertical-align: middle;
   text-align: center;
 }
+.modal-box-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  position: fixed;
+  top: -100%;
+  margin-top: -20px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  z-index: 8000;
+  -webkit-transition: opacity 200ms linear, margin-top 200ms ease, top 10ms linear 200ms;
+  -o-transition: opacity 200ms linear, margin-top 200ms ease, top 10ms linear 200ms;
+  transition: opacity 200ms linear, margin-top 200ms ease, top 10ms linear 200ms;
+}
+.modal-box-wrapper.show {
+  top: 0;
+  margin-top: 0;
+  opacity: 1;
+  -webkit-transition: opacity 200ms linear 500ms, margin-top 200ms ease 500ms;
+  -o-transition: opacity 200ms linear 500ms, margin-top 200ms ease 500ms;
+  transition: opacity 200ms linear 500ms, margin-top 200ms ease 500ms;
+}
+.modal-box-wrapper .modal-box {
+  position: absolute;
+  padding: 25px 30px;
+  color: #777;
+  background-color: #ddd;
+  border-radius: 3px;
+  overflow: hidden;
+}
+.modal-box-wrapper .modal-box .close {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 10px 12px;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 9000;
+}
 .button {
   position: relative;
   padding: 8px 30px 9px 30px;
@@ -512,10 +801,7 @@ header .button a {
 .button.disabled {
   color: #c8b8b0;
   opacity: .7;
-}
-.button.disabled:active {
-  -webkit-box-shadow: 0 0 0 2px #d5606a;
-  box-shadow: 0 0 0 2px #d5606a;
+  cursor: default;
 }
 .button i {
   display: block;
@@ -524,6 +810,27 @@ header .button a {
 }
 .button .value {
   font-weight: 400;
+}
+.rank {
+  display: inline-block;
+  padding-top: 3px;
+  padding-right: 2.5px;
+  width: 22px;
+  height: 22px;
+  color: white;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 14px;
+  letter-spacing: -1px;
+}
+.rank.rank-1 {
+  background-color: #eb1;
+}
+.rank.rank-2 {
+  background-color: #bfbfd2;
+}
+.rank.rank-3 {
+  background-color: #c89c6f;
 }
 .box-thumb {
   display: inline-block;
@@ -544,12 +851,16 @@ header .button a {
 .box-thumb.null {
   background-color: transparent;
 }
+.loader {
+  color: white;
+  font-size: 30px;
+}
 .invisible {
-  visibility: hidden;
-  opacity: 0;
+  visibility: hidden !important;
+  opacity: 0 !important;
 }
 .hide {
-  display: none;
+  display: none !important;
 }
 /** MEDIA QUERIES **/
 @media screen and (max-width: 1440px) {
@@ -561,8 +872,8 @@ header .button a {
     -ms-flex-pack: center;
     justify-content: center;
     position: relative;
-    margin-top: 15px;
-    margin-bottom: -10px;
+    margin-top: 10px;
+    margin-bottom: -15px;
     width: 100%;
   }
   #rules #rules-wrapper .settings .button {
@@ -573,11 +884,15 @@ header .button a {
 }
 @media screen and (max-width: 1080px) {
   #timer {
-    font-size: 2.8rem;
+    font-size: 3rem;
     letter-spacing: 0;
   }
+  #timer > span {
+    padding-top: 3px;
+    padding-bottom: 8px;
+  }
   #game {
-    margin-top: 40px;
+    margin-top: 30px;
   }
   #outputs {
     display: -webkit-box;
@@ -600,7 +915,7 @@ header .button a {
   }
   #grid {
     top: auto !important;
-    margin-top: -8px;
+    margin-top: -10px;
   }
 }
 @media screen and (max-width: 960px) {
@@ -610,7 +925,7 @@ header .button a {
   [role=main] {
     width: 58%;
   }
-  #rules #rules-wrapper .rules-text {
+  #rules #rules-wrapper .rules-content {
     padding-left: 100px;
     padding-right: 100px;
   }
@@ -619,8 +934,15 @@ header .button a {
   }
 }
 @media screen and (max-width: 840px) {
+  [role=main] {
+    width: 65%;
+  }
+  header {
+    margin-top: 25px;
+  }
   #state {
     display: block;
+    margin-top: 25px;
   }
   #timer {
     width: 100%;
@@ -637,7 +959,7 @@ header .button a {
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    margin-top: 40px;
+    margin-top: 30px;
   }
   #player > .panel {
     width: 100%;
@@ -650,9 +972,9 @@ header .button a {
     margin-left: 10px;
   }
   #game {
-    margin-top: 25px;
+    margin-top: 15px;
   }
-  #rules #rules-wrapper > .rules-text {
+  #rules #rules-wrapper > .rules-content {
     padding-left: 50px;
     padding-right: 50px;
   }
@@ -661,16 +983,49 @@ header .button a {
   [role=main] {
     width: 80%;
   }
-  #outputs {
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
+  header {
+    margin-top: 15px;
+  }
+  #state {
+    margin-top: 15px;
+  }
+  #player {
+    margin-top: 20px;
+  }
+  #game {
+    margin-top: 8px;
   }
   #outputs > .panel {
     min-width: 80px;
   }
+  #grid {
+    margin-top: -15px;
+  }
   #rules #rules-wrapper .settings .button {
     margin: 0 5px;
     min-width: 150px;
+  }
+  #leaderboard .modal-box {
+    width: 85%;
+    height: 85%;
+  }
+  #leaderboard .modal-box .leaderboard-content {
+    margin-left: 20px;
+    padding: 15px 42px 15px 0;
+    font-size: .8rem;
+  }
+  #leaderboard .modal-box .leaderboard-content .entry > div.score {
+    padding-top: .2rem;
+  }
+  #leaderboard .modal-box .leaderboard-content .entry > div.score span {
+    font-size: .7rem;
+    line-height: .8rem;
+  }
+  #username-modal-box form.modal-box {
+    width: 80%;
+  }
+  #progress-bar {
+    display: none !important;
   }
 }
 @media screen and (max-width: 480px) {
@@ -717,7 +1072,7 @@ header .button a {
   #rules #rules-wrapper .settings .button {
     margin-top: 15px;
   }
-  #rules #rules-wrapper .rules-text {
+  #rules #rules-wrapper .rules-content {
     padding-left: 35px;
     padding-right: 35px;
     font-size: 0.8rem;
@@ -731,6 +1086,43 @@ header .button a {
     line-height: 16px;
     letter-spacing: .2px;
   }
+  #leaderboard .modal-box {
+    width: 90%;
+    height: 90%;
+    min-width: 324px;
+  }
+  #leaderboard .modal-box .leaderboard-content .entry {
+    padding: 5px 10px 5px 0;
+  }
+  #leaderboard .modal-box .leaderboard-content .entry > div.rank-wrapper {
+    width: 15%;
+  }
+  #leaderboard .modal-box .leaderboard-content .entry > div.username {
+    width: 65%;
+  }
+  #leaderboard .modal-box .leaderboard-content .entry > div.score {
+    width: 20%;
+  }
+  #username-modal-box form.modal-box {
+    padding: 15px 20px;
+    width: 90%;
+    min-width: 324px;
+  }
+  #username-modal-box form.modal-box h3 {
+    font-size: .9rem;
+  }
+  #username-modal-box form.modal-box p {
+    font-size: .8rem;
+    line-height: 1rem;
+  }
+  #username-modal-box form.modal-box .username {
+    margin-top: 15px;
+    padding: 5px;
+    font-size: 1rem;
+  }
+  #username-modal-box form.modal-box .submit {
+    margin-top: 18px;
+  }
 }
 @media screen and (max-width: 360px) {
   body {
@@ -740,7 +1132,7 @@ header .button a {
     border: 0;
     padding: 1.2%;
   }
-  #rules #rules-wrapper .rules-text {
+  #rules #rules-wrapper .rules-content {
     padding-left: 20px;
     padding-right: 20px;
   }

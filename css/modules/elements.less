@@ -13,12 +13,17 @@
 }
 
 #overlay {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	align-items: center;
 	position: fixed;
 	top: -100%;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	background-color: black;
+	text-align: center;
 	opacity: 0;
 	z-index: 1000;
 	transition: top 400ms ease 100ms, opacity 100ms linear 400ms;
@@ -26,6 +31,38 @@
 	&.show {
 		top: 0;
 		opacity: .9;
-		transition: top 500ms;
+		transition: top 500ms, opacity 300ms;
 	}
+
+	&.lower-opacity.show {
+		opacity: .75;
+	}
+
+	& > div {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		color: white !important;
+
+		img {
+			margin: 0 35px;
+		}
+	}
+
+	.button {
+		display: block;
+		margin-top: 50px;
+		padding-top: 15px;
+		padding-bottom: 14px;
+		color: #333;
+		background-color: white !important;
+	}
+}
+
+.elements-720p() {
+
+	#progress-bar {
+		display: none !important;
+	}
+
 }
