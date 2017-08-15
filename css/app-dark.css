@@ -179,7 +179,7 @@ header .button a {
 /** MEDIA QUERIES **/
 /** APP **/
 #game {
-  position: absolute;
+  position: relative;
   margin-top: 32px;
   width: 100%;
 }
@@ -249,12 +249,13 @@ header .button a {
   animation: blink 200ms linear;
 }
 #grid {
-  position: absolute;
+  position: relative;
   top: 0;
   left: 0;
-  margin-bottom: 20px;
+  margin-bottom: 40px;
   width: 100%;
-  padding: .5%;
+  padding: 1%;
+  padding-bottom: .5%;
   background-color: #2d313a;
   border-width: 2px;
   border-style: solid;
@@ -265,9 +266,9 @@ header .button a {
   opacity: .9;
 }
 #grid .box {
-  float: left;
-  width: 31%;
-  margin: 1.167%;
+  display: inline-block;
+  width: 30%;
+  margin: 1.467% 1.667%;
   color: #1f2228;
   background-color: #6c6f78;
   cursor: pointer;
@@ -299,6 +300,20 @@ header .button a {
 #grid .box.back {
   color: #1f2228;
   background-color: #1f2228;
+}
+#how-to {
+  margin-bottom: 50px;
+  color: #6c6f78;
+  font-size: .95rem;
+  font-weight: 700;
+  font-family: 'Roboto', sans-serif;
+  line-height: 1.4rem;
+  letter-spacing: .2px;
+  opacity: .9;
+}
+#how-to > div span:nth-of-type(2) {
+  font-weight: normal;
+  opacity: .7;
 }
 /** MEDIA QUERIES **/
 /** APP **/
@@ -428,7 +443,7 @@ header .button a {
 #leaderboard .modal-box .leaderboard-content {
   position: relative;
   margin-left: 35px;
-  padding: 25px 70px 25px 0;
+  padding: 25px 75px 25px 0;
   width: 100%;
   height: 100%;
   text-align: center;
@@ -589,20 +604,29 @@ header .button a {
 #username-modal-box form.modal-box .alert.success {
   color: #0a6;
 }
-#username-modal-box form.modal-box .submit {
+#username-modal-box form.modal-box .form-buttons {
   margin-top: 25px;
   text-align: right;
 }
-#username-modal-box form.modal-box .submit input[type=submit] {
+#username-modal-box form.modal-box .form-buttons .button {
+  margin-left: 5px;
   padding: 13px 30px 12px 30px;
+}
+#username-modal-box form.modal-box .form-buttons .submit {
+  display: inline-block;
+}
+#username-modal-box form.modal-box .form-buttons .submit .button {
   color: white;
   background-color: #48f;
 }
-#username-modal-box form.modal-box .submit input[type=submit]:not(.disabled):hover {
+#username-modal-box form.modal-box .form-buttons .submit .button:not(.disabled):hover {
   background-color: #4f8fff;
 }
-#username-modal-box form.modal-box .submit input[type=submit]:not(.disabled):active {
+#username-modal-box form.modal-box .form-buttons .submit .button:not(.disabled):active {
   background-color: #59f;
+}
+#username-modal-box form.modal-box .form-buttons .later {
+  background-color: #ccc;
 }
 /** MEDIA QUERIES **/
 /** APP **/
@@ -678,6 +702,9 @@ header .button a {
   color: #333;
   background-color: white !important;
 }
+a {
+  color: inherit;
+}
 /** APP **/
 .panel {
   display: inline-block;
@@ -746,9 +773,9 @@ header .button a {
   height: 100%;
   opacity: 0;
   z-index: 8000;
-  -webkit-transition: opacity 200ms linear, margin-top 200ms ease, top 10ms linear 200ms;
-  -o-transition: opacity 200ms linear, margin-top 200ms ease, top 10ms linear 200ms;
-  transition: opacity 200ms linear, margin-top 200ms ease, top 10ms linear 200ms;
+  -webkit-transition: opacity 200ms linear, margin-top 300ms ease, top 10ms linear 200ms;
+  -o-transition: opacity 200ms linear, margin-top 300ms ease, top 10ms linear 200ms;
+  transition: opacity 200ms linear, margin-top 300ms ease, top 10ms linear 200ms;
 }
 .modal-box-wrapper.show {
   top: 0;
@@ -892,7 +919,7 @@ header .button a {
     padding-bottom: 8px;
   }
   #game {
-    margin-top: 30px;
+    margin-top: 25px;
   }
   #outputs {
     display: -webkit-box;
@@ -987,7 +1014,7 @@ header .button a {
     margin-top: 15px;
   }
   #state {
-    margin-top: 15px;
+    margin-top: 20px;
   }
   #player {
     margin-top: 20px;
@@ -1000,6 +1027,13 @@ header .button a {
   }
   #grid {
     margin-top: -15px;
+    margin-bottom: 20px;
+  }
+  #how-to {
+    margin-bottom: 20px;
+    text-align: justify;
+    font-size: .9rem;
+    line-height: 1.1rem;
   }
   #rules #rules-wrapper .settings .button {
     margin: 0 5px;
@@ -1011,7 +1045,7 @@ header .button a {
   }
   #leaderboard .modal-box .leaderboard-content {
     margin-left: 20px;
-    padding: 15px 42px 15px 0;
+    padding: 15px 55px 15px 0;
     font-size: .8rem;
   }
   #leaderboard .modal-box .leaderboard-content .entry > div.score {
@@ -1042,7 +1076,7 @@ header .button a {
   }
   #outputs > .panel .label {
     border-radius: 0;
-    letter-spacing: 0;
+    letter-spacing: -0.5px;
   }
   #outputs > .panel:first-child .label {
     border-radius: 3px 0 0 3px;
@@ -1052,6 +1086,9 @@ header .button a {
   }
   #grid .box .box-content {
     font-size: 2.2rem;
+  }
+  #how-to {
+    font-size: .8rem;
   }
   #rules .close {
     position: absolute;
@@ -1091,6 +1128,9 @@ header .button a {
     height: 90%;
     min-width: 324px;
   }
+  #leaderboard .modal-box .leaderboard-content {
+    padding-right: 60px;
+  }
   #leaderboard .modal-box .leaderboard-content .entry {
     padding: 5px 10px 5px 0;
   }
@@ -1098,10 +1138,10 @@ header .button a {
     width: 15%;
   }
   #leaderboard .modal-box .leaderboard-content .entry > div.username {
-    width: 65%;
+    width: 63%;
   }
   #leaderboard .modal-box .leaderboard-content .entry > div.score {
-    width: 20%;
+    width: 22%;
   }
   #username-modal-box form.modal-box {
     padding: 15px 20px;
@@ -1120,7 +1160,7 @@ header .button a {
     padding: 5px;
     font-size: 1rem;
   }
-  #username-modal-box form.modal-box .submit {
+  #username-modal-box form.modal-box .form-buttons {
     margin-top: 18px;
   }
 }
@@ -1131,6 +1171,7 @@ header .button a {
   #grid {
     border: 0;
     padding: 1.2%;
+    padding-bottom: .6%;
   }
   #rules #rules-wrapper .rules-content {
     padding-left: 20px;

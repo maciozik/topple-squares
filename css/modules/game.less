@@ -1,7 +1,7 @@
 /** APP **/
 
 #game {
-	position: absolute;
+	position: relative;
 	margin-top: 32px;
 	width: 100%;
 }
@@ -67,12 +67,13 @@
 }
 
 #grid {
-	position: absolute;
+	position: relative;
 	top: 0;
 	left: 0;
-	margin-bottom: 20px;
+	margin-bottom: 40px;
 	width: 100%;
-	padding: .5%;
+	padding: 1%;
+	padding-bottom: .5%;
 	background-color: @main;
 	border-width: 2px;
 	border-style: solid;
@@ -87,9 +88,9 @@
 	}
 
 	.box {
-		float: left;
-		width: 31%;
-		margin: 1.167%;
+		display: inline-block;
+		width: 30%;
+		margin: 1.467% 1.667%;
 		color: @dark;
 		background-color: @light;
 		cursor: pointer;
@@ -125,12 +126,31 @@
 	}
 }
 
+#how-to {
+	margin-bottom: 50px;
+	.howToColor();
+	font-size: .95rem;
+	font-weight: 700;
+	font-family: 'Roboto', sans-serif;
+	line-height: 1.4rem;
+	letter-spacing: .2px;
+	opacity: .9;
+
+	& > div {
+
+		span:nth-of-type(2) {
+			font-weight: normal;
+			opacity: .7;
+		}
+	}
+}
+
 /** MEDIA QUERIES **/
 
 .game-1080p() {
 
 	#game {
-		margin-top: 30px;
+		margin-top: 25px;
 	}
 
 	#outputs {
@@ -177,6 +197,14 @@
 
 	#grid {
 		margin-top: -15px;
+		margin-bottom: 20px;
+	}
+
+	#how-to {
+		margin-bottom: 20px;
+		text-align: justify;
+		font-size: .9rem;
+		line-height: 1.1rem;
 	}
 
 }
@@ -191,7 +219,7 @@
 
 			.label {
 				border-radius: 0;
-				letter-spacing: 0;
+				letter-spacing: -.5px;
 			}
 
 			&:first-child .label {
@@ -214,6 +242,10 @@
 		}
 	}
 
+	#how-to {
+		font-size: .8rem;
+	}
+
 }
 
 .game-360p() {
@@ -221,6 +253,7 @@
 	#grid {
 		border: 0;
 		padding: 1.2%;
+		padding-bottom: .6%;
 	}
 
 }

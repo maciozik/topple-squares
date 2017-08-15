@@ -107,7 +107,7 @@ $(document).ready(function(){
 					$('form', '#username-modal-box').find('.alert').addClass('hide').filter('.already-exists').removeClass('hide');
 					$('form', '#username-modal-box').find('.submit').children('.confirmation').removeClass('hide');
 					$('form', '#username-modal-box').find('.submit').children('.validation').addClass('hide');
-					$('form', '#username-modal-box').find('.submit').children('[type=submit]').removeClass('disabled').attr('disabled', false);
+					$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').attr('disabled', false);
 
 				} else {
 
@@ -135,7 +135,7 @@ $(document).ready(function(){
 
 				$('form', '#username-modal-box').find('.username').addClass('error').focus();
 				$('form', '#username-modal-box').find('.alert').addClass('hide').filter('.http-' + status_code).removeClass('hide');
-				$('form', '#username-modal-box').find('.submit').children('[type=submit]').removeClass('disabled').attr('disabled', false);
+				$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').attr('disabled', false);
 
 			})
 			.always(function(data){
@@ -184,21 +184,30 @@ $(document).ready(function(){
 
 				$.each(playersScores, function(username, score){
 
-					// Add a class to the entry corresponding to the player.
-					var active_class = (localStorage.getItem('username') == username) ? 'active' : '';
+					// Whether the player is the current player.
+					var isCurrentPlayer = (localStorage.getItem('username') == username) ? true : false;
+
+					// Define the format of the number for displaying the score.
+					var score_format = (localStorage.getItem('lang') == 'en') ? '$1,' : '$1&nbsp;';
 
 					// Build the HTML of the entry.
-					playersScores_html+= '<div class="entry ' + active_class + '">' +
+					playersScores_html+= '<div class="entry ' + ((isCurrentPlayer) ? 'active' : '') + '">' +
 											'<div class="rank-wrapper">' +
 												((rank >= 1 && rank <= 3) ? '<div class="rank rank-' + rank + '">' + rank + '</div>' : rank) +
 											'</div>' +
 											'<div class="username">' +	username + '</div>' +
-											'<div class="score">' + score + ' <span>pts</span></div>' +
+											'<div class="score">' + score.replace(/(\d)(?=(\d{3})+$)/g, score_format) + '<span>pts</span></div>' +
 										 '</div>';
 
 					// Display the rank of the player next to the best score.
 					if(rank >= 1 && rank <= 3 && localStorage.getItem('username') == username)
 						$('#best').find('.rank').removeClass('hide').removeClass('rank-1 rank-2 rank-3').addClass('rank-' + rank).html(rank);
+
+					// Update the score if it changed since the last visit (e.g., players who play on different devices).
+					if(isCurrentPlayer && score > localStorage.getItem('best-score')) {
+						$('#best').find('.value').html(score);
+						localStorage.setItem('best-score', score);
+					}
 
 					rank++;
 
@@ -451,18 +460,22 @@ $(document).ready(function(){
 
 					setTimeout(function(){
 
+						// Define the format of the number for displaying the score.
+						var score_format = (localStorage.getItem('lang') == 'en') ? '$1,' : '$1&nbsp;';
+
 						$('html').css('overflow', 'hidden');
 						$('#overlay').addClass('show lower-opacity');
+
 						$('#username-modal-box')
 							.addClass('show')
 							.find('p').not('.alert').find('span')
-							.html(localStorage.getItem('best-score'));
+							.html(localStorage.getItem('best-score').replace(/(\d)(?=(\d{3})+$)/g, score_format));
 
 						$('form', '#username-modal-box').find('.username').removeClass('error').focus();
 						$('form', '#username-modal-box').find('.alert').addClass('hide');
 						$('form', '#username-modal-box').find('.submit').children('.confirmation').addClass('hide');
 						$('form', '#username-modal-box').find('.submit').children('.validation').removeClass('hide');
-						$('form', '#username-modal-box').find('.submit').children('[type=submit]').removeClass('disabled').attr('disabled', false);
+						$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').attr('disabled', false);
 
 					}, 2000);
 
@@ -902,7 +915,9 @@ $(document).ready(function(){
 
 			// Or else, reload the document.
 			else
-				location.reload();
+				setTimeout(function(){
+					document.location.reload();
+				});
 
 		}
 
@@ -940,8 +955,10 @@ $(document).ready(function(){
 
 	});
 
-	// When the "Show rules" button is pressed.
-	$('button').filter('#show-rules').on('click', function(){
+	// When the "Show rules" button or the "See the rules" link is pressed.
+	$('#show-rules, #how-to a').on('click', function(event){
+
+		event.preventDefault();
 
 		$('#rules, #overlay').addClass('show').removeClass('lower-opacity');
 		$('html').css('overflow', 'hidden');
@@ -952,7 +969,10 @@ $(document).ready(function(){
 	$('#rules, #rules .close').on('click', function(){
 
 		$('#rules, #overlay').removeClass('show');
-		$('html').css('overflow', 'auto');
+
+		setTimeout(function(){
+			$('html').css('overflow', 'auto');
+		}, 500);
 
 	});
 
@@ -994,23 +1014,26 @@ $(document).ready(function(){
 	$('#leaderboard, #leaderboard .close').on('click', function(){
 
 		$('#leaderboard, #overlay').removeClass('show');
-		$('html').css('overflow', 'auto');
 
 		setTimeout(function(){
 			$('.modal-box', '#leaderboard').find('.leaderboard-content').scrollTop(0);
+			$('html').css('overflow', 'auto');
 		}, 200);
 
 	});
 
-	// When the area outside the username modal box or the close button of the modal box is pressed.
-	$('#username-modal-box, #username-modal-box .close').on('click', function(){
+	// When the area outside the username modal box, the close button of the modal box or the later button is pressed.
+	$('#username-modal-box, #username-modal-box .close, #username-modal-box .later').on('click', function(){
 
 		$('#username-modal-box, #overlay').removeClass('show');
-		$('html').css('overflow', 'auto');
 
 		setTimeout(function(){
+
+			$('html').css('overflow', 'auto');
+
 			app.animateGrid();
 			timer.reset();
+
 		}, 200);
 
 	});
@@ -1027,7 +1050,7 @@ $(document).ready(function(){
 		else
 			app.saveScore(username, true);
 
-		$(this).find('.submit').children('[type=submit]').addClass('disabled').attr('disabled', true);
+		$(this).find('.form-buttons').find('.button').addClass('disabled').attr('disabled', true);
 
 	});
 
@@ -1070,6 +1093,10 @@ $(document).ready(function(){
 			$('#overlay').removeClass('show').find('.loader').addClass('hide');
 
 	}, 200);
+
+	// Show the "How to" text if the player has not yet played.
+	if(!localStorage.getItem('best-score') || parseInt(localStorage.getItem('best-score'), 10) == 0)
+		$('#how-to').removeClass('hide');
 
 	// Display the game in the language of the player or save the default value if it is not set.
 	if(!localStorage.getItem('lang'))

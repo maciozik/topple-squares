@@ -1,6 +1,6 @@
 {
   "name": "matrix",
-  "version": "2.3.0",
+  "version": "2.3.1",
   "description": "A little logic game about boxes.",
   "main": "gulpfile.js",
   "scripts": {

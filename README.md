@@ -11,3 +11,15 @@ Once the 3 right boxes are found, 3 new boxes are randomly activated and a new r
 ## Where can I play?
 
 You can play at the game [on my website](https://matrix.jonathan-macioszczyk.fr/) and try to get the best possible score. Have fun!
+
+## How can I contribute?
+
+Start by forking the project and create a new branch based on master.
+
+You can contribute by fixing bugs or by improving the game compatibility. You can also improve the English translation of the game which is originally a french project.
+
+So feel free to open a pull request, your changes are welcome.
+
+### Known issues
+
+ - CSS bug at the loading of the game on Firefox
