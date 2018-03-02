@@ -13,6 +13,7 @@
 	// Check the request.
 	if(!isset($_POST['username'])
 		|| !isset($_POST['score'])
+		|| !isset($_POST['device'])
 		|| !isset($_POST['lang'])
 		|| !isset($_POST['theme'])
 		|| !isset($_POST['details'])
@@ -22,6 +23,7 @@
 	// Get data.
 	$username = $_POST['username'];
 	$score = intval($_POST['score']);
+	$device = $_POST['device'];
 	$lang = $_POST['lang'];
 	$theme = $_POST['theme'];
 	$details = $_POST['details'];
@@ -30,7 +32,7 @@
 	// Check data.
 	if(!is_int($score)
 		|| $score <= 0
-		|| $score > 621000
+		|| $score > 731500
 		|| !preg_match('/^[a-z]{2}$/', $lang)
 		|| !preg_match('/^[a-z]{2,10}$/', $theme)
 		|| mb_strlen($details) > 8192
@@ -66,7 +68,7 @@
 	endif;
 
 	// Set the player's data and save it.
-	$playerData = $score . PHP_EOL . $lang . PHP_EOL . $theme . PHP_EOL . $details;
+	$playerData = $score . PHP_EOL . $device . PHP_EOL . $lang . PHP_EOL . $theme . PHP_EOL . $details;
 	$scoreboard = file_put_contents($playersDir, $playerData);
 
 	setStatusCodeAndExit(200);

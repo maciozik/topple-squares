@@ -103,7 +103,7 @@ gulp.task('watch', function(){
 
 /** Global Tasks **/
 
-gulp.task('build:app', ['build:css', 'min:js', 'replace:html']);
+gulp.task('build', ['build:css', 'min:js', 'replace:html']);
 gulp.task('default', ['build:app']);
 
 

@@ -1,16 +1,16 @@
 /** VARIABLES **/
 
-@background: #151618;
-@main: #2d313a;
-@dark: #1f2228;
-@light: #6c6f78;
-@white: #a5a5a8;
+@background: #0d0d0f;
+@main: #2a303a;
+@dark: #1a1d25;
+@light: #7a7f85;
+@white: #a8a8af;
 @green: #206f48;
 @red: #683235;
-@blue: #48f;
-@gold: #886f2a;
+@blue: #27f;
+@gold: #a0803a;
 @silver: #828295;
-@bronze: #60483c;
+@bronze: #65483c;
 
 /** MIXINS **/
 
@@ -31,7 +31,7 @@
 	border-width: 0;
 }
 
-.boxesColorWhenRights() {
+.squaresColorWhenRights() {
 	color: @main;
 }
 
@@ -80,8 +80,8 @@
 
 .leaderboardColorsAndRankColor() {
 
-	color: #85858a;
-	background-color: #1a1b1f;
+	color: #909095;
+	background-color: @dark;
 
 	.leaderboard-content .entry {
 
@@ -109,6 +109,11 @@
 	color: @light;
 }
 
+.modalBoxColors() {
+	color: #909095;
+	background-color: @dark;
+}
+
 .buttonsBgColors() {
 
 	background-color: @white;
@@ -123,7 +128,7 @@
 
 }
 
-.boxesThumbsBgColor() {
+.squaresThumbsBgColor() {
 	background-color: @light;
 	border-color: @light;
 }

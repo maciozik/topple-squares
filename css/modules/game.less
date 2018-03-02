@@ -2,7 +2,7 @@
 
 #game {
 	position: relative;
-	margin-top: 32px;
+	margin-top: 28px;
 	width: 100%;
 }
 
@@ -53,7 +53,7 @@
 			.value {
 				color: @green;
 
-				& > .box-thumb {
+				& > .square-thumb {
 					background-color: @green;
 					border: 2px solid @green;
 				}
@@ -82,12 +82,12 @@
 
 	&:not(.disabled) {
 
-		.box:not(.active):hover {
+		.square:not(.active):hover {
 			opacity: .9;
 		}
 	}
 
-	.box {
+	.square {
 		display: inline-block;
 		width: 30%;
 		margin: 1.467% 1.667%;
@@ -95,7 +95,7 @@
 		background-color: @light;
 		cursor: pointer;
 
-		.box-content {
+		.square-content {
 			font-size: 2.8rem;
 			font-weight: 300;
 		}
@@ -105,7 +105,7 @@
 		}
 
 		&.right {
-			.boxesColorWhenRights();
+			.squaresColorWhenRights();
 			background-color: @green;
 		}
 
@@ -150,7 +150,7 @@
 .game-1080p() {
 
 	#game {
-		margin-top: 25px;
+		margin-top: 22px;
 	}
 
 	#outputs {
@@ -159,7 +159,7 @@
 		flex-direction: row;
 		position: relative;
 		margin-right: 0;
-		margin-bottom: 15px;
+		margin-bottom: 10px;
 		width: 100%;
 
 		& > .panel {
@@ -180,6 +180,13 @@
 		margin-top: 15px;
 	}
 
+	#outputs {
+
+		& > .panel {
+			width: 32%;
+		}
+	}
+
 }
 
 .game-720p() {
@@ -196,7 +203,7 @@
 	}
 
 	#grid {
-		margin-top: -15px;
+		margin-top: -10px;
 		margin-bottom: 20px;
 	}
 
@@ -219,7 +226,7 @@
 
 			.label {
 				border-radius: 0;
-				letter-spacing: -.5px;
+				letter-spacing: -.2px;
 			}
 
 			&:first-child .label {
@@ -234,9 +241,9 @@
 
 	#grid {
 
-		.box {
+		.square {
 
-			.box-content {
+			.square-content {
 				font-size: 2.2rem;
 			}
 		}

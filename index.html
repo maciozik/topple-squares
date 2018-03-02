@@ -1,33 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" prefix="og: http://ogp.me/ns#">
 
 <head>
 
 	<meta charset="utf-8">
-	<title>Matrix - A little logic game about boxes</title>
-	<meta name="description" content="The purpose of the game is to find the 3 right boxes randomly activated among the 9 boxes of the grid.">
+	<title>Matrix - A little logic game about squares</title>
+	<meta name="description" content="The purpose of this logic game is to find the 3 right squares randomly activated among the 9 squares of the grid.">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
-	<link rel="apple-touch-icon" sizes="180x180" href="/icons/apple-touch-icon.png">
-	<link rel="icon" type="image/png" sizes="32x32" href="/icons/favicon-32x32.png">
-	<link rel="icon" type="image/png" sizes="16x16" href="/icons/favicon-16x16.png">
-	<link rel="manifest" href="/icons/manifest.json">
-	<link rel="mask-icon" href="/icons/safari-pinned-tab.svg" color="#3a75aa">
-	<link rel="shortcut icon" href="/icons/favicon.ico">
-	<meta name="msapplication-TileColor" content="#3a75aa">
-	<meta name="msapplication-TileImage" content="/icons/mstile-144x144.png">
-	<meta name="msapplication-config" content="/icons/browserconfig.xml">
+	<meta name="twitter:card" content="summary">
+	<meta name="twitter:site" content="@maciozik">
+	<meta name="twitter:title" content="Matrix - A little logic game about squares">
+	<meta name="twitter:description" content="The purpose of this logic game is to find the 3 right squares randomly activated among the 9 squares of the grid.">
+	<meta name="twitter:image" content="https://matrix.jonathan-macioszczyk.fr/img/grid.jpg">
+
+	<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="icons/android-chrome-192x192.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16x16.png">
+	<link rel="manifest" href="icons/site.webmanifest">
+	<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#2c3d5f">
+	<link rel="shortcut icon" href="icons/favicon.ico">
+	<meta name="apple-mobile-web-app-title" content="Matrix">
+	<meta name="application-name" content="Matrix">
+	<meta name="msapplication-TileColor" content="#3a5890">
+	<meta name="msapplication-TileImage" content="icons/mstile-144x144.png">
+	<meta name="msapplication-config" content="icons/browserconfig.xml">
 	<meta name="theme-color" content="#ffffff">
 
 	<link rel="stylesheet" href="css/vendor/font-awesome.min.css" type="text/css">
 	<link class="app-theme-default" rel="stylesheet" href="css/app-light.css" type="text/css">
-	<link class="app-theme" rel="stylesheet" href="" type="text/css">
+	<link class="app-theme" rel="stylesheet" href="#" type="text/css">
 
 </head>
 
 <body>
 
 	<section role="main">
+
+		<h1 class="hide">Matrix - A little logic game about squares</h1>
 
 		<!-- HEADERS -->
 
@@ -134,11 +145,11 @@
 				<div class="panel" id="rights">
 
 					<span class="label">
-						<span lang="en">Boxes found</span>
+						<span lang="en">Squares found</span>
 						<span lang="fr">Cases trouvées</span>
 					</span>
 					<span class="value">
-						<span class="box-thumb null"></span>
+						<span class="square-thumb null"></span>
 					</span>
 
 				</div>
@@ -149,32 +160,32 @@
 
 			<section id="grid">
 
-				<div class="box">
-					<div class="box-content"><div><span>7</span></div></div>
+				<div class="square">
+					<div class="square-content"><div><span>7</span></div></div>
 				</div><!--
-			 --><div class="box">
-					<div class="box-content"><div><span>8</span></div></div>
+			 --><div class="square">
+					<div class="square-content"><div><span>8</span></div></div>
 				</div><!--
-			 --><div class="box">
-					<div class="box-content"><div><span>9</span></div></div>
+			 --><div class="square">
+					<div class="square-content"><div><span>9</span></div></div>
 				</div><!--
-			 --><div class="box">
-					<div class="box-content"><div><span>4</span></div></div>
+			 --><div class="square">
+					<div class="square-content"><div><span>4</span></div></div>
 				</div><!--
-			 --><div class="box">
-					<div class="box-content"><div><span>5</span></div></div>
+			 --><div class="square">
+					<div class="square-content"><div><span>5</span></div></div>
 				</div><!--
-			 --><div class="box">
-					<div class="box-content"><div><span>6</span></div></div>
+			 --><div class="square">
+					<div class="square-content"><div><span>6</span></div></div>
 				</div><!--
-			 --><div class="box">
-					<div class="box-content"><div><span>1</span></div></div>
+			 --><div class="square">
+					<div class="square-content"><div><span>1</span></div></div>
 				</div><!--
-			 --><div class="box">
-					<div class="box-content"><div><span>2</span></div></div>
+			 --><div class="square">
+					<div class="square-content"><div><span>2</span></div></div>
 				</div><!--
-			 --><div class="box">
-					<div class="box-content"><div><span>3</span></div></div>
+			 --><div class="square">
+					<div class="square-content"><div><span>3</span></div></div>
 				</div>
 
 			</section>
@@ -186,7 +197,7 @@
 				<div lang="en">
 
 					<span>How to play?</span>
-					<span>Select 3 boxes in the grid and use the indicator of <b>boxes found</b> after each attempt to uncover the 3 right boxes randomly activated by the game.</span>
+					<span>Select 3 squares in the grid and use the indicator of <b>squares found</b> after each attempt to uncover the 3 right squares randomly activated by the game.</span>
 					<a href="">See the rules</a>
 
 				</div>
@@ -232,25 +243,25 @@
 				</div>
 
 				<h2>How to play</h2>
-				<p>The purpose of the game is to <b>uncover the 3 right boxes</b> randomly activated among the 9 boxes of the grid.</p>
-				<p>You have to select 3 different boxes per attempt. The number of right boxes found among the 3 boxes you selected is displayed at the end of each attempt (*), <b>but you will not know</b> which of the 3 boxes selected are right and which ones are wrong.</p>
-				<p>Once the 3 right boxes are found, 3 new boxes are randomly activated and a new round begins. You can make as many attempts as you want per round in order to find the 3 right boxes, and as many rounds as you can within the time limit.</p>
-				<p>Select a new box directly via the screen, or <b>use the keys from 1 to 9 on your numpad</b>. Run a new game by selecting a first box, or by pressing <b>Enter</b> or <b>Space</b>. Press <b>Escape</b> or reload the page to run a new game.</p>
+				<p>The purpose of the game is to <b>uncover the 3 right squares</b> randomly activated among the 9 squares of the grid.</p>
+				<p>You have to select 3 different squares per attempt. The number of right squares found among the 3 squares you selected is displayed at the end of each attempt (*), <b>but you will not know</b> which of the 3 squares selected are right and which ones are wrong.</p>
+				<p>Once the 3 right squares are found, 3 new squares are randomly activated and a new round begins. You can make as many attempts as you want per round in order to find the 3 right squares, and as many rounds as you can within the time limit.</p>
+				<p>Select a new square directly via the screen, or <b>use the keys from 1 to 9 on your numpad</b>. Run a new game by selecting a first square, or by pressing <b>Enter</b> or <b>Space</b>. Press <b>Escape</b> or reload the page to run a new game.</p>
 
 				<h2>How to earn points</h2>
-				<p>You can increase your score after each round you win. The number of points earned is determined by <b>the time you spent</b> to complete the round and by <b>the number of attempts you made</b>.</p>
-				<p><b>But be careful:</b> you lose points each time you select the 3 same boxes several times on the same round, or by spending too much time between each attempt.</p>
+				<p>You can increase your score after each round you win. The number of points earned is determined by <b>the time you spent</b> to complete the round and by <b>the number of attempts you made</b>. You also earn bonus points automatically at the end of the game, resulting from the total number of rounds won.</p>
+				<p><b>But be careful:</b> you lose points each time you select the 3 same squares several times on the same round, or by spending too much time between each attempt.</p>
 
 				<h2>How can I report a bug?</h2>
 				<p>You can report a bug directly on the <a href="https://github.com/maciozik/matrix/issues" target="_blank" rel="noopener">GitHub repository</a> of the game.</p>
 
 				<br><hr><br>
 
-				<p class="tip">(*) Number of boxes found among the ones selected:<br><br>
-					<span class="box-thumb invisible"></span><span class="box-thumb invisible"></span><span class="box-thumb null"></span>&nbsp;&nbsp;&nbsp;&nbsp; 0 right box<br>
-					<span class="box-thumb invisible"></span><span class="box-thumb invisible"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 1 right box<br>
-					<span class="box-thumb invisible"></span><span class="box-thumb"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 2 right boxes<br>
-					<span class="box-thumb"></span><span class="box-thumb"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 3 right boxes<br>
+				<p class="tip">(*) Number of squares found among the ones selected:<br><br>
+					<span class="square-thumb invisible"></span><span class="square-thumb invisible"></span><span class="square-thumb null"></span>&nbsp;&nbsp;&nbsp;&nbsp; 0 right square<br>
+					<span class="square-thumb invisible"></span><span class="square-thumb invisible"></span><span class="square-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 1 right square<br>
+					<span class="square-thumb invisible"></span><span class="square-thumb"></span><span class="square-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 2 right squares<br>
+					<span class="square-thumb"></span><span class="square-thumb"></span><span class="square-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 3 right squares<br>
 				</p>
 
 			</div>
@@ -280,7 +291,7 @@
 				<p>Sélectionnez une nouvelle case directement depuis l'écran, ou <b>utilisez les touches de 1 à 9 de votre clavier numérique</b>. Lancez une nouvelle partie en sélectionnant une première case, ou en appuyant sur <b>Entrer</b> ou <b>Espace</b>. Appuyez sur <b>Échap.</b> ou rechargez la page pour lancer une nouvelle partie.</p>
 
 				<h2>Comment gagner des points ?</h2>
-				<p>You pouvez augmenter votre score après chaque tour remporté. Le nombre de points gagnés est déterminé par <b>le temps que vous avez mis</b> pour remporter le tour, ainsi que par <b>le nombre d'essais effectués</b>.</p>
+				<p>Vous pouvez augmenter votre score après chaque tour remporté. Le nombre de points gagnés est déterminé par <b>le temps que vous avez mis</b> pour remporter le tour, ainsi que par <b>le nombre d'essais effectués</b>. De plus, vous gagnez automatiquement des points bonus à la fin de la partie correspondants au nombre total de tours remportés.</p>
 				<p><b>Mais attention :</b> vous perdez des points à chaque fois que vous sélectionnez les 3 mêmes cases à plusieurs reprises dans le même tour, ainsi qu'en attendant trop longtemps entre chaque essai.</p>
 
 				<h2>Comment signaler un bug ?</h2>
@@ -289,10 +300,10 @@
 				<br><hr><br>
 
 				<p class="tip">(*) Nombre de cases trouvées parmi celles sélectionnées :<br><br>
-					<span class="box-thumb invisible"></span><span class="box-thumb invisible"></span><span class="box-thumb null"></span>&nbsp;&nbsp;&nbsp;&nbsp; 0 case bonne<br>
-					<span class="box-thumb invisible"></span><span class="box-thumb invisible"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 1 case bonne<br>
-					<span class="box-thumb invisible"></span><span class="box-thumb"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 2 cases bonnes<br>
-					<span class="box-thumb"></span><span class="box-thumb"></span><span class="box-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 3 cases bonnes<br>
+					<span class="square-thumb invisible"></span><span class="square-thumb invisible"></span><span class="square-thumb null"></span>&nbsp;&nbsp;&nbsp;&nbsp; 0 case bonne<br>
+					<span class="square-thumb invisible"></span><span class="square-thumb invisible"></span><span class="square-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 1 case bonne<br>
+					<span class="square-thumb invisible"></span><span class="square-thumb"></span><span class="square-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 2 cases bonnes<br>
+					<span class="square-thumb"></span><span class="square-thumb"></span><span class="square-thumb"></span>&nbsp;&nbsp;&nbsp;&nbsp; 3 cases bonnes<br>
 				</p>
 
 			</div>
@@ -329,8 +340,8 @@
 				<h3>Congrats !</h3>
 
 				<p>Your new best score is <b><span></span> points</b>.</p>
-				<p>You can save this score in the worldwide leaderboard by entering a username:</p>
-				<input class="username" type="text" placeholder="3 to 24 characters" maxlength="24">
+				<p>You can save this score in the worldwide leaderboard by entering a <label for="username-en">username</label>:</p>
+				<input class="username" type="text" placeholder="3 to 24 characters" maxlength="24" id="username-en">
 
 				<p class="alert error hide http-400">The request is invalid. Please try again.</p>
 				<p class="alert error hide http-403">The request can not be executed. Please try again.</p>
@@ -342,7 +353,7 @@
 				<div class="form-buttons">
 
 					<div class="submit">
-						<input class="button validation" type="submit" value="Confirm">
+						<input class="button validation" type="submit" value="Save">
 						<input class="button confirmation hide" type="submit" value="Yes, I am sure">
 					</div>
 
@@ -358,8 +369,8 @@
 				<h3>Félicitation !</h3>
 
 				<p>Votre nouveau record est de <b><span></span> points</b>.</p>
-				<p>Pour enregistrer ce score dans le classement mondial, entrez un nom d'utilisateur :</p>
-				<input class="username" type="text" placeholder="3 à 24 caractères" maxlength="24" autofocus>
+				<p>Pour enregistrer ce score dans le classement mondial, entrez un <label for="username-fr">nom d'utilisateur</label> :</p>
+				<input class="username" type="text" placeholder="3 à 24 caractères" maxlength="24" id="username-fr">
 
 				<p class="alert error hide http-400">La requête est erronée. Veuillez réessayer.</p>
 				<p class="alert error hide http-403">La requête ne peut pas être exécutée. Veuillez réessayer.</p>

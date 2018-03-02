@@ -1,5 +1,6 @@
 {
-    "name": "",
+    "name": "Matrix - A little logic game about squares",
+    "short_name": "Matrix",
     "icons": [
         {
             "src": "/icons/android-chrome-192x192.png",

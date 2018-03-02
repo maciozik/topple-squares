@@ -4,7 +4,7 @@
 	display: flex;
 	justify-content: space-between;
 	align-items: flex-start;
-	margin-top: 35px;
+	margin-top: 30px;
 	width: 100%;
 }
 
@@ -20,7 +20,7 @@
 
 	& > span {
 		display: inline-block;
-		padding-top: 5px;
+		padding-top: 6px;
 		padding-bottom: 10px;
 		width: 100%;
 	}
@@ -33,7 +33,7 @@
 		margin-left: 5px;
 		min-width: 135px;
 		text-align: center;
-		letter-spacing: .5px;
+		letter-spacing: 0;
 	}
 
 	#score {
@@ -120,8 +120,8 @@
 		letter-spacing: 0;
 
 		& > span {
-			padding-top: 3px;
-			padding-bottom: 8px;
+			padding-top: 4px;
+			padding-bottom: 7px;
 		}
 	}
 
@@ -166,11 +166,25 @@
 .state-720p() {
 
 	#state {
-		margin-top: 20px;
+		margin-top: 18px;
 	}
 
 	#player {
-		margin-top: 20px;
+		margin-top: 18px;
+	}
+
+}
+
+.state-480p() {
+
+	#player {
+
+		& > .panel {
+
+			.label {
+				letter-spacing: 0;
+			}
+		}
 	}
 
 }

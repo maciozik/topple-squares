@@ -7,8 +7,9 @@ $(document).ready(function(){
 	 */
 	var app = {
 
-		gridBoxes_AnimationTiming: (500 - 150),
-		btwEach_gridBoxes_animationDelay: 50,
+		delay_before_gridSquares_animation: 365,
+		gridSquares_AnimationTiming: 350,
+		btwEach_gridSquares_animationDelay: 50,
 
 		/**
 		 * Change the language of the application.
@@ -48,29 +49,29 @@ $(document).ready(function(){
 
 				setTimeout(function(i){
 
-					var $box = $('.box', '#grid')
+					var $square = $('.square', '#grid')
 								.find('span:contains(' + i + ')')
-								.parents('.box');
+								.parents('.square');
 
-					$box.addClass('rotate');
+					$square.addClass('rotate');
 
 					setTimeout(function(){
-						$box.addClass('back')
+						$square.addClass('back')
 					}, 90);
 
 					setTimeout(function(){
-						$box.removeClass('active right not-found back')
+						$square.removeClass('active right not-found back')
 					}, 225);
 
 					if(i == 9) {
 
 						setTimeout(function(){
-							$('.box', '#grid').removeClass('rotate');
-						}, app.gridBoxes_AnimationTiming);
+							$('.square', '#grid').removeClass('rotate');
+						}, app.gridSquares_AnimationTiming);
 
 					}
 
-				}, this.btwEach_gridBoxes_animationDelay * i, i);
+				}, this.btwEach_gridSquares_animationDelay * i, i);
 
 			}
 
@@ -85,7 +86,8 @@ $(document).ready(function(){
 
 			var data = {
 				username: username,
-				score: parseInt(localStorage.getItem('best-score'), 10),
+				score: parseInt(localStorage.getItem('best'), 10),
+				device: 'desktop',
 				lang: localStorage.getItem('lang'),
 				theme: localStorage.getItem('theme'),
 				details: JSON.stringify(game.currentGame),
@@ -140,11 +142,15 @@ $(document).ready(function(){
 			})
 			.always(function(data){
 
+				// Get the old score.
 				var old_score = (data.responseText !== undefined) ? data.responseText : data;
+
+				// Define the format of the number for displaying the old score.
+				var score_format = (localStorage.getItem('lang') == 'en') ? '$1,' : '$1&nbsp;';
 
 				$('form', '#username-modal-box')
 					.find('p').filter('.alert').find('span')
-					.html(old_score);
+					.html(old_score.replace(/(\d)(?=(\d{3})+$)/g, score_format));
 
 			});
 
@@ -204,9 +210,9 @@ $(document).ready(function(){
 						$('#best').find('.rank').removeClass('hide').removeClass('rank-1 rank-2 rank-3').addClass('rank-' + rank).html(rank);
 
 					// Update the score if it changed since the last visit (e.g., players who play on different devices).
-					if(isCurrentPlayer && score > localStorage.getItem('best-score')) {
+					if(isCurrentPlayer && score > localStorage.getItem('best')) {
 						$('#best').find('.value').html(score);
-						localStorage.setItem('best-score', score);
+						localStorage.setItem('best', score);
 					}
 
 					rank++;
@@ -239,8 +245,8 @@ $(document).ready(function(){
 
 			setInterval(function(){
 
-				$.each(game.rightBoxes, function(index, box){
-					$('.box', '#grid').children('.box-content').find('span').filter(':contains(' + box + ')').click();
+				$.each(game.rightSquares, function(index, square){
+					$('.square', '#grid').children('.square-content').find('span').filter(':contains(' + square + ')').click();
 				});
 
 			}, 4);
@@ -314,7 +320,7 @@ $(document).ready(function(){
 				if(timer.lasted >= timer.time)
 					clearInterval(timer.reset_interval_id);
 
-			}, (app.btwEach_gridBoxes_animationDelay * 9 + app.gridBoxes_AnimationTiming) * 1000 / timer.time);
+			}, (app.btwEach_gridSquares_animationDelay * 9 + app.gridSquares_AnimationTiming) * 1000 / timer.time);
 
 		},
 
@@ -343,7 +349,7 @@ $(document).ready(function(){
 
 		/**
 		 * Set the points earned for each round won.
-		 * @param {int} time					 The time spent to win the round.
+		 * @param {int} time The time spent to win the round.
 		 * @param {int} attempts The number of attempts made to win the round.
 		 */
 		set: function(time, attempts) {
@@ -356,13 +362,13 @@ $(document).ready(function(){
 			if(points < 1500)
 				points = 1500;
 
-			this.add(points);
+			this.add(points, false);
 
 		},
 
 		/**
 		 * Add points to the score.
-		 * @param {int} points
+		 * @param {int}  points
 		 */
 		add: function(points) {
 
@@ -450,9 +456,9 @@ $(document).ready(function(){
 		 */
 		saveBest: function() {
 
-			if(this.total > localStorage.getItem('best-score')) {
+			if(this.total > localStorage.getItem('best')) {
 
-				localStorage.setItem('best-score', this.total);
+				localStorage.setItem('best', this.total);
 				$('#best').addClass('new-best').find('.value').html(this.total);
 
 				// Display the username modal box if it is not saved, or save the new best score directly.
@@ -469,7 +475,7 @@ $(document).ready(function(){
 						$('#username-modal-box')
 							.addClass('show')
 							.find('p').not('.alert').find('span')
-							.html(localStorage.getItem('best-score').replace(/(\d)(?=(\d{3})+$)/g, score_format));
+							.html(localStorage.getItem('best').replace(/(\d)(?=(\d{3})+$)/g, score_format));
 
 						$('form', '#username-modal-box').find('.username').removeClass('error').focus();
 						$('form', '#username-modal-box').find('.alert').addClass('hide');
@@ -501,8 +507,8 @@ $(document).ready(function(){
 	 */
 	var game = {
 
-		boxes: [],
-		rightBoxes: [],
+		squares: [],
+		rightSquares: [],
 
 		rights: 0,
 		attempts: 0,
@@ -538,8 +544,8 @@ $(document).ready(function(){
 
 			$('#best').removeClass('new-best');
 
-			// Get the 3 random boxes.
-			this.getRandomBoxes();
+			// Get the 3 random squares.
+			this.getRandomSquares();
 
 			// Run the timer.
 			timer.run($('#timer').find('span'), $('#progress-bar'));
@@ -552,7 +558,7 @@ $(document).ready(function(){
 			// Remove points if an attempt is too long.
 			this.currentAttempt_interval_id = setInterval(function(){
 
-				if(game.currentAttempt_time > timer.lasted + 3000)
+				if(game.currentAttempt_time > timer.lasted + 4500 & score.total !== 0 & timer.lasted > 500)
 					score.sub(200);
 
 			}, 1000);
@@ -569,8 +575,7 @@ $(document).ready(function(){
 		 */
 		end: function() {
 
-
-			this.boxes = [];
+			this.squares = [];
 
 			this.currentAttempt_time = timer.time;
 			this.currentRound_time = timer.time;
@@ -583,7 +588,7 @@ $(document).ready(function(){
 			this.areInputsBlocked = true;
 
 			$('#grid').addClass('disabled');
-			$('.box', '#grid').removeClass('active');
+			$('.square', '#grid').removeClass('active');
 			$('#rights', '#outputs').removeClass('right');
 
 			// Clear the setInterval() which removes points if an attempt is too long.
@@ -592,12 +597,15 @@ $(document).ready(function(){
 			// Stop the timer.
 			timer.stop();
 
-			// Display the rights boxes.
-			$.each(this.rightBoxes, function(id, box){
+			// Add points to the score as a rounds bonus (+500 points per round won)
+			score.add($('#rounds').find('.value').html() * 500, true);
 
-				$('.box', '#grid')
-					.find('span:contains(' + box + ')')
-					.parents('.box').addClass('not-found');
+			// Display the rights squares.
+			$.each(this.rightSquares, function(id, square){
+
+				$('.square', '#grid')
+					.find('span:contains(' + square + ')')
+					.parents('.square').addClass('not-found');
 
 			});
 
@@ -619,86 +627,97 @@ $(document).ready(function(){
 					game.isGameReady = true;
 					game.areInputsBlocked = false;
 
-				}, app.btwEach_gridBoxes_animationDelay * 9 + app.gridBoxes_AnimationTiming);
+				}, app.btwEach_gridSquares_animationDelay * 9 + app.gridSquares_AnimationTiming);
 
 			}, 3000, mustUsernameModalBoxBeDisplayed);
 
 		},
 
 		/**
-		 * Get the 3 random boxes.
+		 * Get the 3 random squares.
 		 */
-		getRandomBoxes: function() {
+		getRandomSquares: function() {
 
-			game.rightBoxes = [];
+			game.rightSquares = [];
 
 			for(var i=0; i<3; i++) {
 
 				do {
-					var box = Math.floor(Math.random() * 9) + 1;
-				} while($.inArray(box, game.rightBoxes) !== -1);
+					var square = Math.floor(Math.random() * 9) + 1;
+				} while($.inArray(square, game.rightSquares) !== -1);
 
-				game.rightBoxes.push(box);
+				game.rightSquares.push(square);
 
 			}
 
 		},
 
 		/**
-		 * Save each box selected by the player.
-		 * @param {int} box
+		 * Save each square selected by the player.
+		 * @param {int} square
 		 */
-		keyPressed: function(box) {
+		squareSelected: function(square) {
 
 			if(!this.isGameRunning || this.areInputsBlocked)
 				return false;
 
-			if($.inArray(box, this.boxes) !== -1)
+			// If the square was already selected before.
+			if($.inArray(square, this.squares) !== -1) {
+
+				$('.square', '#grid')
+					.find('span:contains(' + square + ')')
+					.parents('.square').removeClass('active');
+
+				this.squares = $.grep(this.squares, function(squareNumber) {
+					return squareNumber != square;
+				});
+
 				return false;
+			}
 
-			$('.box', '#grid')
-				.find('span:contains(' + box + ')')
-				.parents('.box').addClass('active');
+			$('.square', '#grid')
+				.find('span:contains(' + square + ')')
+				.parents('.square').addClass('active');
 
-			this.boxes.push(box);
+			this.squares.push(square);
 
-			// When 3 boxes are selected by the player.
-			if(this.boxes.length === 3)
-				this.checkBoxes();
+			// When 3 squares are selected by the player.
+			if(this.squares.length === 3)
+				this.checkSquares();
 
 		},
 
 		/**
-		 * Check the boxes selected by the player.
+		 * Check the squares selected by the player.
 		 */
-		checkBoxes: function() {
+		checkSquares: function() {
 
 			var currentAttempt = [];
 			this.areInputsBlocked = true;
 
-			// Count the right boxes found.
-			$.each(this.boxes, function(id, box){
+			// Count the right squares found.
+			$.each(this.squares, function(id, square){
 
-				currentAttempt.push(box);
+				currentAttempt.push(square);
 
-				if($.inArray(box, game.rightBoxes) !== -1)
+				if($.inArray(square, game.rightSquares) !== -1)
 					game.rights++;
 
 			});
 
-			// Remove points when same boxes are selected more than once.
+			// Remove points when same squares are selected more than once.
 			$.each(game.currentRound_attempts, function(id, attempt){
 
-				var nbOf_boxesMatched = 0;
+				var nbOf_squaresMatched = 0;
 
-				$.each(currentAttempt, function(id, box){
+				$.each(currentAttempt, function(id, square){
 
-					if($.inArray(box, attempt) !== -1)
-						nbOf_boxesMatched++;
+					if($.inArray(square, attempt) !== -1)
+						nbOf_squaresMatched++;
 
 				});
 
-				if(nbOf_boxesMatched === 3) {
+				if(nbOf_squaresMatched === 3) {
 					score.sub(500);
 					return false;
 				}
@@ -708,7 +727,7 @@ $(document).ready(function(){
 			this.currentRound_attempts.push(currentAttempt);
 			this.updateRights();
 
-			// When the 3 boxes are found.
+			// When the 3 squares are found.
 			if(this.rights === 3)
 				shouldNextRoundBeRun = true;
 			else
@@ -724,7 +743,7 @@ $(document).ready(function(){
 		 */
 		nextAttempt: function(shouldNextRoundBeRun) {
 
-			this.boxes = [];
+			this.squares = [];
 			this.rights = 0;
 			this.attempts++;
 			this.currentAttempt_time = timer.lasted;
@@ -738,13 +757,12 @@ $(document).ready(function(){
 
 			} else {
 
-				// Blink the panel of rights cases as tip during one round for new players
-				if(parseInt(localStorage.getItem('best-score'), 10) == 0 && game.rounds <= 1)
-					$('#rights', '#outputs').addClass('blink');
+				// Blink the panel of rights cases as a tip for the player.
+				$('#rights', '#outputs').addClass('blink');
 
 				setTimeout(function(){
 
-					$('.box', '#grid').removeClass('active');
+					$('.square', '#grid').removeClass('active');
 					$('#rights', '#outputs').removeClass('blink');
 
 					game.areInputsBlocked = false;
@@ -771,16 +789,16 @@ $(document).ready(function(){
 					this.currentRound_time - timer.lasted,
 					this.attempts,
 					this.currentRound_attempts,
-					this.rightBoxes,
-					$('.box', '#grid').filter('.active')
+					this.rightSquares,
+					$('.square', '#grid').filter('.active')
 				);
 
-				this.rightBoxes = [];
+				this.rightSquares = [];
 				this.attempts = 0;
 				this.currentRound_attempts = [];
 
 				$('#grid').addClass('disabled');
-				$('.box', '#grid').filter('.active').addClass('right');
+				$('.square', '#grid').filter('.active').addClass('right');
 				$('#rights', '#outputs').addClass('right');
 
 				// Prepare the next round with the animation.
@@ -797,16 +815,16 @@ $(document).ready(function(){
 						$('#grid').removeClass('disabled');
 						$('#rights', '#outputs').removeClass('right');
 
-						// Get the 3 random boxes.
-						game.getRandomBoxes();
+						// Get the 3 random squares.
+						game.getRandomSquares();
 
 						game.areInputsBlocked = false;
 						game.currentRound_time = timer.lasted;
 						game.updateRights();
 
-					}, app.btwEach_gridBoxes_animationDelay * 9 + app.gridBoxes_AnimationTiming);
+					}, app.btwEach_gridSquares_animationDelay * 9 + app.gridSquares_AnimationTiming);
 
-				}, 500);
+				}, app.delay_before_gridSquares_animation);
 
 			}
 
@@ -818,14 +836,14 @@ $(document).ready(function(){
 		},
 
 		/**
-		 * Save the time spent for the current round, the number of the attempts made during this round, the details of each attempt, the right boxes, and the boxes selected by the user.
+		 * Save the time spent for the current round, the number of the attempts made during this round, the details of each attempt, the right squares, and the squares selected by the user.
 		 * @param {int} time
 		 * @param {obj} attempts
 		 * @param {arr} currentRound_attempts
-		 * @param {arr} rightBoxes
-		 * @param {obj} $activeBoxes
+		 * @param {arr} rightSquares
+		 * @param {obj} $activeSquares
 		 */
-		saveCurrentRound: function(time, attempts, currentRound_attempts, rightBoxes, $activeBoxes) {
+		saveCurrentRound: function(time, attempts, currentRound_attempts, rightSquares, $activeSquares) {
 
 			this.currentGame.rounds.push({
 				time: time,
@@ -833,9 +851,9 @@ $(document).ready(function(){
 					count: attempts,
 					each: currentRound_attempts
 				},
-				boxes: {
-					rights: rightBoxes,
-					displayedAsRights: $.map($activeBoxes, function(element){
+				squares: {
+					rights: rightSquares,
+					displayedAsRights: $.map($activeSquares, function(element){
 						return parseInt(element.innerText, 10);
 					})
 				}
@@ -844,7 +862,7 @@ $(document).ready(function(){
 		},
 
 		/**
-		 * Update the display of the right boxes found for each change.
+		 * Update the display of the right squares found for each change.
 		 */
 		updateRights: function() {
 
@@ -852,12 +870,12 @@ $(document).ready(function(){
 
 			if(this.rights === 0) {
 
-				rights_html = '<span class="box-thumb null"></span>';
+				rights_html = '<span class="square-thumb null"></span>';
 
 			} else {
 
 				$.each(new Array(this.rights), function(){
-					rights_html+= '<span class="box-thumb"></span>';
+					rights_html+= '<span class="square-thumb"></span>';
 				});
 
 			}
@@ -932,7 +950,7 @@ $(document).ready(function(){
 
 				// Only numeric keys.
 				if(key.which >= 97 && key.which <= 105)
-					game.keyPressed(key.which - 96);
+					game.squareSelected(key.which - 96);
 
 			}
 
@@ -947,11 +965,11 @@ $(document).ready(function(){
 
 	});
 
-	// When a box is selected by the player.
-	$('.box', '#grid').on('click', function() {
+	// When a square is selected.
+	$('.square', '#grid').on('click', function() {
 
 		game.start();
-		game.keyPressed(parseInt($(this).find('span').html(), 10));
+		game.squareSelected(parseInt($(this).find('span').html(), 10));
 
 	});
 
@@ -1057,7 +1075,7 @@ $(document).ready(function(){
 	// When the settings section or a link on the rules, or a modal box is pressed.
 	$('#rules .settings, #rules a, .modal-box', document).on('click', function(event){
 
-		// Stop the propagation to prevent the rules or the modal boxes from closing.
+		// Stop the propagation to prevent the rules or the modal squares from closing.
 		event.stopPropagation();
 
 	});
@@ -1076,10 +1094,10 @@ $(document).ready(function(){
 	/* - - - -  - - - */
 
 	// Display the best score of the player or save the default value if it is not set.
-	if(!localStorage.getItem('best-score'))
-		localStorage.setItem('best-score', 0);
+	if(!localStorage.getItem('best'))
+		localStorage.setItem('best', 0);
 
-	$('#best').find('.value').html(localStorage.getItem('best-score'));
+	$('#best').find('.value').html(localStorage.getItem('best'));
 
 	// Get the leaderboard.
 	app.getScores();
@@ -1087,7 +1105,7 @@ $(document).ready(function(){
 	// Hide the loader and display the controls screen if the player has not yet played.
 	setTimeout(function(){
 
-		if(!localStorage.getItem('best-score') || parseInt(localStorage.getItem('best-score'), 10) == 0)
+		if(!localStorage.getItem('best') || parseInt(localStorage.getItem('best'), 10) == 0)
 			$('#overlay').addClass('controls').find('.loader').addClass('hide').siblings('div').removeClass('hide');
 		else
 			$('#overlay').removeClass('show').find('.loader').addClass('hide');
@@ -1095,7 +1113,7 @@ $(document).ready(function(){
 	}, 200);
 
 	// Show the "How to" text if the player has not yet played.
-	if(!localStorage.getItem('best-score') || parseInt(localStorage.getItem('best-score'), 10) == 0)
+	if(!localStorage.getItem('best') || parseInt(localStorage.getItem('best'), 10) == 0)
 		$('#how-to').removeClass('hide');
 
 	// Display the game in the language of the player or save the default value if it is not set.
