@@ -1,12 +1,5 @@
 <?php
 
-	// Create directories if not exist.
-	if(!is_dir('../data/'))
-		mkdir('../data/');
-
-	if(!is_dir('../data/players/'))
-		mkdir('../data/players/');
-
 	// Set the path of the directory containing the players data and open it.
 	$playersDir = '../data/players/';
 	$playersDirRes = opendir($playersDir);
@@ -19,6 +12,9 @@
 
 		if(filetype($playersDir . $file) != 'file' || pathinfo($playersDir . $file)['extension'] != 'txt')
 			continue;
+
+		// if(pathinfo($playersDir . $file)['filename'] == 'maciozik')
+		// 	continue;
 
 		$playerUsername = pathinfo($playersDir . $file)['filename'];
 		$playerScore = file($playersDir . $file, FILE_IGNORE_NEW_LINES)[0];

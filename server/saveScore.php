@@ -1,33 +1,27 @@
 <?php
 
-	/**
-	 * Set the status code of the document and exit the script with the data if exist.
-	 * @param statusCode $statusCode
-	 * @param data $data
-	 */
-	function setStatusCodeAndExit($statusCode, $data = '') {
-		http_response_code($statusCode);
-		exit($data);
-	}
+	require 'functions.php';
 
 	// Check the request.
 	if(!isset($_POST['username'])
+		|| !isset($_POST['gamekey'])
 		|| !isset($_POST['score'])
 		|| !isset($_POST['device'])
 		|| !isset($_POST['lang'])
 		|| !isset($_POST['theme'])
+		|| !isset($_POST['foundsquaresstyle'])
 		|| !isset($_POST['details'])
-		|| !isset($_POST['requiresConfirmation'])
 	) setStatusCodeAndExit(400);
 
 	// Get data.
 	$username = $_POST['username'];
+	$gameKey = $_POST['gamekey'];
 	$score = intval($_POST['score']);
 	$device = $_POST['device'];
 	$lang = $_POST['lang'];
 	$theme = $_POST['theme'];
+	$foundSquaresStyle = $_POST['foundsquaresstyle'];
 	$details = $_POST['details'];
-	$requiresConfirmation = $_POST['requiresConfirmation'];
 
 	// Check data.
 	if(!is_int($score)
@@ -35,42 +29,37 @@
 		|| $score > 731500
 		|| !preg_match('/^[a-z]{2}$/', $lang)
 		|| !preg_match('/^[a-z]{2,10}$/', $theme)
+		|| !preg_match('/^[a-z]{2,10}$/', $foundSquaresStyle)
 		|| mb_strlen($details) > 8192
-	) setStatusCodeAndExit(403);
+	) setStatusCodeAndExit(400);
 
 	// Check the player's username.
 	if(!preg_match('/^[a-zA-Z][a-zA-Z0-9_-]{2,23}$/', $username))
 		setStatusCodeAndExit(422);
 
-	// Create directories if not exist.
-	if(!is_dir('../data/'))
-		mkdir('../data/');
+	// Set the path of the file containing the players data.
+	$playerFile = '../data/players/' . $username . '.txt';
 
-	if(!is_dir('../data/players/'))
-		mkdir('../data/players/');
+	// If the player is not registered yet.
+	if(!file_exists($playerFile)):
 
-	// Set the path of the directory containing the players data.
-	$playersDir = '../data/players/' . $username . '.txt';
+		// Generate the game key.
+		$gameKey = array_rand(array_flip(str_split('abcdefghijklmnopqrstuvwxyz')), 6);
+		shuffle($gameKey);
+		$gameKey = implode('', $gameKey);
 
-	// Check username conflicts.
-	if(file_exists($playersDir)):
+	else:
 
-		$old_record = intval(explode(PHP_EOL, file_get_contents($playersDir))[0]);
-
-		// Do not save if the old record is higher than the new score.
-		if($score < $old_record)
-			setStatusCodeAndExit(409, strval($old_record));
-
-		// Ask a confirmation before overwritting the old record.
-		if($requiresConfirmation == 'true')
-			setStatusCodeAndExit(200, strval($old_record));
+		// If the game key doesn't match.
+		if(!isGameKeyMatched($playerFile, $gameKey))
+			setStatusCodeAndExit(401);
 
 	endif;
 
 	// Set the player's data and save it.
-	$playerData = $score . PHP_EOL . $device . PHP_EOL . $lang . PHP_EOL . $theme . PHP_EOL . $details;
-	$scoreboard = file_put_contents($playersDir, $playerData);
+	$playerData = $score . PHP_EOL . $gameKey . PHP_EOL . $device . PHP_EOL . $lang . PHP_EOL . $theme . PHP_EOL . $foundSquaresStyle . PHP_EOL . $details;
+	file_put_contents($playerFile, $playerData);
 
-	setStatusCodeAndExit(200);
+	setStatusCodeAndExit(201, $gameKey);
 
 ?>

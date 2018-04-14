@@ -12,6 +12,59 @@ $(document).ready(function(){
 		btwEach_gridSquares_animationDelay: 50,
 
 		/**
+		 * Init the app.
+		 */
+		init: function() {
+
+			// Display the best score of the player or save the default value if it is not set.
+			if(!localStorage.getItem('best'))
+				localStorage.setItem('best', 0);
+
+			// Display the best score of the player.
+			$('#best').find('.value').html(localStorage.getItem('best'));
+
+			// Get the score.
+			app.getPlayerScore();
+
+			// Display the username.
+			if(localStorage.getItem('username'))
+				$('.settings-wrapper', '#rules').find('.username').find('span').html(localStorage.getItem('username'));
+
+			// Display the game key.
+			if(localStorage.getItem('gamekey'))
+				$('.settings-wrapper', '#rules').find('.gamekey').find('span').html(localStorage.getItem('gamekey').toUpperCase());
+
+			// Hide the loader and display the controls screen if the player has not yet played.
+			setTimeout(function(){
+
+				if(!localStorage.getItem('best') || parseInt(localStorage.getItem('best'), 10) == 0)
+					$('#overlay').addClass('controls').find('.loader').addClass('hide').siblings('div').removeClass('hide');
+				else
+					$('#overlay').removeClass('show').find('.loader').addClass('hide');
+
+			}, 200);
+
+			// Show the "How to" text if the player has not yet played.
+			if(!localStorage.getItem('best') || parseInt(localStorage.getItem('best'), 10) == 0)
+				$('#how-to').removeClass('hide');
+
+			// Display the game in the language of the player or save the default value if it is not set.
+			if(!localStorage.getItem('lang'))
+				localStorage.setItem('lang', 'en');
+
+			else if(localStorage.getItem('lang') != 'en')
+				app.changeLanguage(localStorage.getItem('lang'));
+
+			// Display the game with the theme selected by the player or save the default value if it is not set.
+			if(!localStorage.getItem('theme'))
+				localStorage.setItem('theme', 'light');
+
+			else if(localStorage.getItem('theme') != 'light')
+				app.changeTheme(localStorage.getItem('theme'));
+
+		},
+
+		/**
 		 * Change the language of the application.
 		 * @param {str} lang
 		 */
@@ -79,19 +132,19 @@ $(document).ready(function(){
 
 		/**
 		 * Save the score in the leaderboard.
-		 * @param {str}  username 			  The username of the player.
-		 * @param {bool} requiresConfirmation Whether the score must be saved with a confirmation or not when the username already exists with a lower score.
+		 * @param {str} username The username of the player.
 		 */
-		saveScore: function(username, requiresConfirmation) {
+		saveScore: function(username) {
 
 			var data = {
 				username: username,
+				gamekey: localStorage.getItem('gamekey'),
 				score: parseInt(localStorage.getItem('best'), 10),
 				device: 'desktop',
 				lang: localStorage.getItem('lang'),
 				theme: localStorage.getItem('theme'),
-				details: JSON.stringify(game.currentGame),
-				requiresConfirmation: requiresConfirmation
+				foundsquaresstyle: 'icons',
+				details: localStorage.getItem('details')
 			};
 
 			$.ajax({
@@ -102,42 +155,45 @@ $(document).ready(function(){
 			.done(function(data){
 
 				$('form', '#username-modal-box').find('.username').removeClass('error');
+				$('form', '#username-modal-box').find('.alert').addClass('hide').filter('.success').removeClass('hide');
 
-				// If a confirmation is requested (the username already exists with a lower score).
-				if(data !== '') {
+				localStorage.setItem('username', username);
+				localStorage.setItem('gamekey', data);
 
-					$('form', '#username-modal-box').find('.alert').addClass('hide').filter('.already-exists').removeClass('hide');
-					$('form', '#username-modal-box').find('.submit').children('.confirmation').removeClass('hide');
-					$('form', '#username-modal-box').find('.submit').children('.validation').addClass('hide');
-					$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').attr('disabled', false);
+				$('.settings-wrapper', '#rules').find('.username').find('span').html(username);
+				$('.settings-wrapper', '#rules').find('.gamekey').find('span').html(data.toUpperCase());
 
-				} else {
+				setTimeout(function(){
 
-					localStorage.setItem('username', username);
+					$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').removeAttr('disabled');
 
-					$('form', '#username-modal-box').find('.alert').addClass('hide').filter('.success').removeClass('hide');
+					// Close the username modal box if displayed.
+					if($('#username-modal-box').hasClass('show'))
+						$('#username-modal-box').click();
 
-					setTimeout(function(){
-
-						// Close the username modal box if displayed.
-						if($('#username-modal-box').hasClass('show'))
-							$('#username-modal-box').click();
-
-						// Reload the leaderboard.
-						app.getScores();
-
-					}, 1000);
-
-				}
+				}, 1000);
 
 			})
 			.fail(function(data){
 
-				var status_code = data.status;
+				$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').removeAttr('disabled');
 
-				$('form', '#username-modal-box').find('.username').addClass('error').focus();
-				$('form', '#username-modal-box').find('.alert').addClass('hide').filter('.http-' + status_code).removeClass('hide');
-				$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').attr('disabled', false);
+				// Display the gamekey modal box if the username already exists, or else display the error.
+				if(data.status === 401) {
+
+					app.username = username;
+
+					$('form', '#gamekey-modal-box').find('.gamekey').focus();
+
+					$('#username-modal-box').removeClass('show');
+					$('#gamekey-modal-box').addClass('show');
+
+				} else {
+
+					$('form', '#username-modal-box').find('.username').addClass('error').focus();
+					$('form', '#username-modal-box').find('.alert').addClass('hide').filter('.http-' + data.status).removeClass('hide');
+
+				}
 
 			})
 			.always(function(data){
@@ -161,11 +217,13 @@ $(document).ready(function(){
 		 */
 		getScores: function() {
 
+			app.getPlayerScore();
+
 			// Hide the old content and display the loader.
 			$('.modal-box', '#leaderboard').addClass('loading').find('.leaderboard-content').not('.no-entries').html('');
 
 			$.ajax({
-				url: 'server/getScores.php',
+				url: 'server/getScores.php?v=' + Date.now(),
 				type: 'get',
 				cache: false
 			})
@@ -209,12 +267,6 @@ $(document).ready(function(){
 					if(rank >= 1 && rank <= 3 && localStorage.getItem('username') == username)
 						$('#best').find('.rank').removeClass('hide').removeClass('rank-1 rank-2 rank-3').addClass('rank-' + rank).html(rank);
 
-					// Update the score if it changed since the last visit (e.g., players who play on different devices).
-					if(isCurrentPlayer && score > localStorage.getItem('best')) {
-						$('#best').find('.value').html(score);
-						localStorage.setItem('best', score);
-					}
-
 					rank++;
 
 				});
@@ -235,6 +287,110 @@ $(document).ready(function(){
 				}, 500);
 
 			});
+
+		},
+
+		/**
+		 * Get the score of the player.
+		 * @param {username}
+		 */
+		getPlayerScore: function(username) {
+
+			if(!localStorage.getItem('username'))
+				return false;
+
+			var username = localStorage.getItem('username');
+
+			$.ajax({
+
+				url: 'server/getPlayerScore.php?v=' + Date.now(),
+				type: 'get',
+				data: {
+					username: username,
+					gamekey: localStorage.getItem('gamekey')
+				},
+				cache: false
+
+			}).done(function(data){
+
+				if(data === '')
+					return false;
+
+				if(parseInt(data, 10) > localStorage.getItem('best')) {
+					$('#best').find('.value').html(data);
+					localStorage.setItem('best', data);
+				} else {
+					app.saveScore(localStorage.getItem('username'));
+				}
+
+			});
+
+		},
+
+		/**
+		 * Check the game data entered by the player.
+		 * @param {str} username The username previously entered by the player.
+		 * @param {str} gameKey The game key entered by the player.
+		 */
+		checkGameData: function(username, gameKey) {
+
+			$.ajax({
+
+				url: 'server/checkGameData.php?v=' + Date.now(),
+				type: 'get',
+				data: {
+					username: username,
+					gamekey: gameKey
+				},
+				cache: false
+
+			}).done(function(data){
+
+				localStorage.setItem('username', app.username);
+				localStorage.setItem('gamekey', gameKey);
+
+				$('.settings-wrapper', '#rules').find('.username').find('span').html(app.username);
+				$('.settings-wrapper', '#rules').find('.gamekey').find('span').html(gameKey.toUpperCase());
+
+				$('form', '#gamekey-modal-box').find('.gamekey').removeClass('error');
+				$('form', '#gamekey-modal-box').find('.alert').addClass('hide').filter('.success').removeClass('hide');
+
+				setTimeout(function(){
+
+					$('form', '#gamekey-modal-box').find('.form-buttons').find('.button').removeClass('disabled').removeAttr('disabled');
+
+					// Close the gamekey modal box if displayed.
+					if($('#gamekey-modal-box').hasClass('show'))
+						$('#gamekey-modal-box').click();
+
+					app.getPlayerScore();
+					app.resetGridAndTimer();
+
+				}, 1000);
+
+			}).fail(function(data){
+
+				$('form', '#gamekey-modal-box').find('.gamekey').addClass('error').focus();
+				$('form', '#gamekey-modal-box').find('.form-buttons').find('.button').removeClass('disabled').removeAttr('disabled');
+				$('form', '#gamekey-modal-box').find('.alert').addClass('hide').filter('.http-' + data.status).removeClass('hide');
+
+			});
+
+		},
+
+		/**
+		 * Reset the grid and the timer.
+		 */
+		resetGridAndTimer: function() {
+
+			setTimeout(function(){
+
+				$('html').css('overflow', 'auto');
+
+				app.animateGrid();
+				timer.reset();
+
+			}, 200);
 
 		},
 
@@ -351,6 +507,7 @@ $(document).ready(function(){
 		 * Set the points earned for each round won.
 		 * @param {int} time The time spent to win the round.
 		 * @param {int} attempts The number of attempts made to win the round.
+		 * @return {int} The points earned.
 		 */
 		set: function(time, attempts) {
 
@@ -363,6 +520,8 @@ $(document).ready(function(){
 				points = 1500;
 
 			this.add(points, false);
+
+			return points;
 
 		},
 
@@ -459,6 +618,8 @@ $(document).ready(function(){
 			if(this.total > localStorage.getItem('best')) {
 
 				localStorage.setItem('best', this.total);
+				localStorage.setItem('details', JSON.stringify(game.currentGame));
+
 				$('#best').addClass('new-best').find('.value').html(this.total);
 
 				// Display the username modal box if it is not saved, or save the new best score directly.
@@ -479,9 +640,7 @@ $(document).ready(function(){
 
 						$('form', '#username-modal-box').find('.username').removeClass('error').focus();
 						$('form', '#username-modal-box').find('.alert').addClass('hide');
-						$('form', '#username-modal-box').find('.submit').children('.confirmation').addClass('hide');
-						$('form', '#username-modal-box').find('.submit').children('.validation').removeClass('hide');
-						$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').attr('disabled', false);
+						$('form', '#username-modal-box').find('.form-buttons').find('.button').removeClass('disabled').removeAttr('disabled');
 
 					}, 2000);
 
@@ -490,7 +649,7 @@ $(document).ready(function(){
 				} else {
 
 					var username = localStorage.getItem('username');
-					app.saveScore(username, false);
+					app.saveScore(username);
 
 				}
 
@@ -538,7 +697,8 @@ $(document).ready(function(){
 			this.rounds = 0;
 
 			this.currentGame = {};
-			this.currentGame.rounds = [];
+			this.currentGame.rounds = {};
+			this.currentGame.rounds.each = [];
 			this.currentGame.timestamp = {};
 			this.currentGame.timestamp.start = Math.floor(Date.now() / 1000);
 
@@ -626,6 +786,17 @@ $(document).ready(function(){
 
 					game.isGameReady = true;
 					game.areInputsBlocked = false;
+
+					// Display the Google Play modal box if necessary.
+					if(!localStorage.getItem('googleplay-modal-box') && navigator.userAgent.match(/(android|symbian|symbianos|symbos|netfront|model-orange|javaplatform|samsung|htc|opera mobile|opera mobi|opera mini|presto|huawei|blazer|bolt|doris|fennec|gobrowser|iris|maemo browser|mib|cldc|minimo|semc-browser|skyfire|teashark|teleca|uzard|uzardweb|meego|nokia|playbook)/gi)) {
+
+						localStorage.setItem('googleplay-modal-box', true);
+
+						$('html').css('overflow', 'hidden');
+						$('#overlay').addClass('show lower-opacity');
+						$('#googleplay-modal-box').addClass('show');
+
+					}
 
 				}, app.btwEach_gridSquares_animationDelay * 9 + app.gridSquares_AnimationTiming);
 
@@ -782,11 +953,12 @@ $(document).ready(function(){
 			if(this.rounds !== 0) {
 
 				// Set the new score.
-				score.set(this.currentRound_time - timer.lasted, this.attempts);
+				var points = score.set(this.currentRound_time - timer.lasted, this.attempts);
 
 				// Save the current round.
 				this.saveCurrentRound(
 					this.currentRound_time - timer.lasted,
+					points,
 					this.attempts,
 					this.currentRound_attempts,
 					this.rightSquares,
@@ -838,15 +1010,17 @@ $(document).ready(function(){
 		/**
 		 * Save the time spent for the current round, the number of the attempts made during this round, the details of each attempt, the right squares, and the squares selected by the user.
 		 * @param {int} time
+		 * @param {int} points
 		 * @param {obj} attempts
 		 * @param {arr} currentRound_attempts
 		 * @param {arr} rightSquares
 		 * @param {obj} $activeSquares
 		 */
-		saveCurrentRound: function(time, attempts, currentRound_attempts, rightSquares, $activeSquares) {
+		saveCurrentRound: function(time, points, attempts, currentRound_attempts, rightSquares, $activeSquares) {
 
-			this.currentGame.rounds.push({
+			this.currentGame.rounds.each.push({
 				time: time,
+				points: points,
 				attempts: {
 					count: attempts,
 					each: currentRound_attempts
@@ -1040,19 +1214,15 @@ $(document).ready(function(){
 
 	});
 
-	// When the area outside the username modal box, the close button of the modal box or the later button is pressed.
-	$('#username-modal-box, #username-modal-box .close, #username-modal-box .later').on('click', function(){
+	// When the area outside a modal box, the close button or the later button of modal boxes is pressed.
+	$('#username-modal-box, #username-modal-box .close, #username-modal-box .later, #gamekey-modal-box, #gamekey-modal-box .close, #gamekey-modal-box .later, #googleplay-modal-box, #googleplay-modal-box .close').on('click', function(){
 
-		$('#username-modal-box, #overlay').removeClass('show');
+		$('#username-modal-box').removeClass('show');
+		$('#gamekey-modal-box').removeClass('show');
+		$('#googleplay-modal-box').removeClass('show');
+		$('#overlay').removeClass('show');
 
-		setTimeout(function(){
-
-			$('html').css('overflow', 'auto');
-
-			app.animateGrid();
-			timer.reset();
-
-		}, 200);
+		app.resetGridAndTimer();
 
 	});
 
@@ -1063,10 +1233,21 @@ $(document).ready(function(){
 
 		var username = $(this).find('div').filter(':visible').children('.username').val();
 
-		if($(this).find('.submit').children('.validation').hasClass('hide'))
-			app.saveScore(username, false);
-		else
-			app.saveScore(username, true);
+		app.saveScore(username);
+
+		$(this).find('.form-buttons').find('.button').addClass('disabled').attr('disabled', true);
+
+	});
+
+	// When the gamekey modal box form is submitted.
+	$('form', '#gamekey-modal-box').on('submit', function(event){
+
+		event.preventDefault();
+
+		var username = app.username;
+		var gamekey = $(this).find('div').filter(':visible').children('.gamekey').val();
+
+		app.checkGameData(username, gamekey);
 
 		$(this).find('.form-buttons').find('.button').addClass('disabled').attr('disabled', true);
 
@@ -1081,54 +1262,14 @@ $(document).ready(function(){
 	});
 
 	// When a button link is pressed.
-	$('button').filter('.link').on('click', function(){
+	$('button, input').filter('.link').on('click', function(){
 
 		var link = $(this).data('href');
 		window.open(link, '_blank');
 
 	});
 
-
-	/* - - - -  - - - */
-	/* I N I T  A P P */
-	/* - - - -  - - - */
-
-	// Display the best score of the player or save the default value if it is not set.
-	if(!localStorage.getItem('best'))
-		localStorage.setItem('best', 0);
-
-	$('#best').find('.value').html(localStorage.getItem('best'));
-
-	// Get the leaderboard.
-	app.getScores();
-
-	// Hide the loader and display the controls screen if the player has not yet played.
-	setTimeout(function(){
-
-		if(!localStorage.getItem('best') || parseInt(localStorage.getItem('best'), 10) == 0)
-			$('#overlay').addClass('controls').find('.loader').addClass('hide').siblings('div').removeClass('hide');
-		else
-			$('#overlay').removeClass('show').find('.loader').addClass('hide');
-
-	}, 200);
-
-	// Show the "How to" text if the player has not yet played.
-	if(!localStorage.getItem('best') || parseInt(localStorage.getItem('best'), 10) == 0)
-		$('#how-to').removeClass('hide');
-
-	// Display the game in the language of the player or save the default value if it is not set.
-	if(!localStorage.getItem('lang'))
-		localStorage.setItem('lang', 'en');
-
-	else if(localStorage.getItem('lang') != 'en')
-		app.changeLanguage(localStorage.getItem('lang'));
-
-	// Display the game with the theme selected by the player or save the default value if it is not set.
-	if(!localStorage.getItem('theme'))
-		localStorage.setItem('theme', 'light');
-
-	else if(localStorage.getItem('theme') != 'light')
-		app.changeTheme(localStorage.getItem('theme'));
+	app.init();
 
 });
 

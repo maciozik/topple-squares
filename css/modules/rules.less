@@ -37,21 +37,42 @@
 		font-family: 'Roboto', sans-serif;
 		overflow: auto;
 
-		.settings {
+		.settings-wrapper {
 			position: absolute;
 			top: 0;
 			left: 0;
 			padding: 25px 30px;
-			text-align: center;
 			z-index: 20000;
 
-			.button {
-				display: block;
-				margin-bottom: 20px;
-				padding-left: 10px !important;
-				padding-right: 10px !important;
-				min-width: 165px;
-				.rulesButtonsBgColors();
+			.settings {
+				margin-bottom: 30px;
+				text-align: center;
+
+				.button {
+					display: block;
+					margin-bottom: 20px;
+					padding-left: 10px !important;
+					padding-right: 10px !important;
+					min-width: 165px;
+					.rulesButtonsBgColors();
+				}
+			}
+
+			.game-data {
+
+				p {
+					margin-top: -5px;
+					letter-spacing: -.2px;
+					max-width: 165px;
+					white-space: nowrap;
+					overflow: hidden;
+					text-overflow: ellipsis;
+					color: @white;
+
+					span {
+						color: @light;
+					}
+				}
 			}
 		}
 
@@ -76,7 +97,7 @@
 			margin: 20px 0;
 			text-align: left;
 			line-height: 22px;
-			letter-spacing: .4px;
+			letter-spacing: .2px;
 			.rulesParagraphsColor();
 
 			&.tip {
@@ -101,18 +122,32 @@
 
 		#rules-wrapper {
 
-			.settings {
-				display: flex;
-				justify-content: center;
+			.settings-wrapper {
 				position: relative;
 				margin-top: 10px;
 				margin-bottom: -15px;
 				width: 100%;
 
-				.button {
-					display: inline-block;
-					margin: 0 10px;
-					min-width: 180px;
+				.settings {
+					display: flex;
+					justify-content: center;
+
+					.button {
+						display: inline-block;
+						margin: 0 10px;
+						min-width: 180px;
+					}
+				}
+
+				.game-data {
+					display: flex;
+					justify-content: center;
+
+					p {
+						margin: 0 10px;
+						min-width: 180px;
+						text-align: center;
+					}
 				}
 			}
 		}
@@ -180,14 +215,26 @@
 
 		#rules-wrapper {
 
-			.settings {
-				flex-direction: column;
-				margin-top: -15px;
-				padding-left: 50px;
-				padding-right: 50px;
 
-				.button {
-					margin-top: 15px;
+			.settings-wrapper {
+
+				.settings {
+					flex-direction: column;
+					margin-top: -15px;
+
+					.button {
+						margin: 8px auto;
+					}
+				}
+
+				.game-data {
+					flex-direction: column;
+					margin-top: -15px;
+
+					p {
+						margin: 8px auto;
+						font-size: 0.9rem;
+					}
 				}
 			}
 

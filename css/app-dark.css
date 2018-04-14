@@ -142,7 +142,7 @@ header .button a {
 }
 #player #score .update.add {
   margin-top: 25px;
-  color: #206f48;
+  color: #207848;
 }
 #player #score .update.add.show {
   margin-top: 10px;
@@ -235,14 +235,14 @@ header .button a {
 }
 #outputs #rights.right .label {
   color: white;
-  background-color: #206f48;
+  background-color: #207848;
 }
 #outputs #rights.right .value {
-  color: #206f48;
+  color: #207848;
 }
 #outputs #rights.right .value > .square-thumb {
-  background-color: #206f48;
-  border: 2px solid #206f48;
+  background-color: #207848;
+  border: 2px solid #207848;
 }
 #outputs #rights.blink {
   -webkit-animation: blink 200ms linear;
@@ -282,7 +282,7 @@ header .button a {
 }
 #grid .square.right {
   color: #2a303a;
-  background-color: #206f48;
+  background-color: #207848;
 }
 #grid .square.not-found {
   color: #7a7f85;
@@ -314,6 +314,18 @@ header .button a {
 #how-to > div span:nth-of-type(2) {
   font-weight: normal;
   opacity: .7;
+}
+.gplay-button {
+  display: block;
+  position: fixed;
+  bottom: -20px;
+  right: 20px;
+  margin-top: 60px;
+  margin-bottom: 40px;
+  text-align: center;
+}
+.gplay-button img {
+  width: 160px;
 }
 /** MEDIA QUERIES **/
 /** APP **/
@@ -360,15 +372,18 @@ header .button a {
   font-family: 'Roboto', sans-serif;
   overflow: auto;
 }
-#rules #rules-wrapper .settings {
+#rules #rules-wrapper .settings-wrapper {
   position: absolute;
   top: 0;
   left: 0;
   padding: 25px 30px;
-  text-align: center;
   z-index: 20000;
 }
-#rules #rules-wrapper .settings .button {
+#rules #rules-wrapper .settings-wrapper .settings {
+  margin-bottom: 30px;
+  text-align: center;
+}
+#rules #rules-wrapper .settings-wrapper .settings .button {
   display: block;
   margin-bottom: 20px;
   padding-left: 10px !important;
@@ -377,11 +392,24 @@ header .button a {
   color: #a8a8af !important;
   background-color: #1a1d25 !important;
 }
-#rules #rules-wrapper .settings .button:not(.disabled):hover {
+#rules #rules-wrapper .settings-wrapper .settings .button:not(.disabled):hover {
   background-color: #22252c !important;
 }
-#rules #rules-wrapper .settings .button:not(.disabled):active {
+#rules #rules-wrapper .settings-wrapper .settings .button:not(.disabled):active {
   background-color: #25282f !important;
+}
+#rules #rules-wrapper .settings-wrapper .game-data p {
+  margin-top: -5px;
+  letter-spacing: -0.2px;
+  max-width: 165px;
+  white-space: nowrap;
+  overflow: hidden;
+  -o-text-overflow: ellipsis;
+  text-overflow: ellipsis;
+  color: #a8a8af;
+}
+#rules #rules-wrapper .settings-wrapper .game-data p span {
+  color: #7a7f85;
 }
 #rules #rules-wrapper .rules-content {
   padding: 10px 130px;
@@ -402,7 +430,7 @@ header .button a {
   margin: 20px 0;
   text-align: left;
   line-height: 22px;
-  letter-spacing: .4px;
+  letter-spacing: .2px;
   color: #7a7f85;
   -webkit-filter: none;
   filter: none;
@@ -545,17 +573,18 @@ header .button a {
 }
 /** MEDIA QUERIES **/
 /** APP **/
-#username-modal-box form.modal-box h3 {
+.modal-box h3 {
   margin-top: 5px;
   margin-bottom: 28px;
   font-size: 1rem;
 }
-#username-modal-box form.modal-box p {
+.modal-box p {
   margin-top: -5px !important;
   font-size: .9rem;
   line-height: 1.2rem;
 }
-#username-modal-box form.modal-box .username {
+.modal-box input.username,
+.modal-box input.gamekey {
   display: block;
   margin-top: 20px;
   padding: 8px;
@@ -571,63 +600,75 @@ header .button a {
   letter-spacing: .5px;
   outline: none;
 }
-#username-modal-box form.modal-box .username::-webkit-input-placeholder {
+.modal-box input.username::-webkit-input-placeholder,
+.modal-box input.gamekey::-webkit-input-placeholder {
   color: inherit;
   opacity: .6;
 }
-#username-modal-box form.modal-box .username:-ms-input-placeholder {
+.modal-box input.username:-ms-input-placeholder,
+.modal-box input.gamekey:-ms-input-placeholder {
   color: inherit;
   opacity: .6;
 }
-#username-modal-box form.modal-box .username::placeholder {
+.modal-box input.username::placeholder,
+.modal-box input.gamekey::placeholder {
   color: inherit;
   opacity: .6;
 }
-#username-modal-box form.modal-box .username:focus {
+.modal-box input.username:focus,
+.modal-box input.gamekey:focus {
   border-bottom-color: #27f;
 }
-#username-modal-box form.modal-box .username.error {
+.modal-box input.username.error,
+.modal-box input.gamekey.error {
   border-bottom-color: #c55;
 }
-#username-modal-box form.modal-box .alert {
+.modal-box input.username.gamekey,
+.modal-box input.gamekey.gamekey {
+  text-transform: uppercase;
+}
+.modal-box .alert {
   margin-top: 20px !important;
   font-size: .8rem;
   line-height: 1rem;
   letter-spacing: -0.2px;
 }
-#username-modal-box form.modal-box .alert.error {
+.modal-box .alert.error {
   color: #c55;
 }
-#username-modal-box form.modal-box .alert.info {
+.modal-box .alert.info {
   color: #27f;
 }
-#username-modal-box form.modal-box .alert.success {
+.modal-box .alert.success {
   color: #0a6;
 }
-#username-modal-box form.modal-box .form-buttons {
+.modal-box .form-buttons {
   margin-top: 25px;
   text-align: right;
 }
-#username-modal-box form.modal-box .form-buttons .button {
+.modal-box .form-buttons .button {
   margin-left: 5px;
   padding: 13px 30px 12px 30px;
 }
-#username-modal-box form.modal-box .form-buttons .submit {
-  display: inline-block;
-}
-#username-modal-box form.modal-box .form-buttons .submit .button {
+.modal-box .form-buttons .button:not(.later) {
   color: white;
   background-color: #27f;
 }
-#username-modal-box form.modal-box .form-buttons .submit .button:not(.disabled):hover {
+.modal-box .form-buttons .button:not(.later):not(.disabled):hover {
   background-color: #4f8fff;
 }
-#username-modal-box form.modal-box .form-buttons .submit .button:not(.disabled):active {
+.modal-box .form-buttons .button:not(.later):not(.disabled):active {
   background-color: #59f;
 }
-#username-modal-box form.modal-box .form-buttons .later {
+.modal-box .form-buttons .button.later {
   color: #555;
   background-color: #ccc;
+}
+.modal-box .form-buttons .button.later:not(.disabled):hover {
+  background-color: #d5d5d5;
+}
+.modal-box .form-buttons .button.later:not(.disabled):active {
+  background-color: #dadada;
 }
 /** MEDIA QUERIES **/
 /** APP **/
@@ -807,6 +848,7 @@ a {
 }
 .button {
   position: relative;
+  margin-top: 10px;
   padding: 8px 30px 9px 30px;
   color: #1a1d25;
   border: none;
@@ -895,22 +937,37 @@ a {
 /** MEDIA QUERIES **/
 /** MEDIA QUERIES **/
 @media screen and (max-width: 1440px) {
-  #rules #rules-wrapper .settings {
+  #rules #rules-wrapper .settings-wrapper {
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: -15px;
+    width: 100%;
+  }
+  #rules #rules-wrapper .settings-wrapper .settings {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
     -webkit-box-pack: center;
     -ms-flex-pack: center;
     justify-content: center;
-    position: relative;
-    margin-top: 10px;
-    margin-bottom: -15px;
-    width: 100%;
   }
-  #rules #rules-wrapper .settings .button {
+  #rules #rules-wrapper .settings-wrapper .settings .button {
     display: inline-block;
     margin: 0 10px;
     min-width: 180px;
+  }
+  #rules #rules-wrapper .settings-wrapper .game-data {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+  #rules #rules-wrapper .settings-wrapper .game-data p {
+    margin: 0 10px;
+    min-width: 180px;
+    text-align: center;
   }
 }
 @media screen and (max-width: 1080px) {
@@ -947,6 +1004,15 @@ a {
   #grid {
     top: auto !important;
     margin-top: -10px;
+  }
+  .gplay-button {
+    position: relative;
+    bottom: 0;
+    right: 0;
+    margin-top: 60px;
+    margin-bottom: 40px;
+    width: 100%;
+    text-align: center;
   }
 }
 @media screen and (max-width: 960px) {
@@ -1107,17 +1173,26 @@ a {
     right: auto;
     font-size: 1.25rem;
   }
-  #rules #rules-wrapper .settings {
+  #rules #rules-wrapper .settings-wrapper .settings {
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -ms-flex-direction: column;
     flex-direction: column;
     margin-top: -15px;
-    padding-left: 50px;
-    padding-right: 50px;
   }
-  #rules #rules-wrapper .settings .button {
-    margin-top: 15px;
+  #rules #rules-wrapper .settings-wrapper .settings .button {
+    margin: 8px auto;
+  }
+  #rules #rules-wrapper .settings-wrapper .game-data {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    margin-top: -15px;
+  }
+  #rules #rules-wrapper .settings-wrapper .game-data p {
+    margin: 8px auto;
+    font-size: 0.9rem;
   }
   #rules #rules-wrapper .rules-content {
     padding-left: 35px;
@@ -1153,19 +1228,20 @@ a {
   #leaderboard .modal-box .leaderboard-content .entry > div.score {
     width: 22%;
   }
-  #username-modal-box form.modal-box h3 {
+  .modal-box h3 {
     font-size: .9rem;
   }
-  #username-modal-box form.modal-box p {
+  .modal-box p {
     font-size: .8rem;
     line-height: 1rem;
   }
-  #username-modal-box form.modal-box .username {
+  .modal-box input.username,
+  .modal-box input.gamekey {
     margin-top: 15px;
     padding: 5px;
     font-size: 1rem;
   }
-  #username-modal-box form.modal-box .form-buttons {
+  .modal-box .form-buttons {
     margin-top: 18px;
   }
   .panel > span.label {

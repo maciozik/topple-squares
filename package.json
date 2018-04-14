@@ -1,6 +1,6 @@
 {
-  "name": "matrix",
-  "version": "2.3.2",
+  "name": "topple-squares",
+  "version": "2.4.0",
   "description": "A little logic game about squares.",
   "main": "gulpfile.js",
   "scripts": {
@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/maciozik/matrix.git"
+    "url": "git+https://github.com/maciozik/topple-squares.git"
   },
   "author": "Jonathan Macioszczyk",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/maciozik/matrix/issues"
+    "url": "https://github.com/maciozik/topple-squares/issues"
   },
-  "homepage": "https://github.com/maciozik/matrix#readme",
+  "homepage": "https://github.com/maciozik/topple-squares#readme",
   "browserslist": [
     "last 3 versions",
     "ie >= 8",

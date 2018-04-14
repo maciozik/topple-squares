@@ -1,6 +1,6 @@
 {
-    "name": "Matrix - A little logic game about squares",
-    "short_name": "Matrix",
+    "name": "Topple Squares - A little logic game about squares",
+    "short_name": "Topple Squares",
     "icons": [
         {
             "src": "/icons/android-chrome-192x192.png",
@@ -15,6 +15,6 @@
     ],
     "theme_color": "#ffffff",
     "background_color": "#ffffff",
-    "start_url": "https://matrix.jonathan-macioszczyk.fr/",
+    "start_url": "https://topple-squares.jonathan-macioszczyk.fr/",
     "display": "standalone"
 }

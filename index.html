@@ -4,15 +4,15 @@
 <head>
 
 	<meta charset="utf-8">
-	<title>Matrix - A little logic game about squares</title>
+	<title>Topple Squares - A little logic game about squares</title>
 	<meta name="description" content="The purpose of this logic game is to find the 3 right squares randomly activated among the 9 squares of the grid.">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0">
 
 	<meta name="twitter:card" content="summary">
 	<meta name="twitter:site" content="@maciozik">
-	<meta name="twitter:title" content="Matrix - A little logic game about squares">
+	<meta name="twitter:title" content="Topple Squares - A little logic game about squares">
 	<meta name="twitter:description" content="The purpose of this logic game is to find the 3 right squares randomly activated among the 9 squares of the grid.">
-	<meta name="twitter:image" content="https://matrix.jonathan-macioszczyk.fr/img/grid.jpg">
+	<meta name="twitter:image" content="https://topple-squares.jonathan-macioszczyk.fr/img/grid.jpg">
 
 	<link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png">
 	<link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32x32.png">
@@ -21,8 +21,8 @@
 	<link rel="manifest" href="icons/site.webmanifest">
 	<link rel="mask-icon" href="icons/safari-pinned-tab.svg" color="#2c3d5f">
 	<link rel="shortcut icon" href="icons/favicon.ico">
-	<meta name="apple-mobile-web-app-title" content="Matrix">
-	<meta name="application-name" content="Matrix">
+	<meta name="apple-mobile-web-app-title" content="Topple Squares">
+	<meta name="application-name" content="Topple Squares">
 	<meta name="msapplication-TileColor" content="#3a5890">
 	<meta name="msapplication-TileImage" content="icons/mstile-144x144.png">
 	<meta name="msapplication-config" content="icons/browserconfig.xml">
@@ -38,7 +38,7 @@
 
 	<section role="main">
 
-		<h1 class="hide">Matrix - A little logic game about squares</h1>
+		<h1 class="hide">Topple Squares - A little logic game about squares</h1>
 
 		<!-- HEADERS -->
 
@@ -55,7 +55,7 @@
 				<span lang="fr"><i class="fa fa-trophy"></i>Classement</span>
 			</button>
 
-			<button class="button link" data-href="https://github.com/maciozik/matrix" id="github" type="button">
+			<button class="button link" data-href="https://github.com/maciozik/topple-squares" id="github" type="button">
 				<span lang="en"><i class="fa fa-code-fork"></i>GitHub Repo</span>
 				<span lang="fr"><i class="fa fa-code-fork"></i>Dépôt Github</span>
 			</button>
@@ -212,6 +212,8 @@
 
 			</section>
 
+			<a class="gplay-button" href="https://play.google.com/store/apps/details?id=fr.jonathan_macioszczyk.topple_squares" target="_blank"><img src="img/gplay_button.png" alt=""></a>
+
 		</section>
 
 	</section>
@@ -227,25 +229,34 @@
 			<!-- English -->
 			<div class="rules-content" lang="en">
 
-				<div class="settings">
+				<div class="settings-wrapper">
 
-					<button class="button language" type="button" data-lang-toggle="fr">
-						<i class="fa fa-globe"></i>
-						Language: <span class="value">English</span>
-					</button>
+					<div class="settings">
 
-					<button class="button theme" type="button" data-theme-toggle="dark">
-						<i class="fa fa-paint-brush"></i>
-						<span data-theme="light">Theme: <span class="value">Light</span></span>
-						<span data-theme="dark" class="hide">Theme: <span class="value">Dark</span></span>
-					</button>
+						<button class="button language" type="button" data-lang-toggle="fr">
+							<i class="fa fa-globe"></i>
+							Language: <span class="value">English</span>
+						</button>
+
+						<button class="button theme" type="button" data-theme-toggle="dark">
+							<i class="fa fa-paint-brush"></i>
+							<span data-theme="light">Theme: <span class="value">Light</span></span>
+							<span data-theme="dark" class="hide">Theme: <span class="value">Dark</span></span>
+						</button>
+
+					</div>
+
+					<div class="game-data">
+						<p class="username">Username:<br><span>Not registered yet</span></p>
+						<p class="gamekey">Game key:<br><span>Not generated yet</span></p>
+					</div>
 
 				</div>
 
 				<h2>How to play</h2>
 				<p>The purpose of the game is to <b>uncover the 3 right squares</b> randomly activated among the 9 squares of the grid.</p>
 				<p>You have to select 3 different squares per attempt. The number of right squares found among the 3 squares you selected is displayed at the end of each attempt (*), <b>but you will not know</b> which of the 3 squares selected are right and which ones are wrong.</p>
-				<p>Once the 3 right squares are found, 3 new squares are randomly activated and a new round begins. You can make as many attempts as you want per round in order to find the 3 right squares, and as many rounds as you can within the time limit.</p>
+				<p>Once the 3 right squares are found, 3 new squares are randomly activated and a new round begins. You can do as many attempts as you want per round in order to find the 3 right squares, and as many rounds as you can within the time limit.</p>
 				<p>Select a new square directly via the screen, or <b>use the keys from 1 to 9 on your numpad</b>. Run a new game by selecting a first square, or by pressing <b>Enter</b> or <b>Space</b>. Press <b>Escape</b> or reload the page to run a new game.</p>
 
 				<h2>How to earn points</h2>
@@ -253,7 +264,7 @@
 				<p><b>But be careful:</b> you lose points each time you select the 3 same squares several times on the same round, or by spending too much time between each attempt.</p>
 
 				<h2>How can I report a bug?</h2>
-				<p>You can report a bug directly on the <a href="https://github.com/maciozik/matrix/issues" target="_blank" rel="noopener">GitHub repository</a> of the game.</p>
+				<p>You can report a bug directly on the <a href="https://github.com/maciozik/topple-squares/issues" target="_blank" rel="noopener">GitHub repository</a> of the game.</p>
 
 				<br><hr><br>
 
@@ -269,18 +280,27 @@
 			<!-- French -->
 			<div class="rules-content" lang="fr">
 
-				<div class="settings">
+				<div class="settings-wrapper">
 
-					<button class="button language" type="button" data-lang-toggle="en">
-						<i class="fa fa-globe"></i>
-						Langue : <span class="value">Française</span>
-					</button>
+					<div class="settings">
 
-					<button class="button theme" type="button" data-theme-toggle="dark">
-						<i class="fa fa-paint-brush"></i>
-						<span data-theme="light">Thème : <span class="value">Clair</span></span>
-						<span data-theme="dark" class="hide">Thème : <span class="value">Sombre</span></span>
-					</button>
+						<button class="button language" type="button" data-lang-toggle="en">
+							<i class="fa fa-globe"></i>
+							Langue : <span class="value">Française</span>
+						</button>
+
+						<button class="button theme" type="button" data-theme-toggle="dark">
+							<i class="fa fa-paint-brush"></i>
+							<span data-theme="light">Thème : <span class="value">Clair</span></span>
+							<span data-theme="dark" class="hide">Thème : <span class="value">Sombre</span></span>
+						</button>
+
+					</div>
+
+					<div class="game-data">
+						<p class="username">Nom d'utilisateur :<br><span>Pas encore enregistré</span></p>
+						<p class="gamekey">Clé de jeu :<br><span>Pas encore générée</span></p>
+					</div>
 
 				</div>
 
@@ -295,7 +315,7 @@
 				<p><b>Mais attention :</b> vous perdez des points à chaque fois que vous sélectionnez les 3 mêmes cases à plusieurs reprises dans le même tour, ainsi qu'en attendant trop longtemps entre chaque essai.</p>
 
 				<h2>Comment signaler un bug ?</h2>
-				<p>Vous pouvez signaler un bug directement sur le <a href="https://github.com/maciozik/matrix/issues" target="_blank" rel="noopener">dépôt GitHub</a> du jeu.</p>
+				<p>Vous pouvez signaler un bug directement sur le <a href="https://github.com/maciozik/topple-squares/issues" target="_blank" rel="noopener">dépôt GitHub</a> du jeu.</p>
 
 				<br><hr><br>
 
@@ -341,24 +361,15 @@
 
 				<p>Your new best score is <b><span></span> points</b>.</p>
 				<p>You can save this score in the worldwide leaderboard by entering a <label for="username-en">username</label>:</p>
-				<input class="username" type="text" placeholder="3 to 24 characters" maxlength="24" id="username-en">
+				<input class="username" type="text" placeholder="3 to 24 characters" maxlength="24" autocapitalize="none" id="username-en">
 
 				<p class="alert error hide http-400">The request is invalid. Please try again.</p>
-				<p class="alert error hide http-403">The request can not be executed. Please try again.</p>
-				<p class="alert error hide http-409">This username already exists and the old record is higher (<span></span> points). Please choose a different username.</p>
 				<p class="alert error hide http-422">Username can only contain letters, numbers, hyphens and underscores, and must begin with a letter (between 3 and 24 characters).</p>
-				<p class="alert info hide already-exists">This username already exists. Are you sure you want to overwrite the old record (<span></span> points)?</p>
 				<p class="alert success hide">Your score has been saved!</p>
 
 				<div class="form-buttons">
-
-					<div class="submit">
-						<input class="button validation" type="submit" value="Save">
-						<input class="button confirmation hide" type="submit" value="Yes, I am sure">
-					</div>
-
 					<input class="button later" type="reset" value="Later">
-
+					<input class="button" type="submit" value="Save">
 				</div>
 
 			</div>
@@ -370,24 +381,103 @@
 
 				<p>Votre nouveau record est de <b><span></span> points</b>.</p>
 				<p>Pour enregistrer ce score dans le classement mondial, entrez un <label for="username-fr">nom d'utilisateur</label> :</p>
-				<input class="username" type="text" placeholder="3 à 24 caractères" maxlength="24" id="username-fr">
+				<input class="username" type="text" placeholder="3 à 24 caractères" maxlength="24" autocapitalize="none" id="username-fr">
 
 				<p class="alert error hide http-400">La requête est erronée. Veuillez réessayer.</p>
-				<p class="alert error hide http-403">La requête ne peut pas être exécutée. Veuillez réessayer.</p>
-				<p class="alert error hide http-409">Ce nom d'utilisateur existe déjà et l'ancien record est plus élevé (<span></span> points). Veuillez en choisir un autre.</p>
 				<p class="alert error hide http-422">Le nom d'utilisateur ne peut contenir que des lettres, chiffres, tirets et underscores, et doit commencé par une lettre (entre 3 et 24 caractères).</p>
-				<p class="alert info hide already-exists">Ce nom d'utilisateur existe déjà. Êtes-vous sûr de vouloir remplacer l'ancien record (<span></span> points) ?</p>
 				<p class="alert success hide">Votre record a été sauvegardé !</p>
 
 				<div class="form-buttons">
-
-					<div class="submit">
-						<input class="button validation" type="submit" value="Valider">
-						<input class="button confirmation hide" type="submit" value="Oui, je suis sûr">
-					</div>
-
 					<input class="button later" type="reset" value="Plus tard">
+					<input class="button" type="submit" value="Valider">
+				</div>
 
+			</div>
+
+		</form>
+
+	</section>
+
+	<section class="modal-box-wrapper" id="googleplay-modal-box">
+
+		<form class="modal-box">
+
+			<i class="fa fa-times close"></i>
+
+			<!-- English -->
+			<div lang="en">
+
+				<h3>Topple Squares is on Google Play!</h3>
+
+				<p>The application Topple Squares for Android offers a better gaming experience adapted for touchscreen devices and a few exclusive features.</p>
+				<p>You can transfer your best score from this device to the application using your username.</p>
+
+				<div class="form-buttons">
+					<input class="button link" data-href="https://play.google.com/store/apps/details?id=fr.jonathan_macioszczyk.topple_squares" type="button" value="Go to Google Play">
+				</div>
+
+			</div>
+
+			<!-- English -->
+			<div lang="fr">
+
+				<h3>Topple Squares est sur Google Play !</h3>
+
+				<p>L'application Topple Squares pour Android offre une meilleur expérience de jeu adaptée aux écrans tactiles et plusieurs fonctionnalités exclusives.</p>
+				<p>Vous pourrez transférer votre meilleur score depuis cet appareil vers l'application en utilisant votre nom d'utilisateur.</p>
+
+				<div class="form-buttons">
+					<input class="button link" data-href="https://play.google.com/store/apps/details?id=fr.jonathan_macioszczyk.topple_squares" type="button" value="Télécharger l'application">
+				</div>
+
+			</div>
+
+		</form>
+
+	</section>
+
+	<section class="modal-box-wrapper" id="gamekey-modal-box">
+
+		<form class="modal-box">
+
+			<!-- English -->
+			<div lang="en">
+
+				<h3>Enter your game key</h3>
+
+				<p>This username already exists. If you already played, please enter your game key, or else choose a different username.</p>
+				<p>Your game key is a 6 character code which has been generated on the device you enter your username for the first time.</p>
+				<p>On the web version, you can find your game key in the <b>How to play</b> section. On the mobile application, you can find it in the <b>Game data</b> tab of the side menu.</p>
+				<input class="gamekey" type="text" placeholder="Your game key" maxlength="6">
+
+				<p class="alert error hide http-400">The request is invalid. Please try again.</p>
+				<p class="alert error hide http-401">The game key does not match the username. Please make sure that the game key you entered is correct and try again.</p>
+				<p class="alert success hide">Your data are now synchronized!</p>
+
+				<div class="form-buttons">
+					<input class="button later" type="reset" value="Close">
+					<input class="button" type="submit" value="Synchronize">
+				</div>
+
+			</div>
+
+			<!-- French -->
+			<div lang="fr">
+
+				<h3>Entrer votre clé de jeu</h3>
+
+				<p>Ce nom d'utilisateur existe déjà. Si vous avez déjà joué, veuillez entrer votre clé de jeu, sinon, choisissez un autre nom d'utilisateur.</p>
+				<p>Votre clé de jeu est un code à 6 caractères qui a été générée sur l'appareil où vous avez entrer votre nom d'utilisateur pour la première fois.</p>
+				<p>Sur la version web, vous trouverez votre clé de jeu dans la section <b>Comment jouer</b>. Sur l'application mobile, elle se trouve dans l'onglet <b>Données de jeu</b> du menu latéral.</p>
+				<input class="gamekey" type="text" placeholder="Votre clé de jeu" maxlength="6">
+
+				<p class="alert error hide http-400">La requête est erronée. Veuillez réessayer.</p>
+				<p class="alert error hide http-401">La clé de jeu et le nom d'utilisateur ne correspondent pas. Assurez-vous que la clé de jeu fournie est correcte et réessayez.</p>
+				<p class="alert success hide">Vos données sont maintenant synchronisées !</p>
+
+				<div class="buttons">
+					<input class="button later" type="reset" value="Fermer">
+					<input class="button" type="submit" value="Synchroniser">
 				</div>
 
 			</div>
@@ -419,7 +509,7 @@
 	<!-- build:js -->
 		<script type="text/javascript" src="js/vendor/jquery.hackTimer.min.js"></script>
 		<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>
-		<script src="js/app.js"></script>
+		<script src="js/app.js?v=2"></script>
 	<!-- endbuild -->
 
 	<script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');ga('create', 'UA-103782844-3', 'auto');ga('send', 'pageview');</script>
